@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- METADATOS SEO -->
+    <title>Formulario de Inscripción - Serakdep MS - Clan de Roblox</title>
+    <meta
+      name="description"
+      content="Formulario de inscripción para unirse al clan Serakdep MS de Roblox - Únete a nuestra comunidad de jugadores"
+    />
+    <meta
+      name="keywords"
+      content="Roblox, clan, formulario, inscripción, unirse, Serakdep MS, admisión"
+    />
+
+    <!-- FAVICON COMPLETO CON TUS ARCHIVOS -->
+    <!-- Todos estos archivos deben estar en la misma carpeta que index.html -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <!-- Para dispositivos Android -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="favicon/android-chrome-512x512.png"
+    />
+
+    <!-- Icono tradicional -->
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+
+    <!-- COLOR DE TEMA -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- TUS ESTILOS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- Font Awesome optimizado -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Preconexiones para mejor rendimiento -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <a href="index.html">Serakdep <span>MS</span></a>
+        </div>
+        <!-- BOTÓN CORREGIDO: Añadido aria-label y aria-expanded -->
+        <button
+          class="mobile-menu-btn"
+          aria-label="Abrir menú de navegación"
+          aria-expanded="false"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="reglamento.html">Reglamento</a></li>
+            <li><a href="formulario.html" class="active">Formulario</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="noticias.html">Noticias</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <h1 class="page-title">
+          <i class="fas fa-edit"></i> Formulario de Inscripción
+        </h1>
+
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle"></i>
+          <strong>Proceso de ingreso:</strong> Completa este formulario →
+          Entrevista por WhatsApp → Periodo de prueba → Miembro oficial
+        </div>
+
+        <div class="form-container card">
+          <form id="inscription-form">
+            <div class="form-messages" id="form-messages"></div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="roblox-name" class="form-label required"
+                  >Nombre en Roblox</label
+                >
+                <div class="input-with-icon">
+                  <input
+                    type="text"
+                    id="roblox-name"
+                    class="form-control"
+                    required
+                    placeholder="Ej: SerakdepPro"
+                  />
+                </div>
+                <small class="form-help"
+                  >Debe ser tu nombre de usuario exacto en Roblox</small
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="age" class="form-label required">Edad</label>
+                <div class="input-with-icon">
+                  <input
+                    type="number"
+                    id="age"
+                    class="form-control"
+                    min="13"
+                    max="99"
+                    required
+                    placeholder="Ej: 16"
+                  />
+                </div>
+                <small class="form-help">Edad mínima: 13 años</small>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="country" class="form-label required">País</label>
+                <select id="country" class="form-control" required>
+                  <option value="">Selecciona tu país</option>
+                  <option value="MX">🇲🇽 México</option>
+                  <option value="ES">🇪🇸 España</option>
+                  <option value="AR">🇦🇷 Argentina</option>
+                  <option value="CO">🇨🇴 Colombia</option>
+                  <option value="CL">🇨🇱 Chile</option>
+                  <option value="PE">🇵🇪 Perú</option>
+                  <option value="US">🇺🇸 Estados Unidos</option>
+                  <option value="OT">🌍 Otro país</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="timezone" class="form-label required"
+                  >Zona horaria</label
+                >
+                <select id="timezone" class="form-control" required>
+                  <option value="">Selecciona tu zona</option>
+                  <option value="GMT-8">GMT-8 (Pacífico)</option>
+                  <option value="GMT-6">GMT-6 (Centro América)</option>
+                  <option value="GMT-5">GMT-5 (Este EE.UU.)</option>
+                  <option value="GMT-3">GMT-3 (Argentina)</option>
+                  <option value="GMT+0">GMT+0 (Europa Oeste)</option>
+                  <option value="GMT+1">GMT+1 (Europa Central)</option>
+                  <option value="GMT+2">GMT+2 (Europa Este)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="games" class="form-label required"
+                >¿A qué juegos de Roblox juegas?</label
+              >
+              <div class="input-with-icon">
+                <input
+                  type="text"
+                  id="games"
+                  class="form-control"
+                  required
+                  placeholder="Ej: Blox Fruits, Adopt Me, Brookhaven"
+                />
+              </div>
+              <small class="form-help"
+                >Menciona al menos 2 juegos que juegues regularmente</small
+              >
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="experience" class="form-label required"
+                  >Experiencia en Roblox</label
+                >
+                <select id="experience" class="form-control" required>
+                  <option value="">Selecciona tu nivel</option>
+                  <option value="beginner">
+                    Principiante (menos de 6 meses)
+                  </option>
+                  <option value="intermediate">
+                    Intermedio (6 meses - 2 años)
+                  </option>
+                  <option value="advanced">Avanzado (2-4 años)</option>
+                  <option value="veteran">Veterano (más de 4 años)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="play-hours" class="form-label required"
+                  >Horas semanales de juego</label
+                >
+                <select id="play-hours" class="form-control" required>
+                  <option value="">Selecciona</option>
+                  <option value="1-5">1-5 horas</option>
+                  <option value="6-10">6-10 horas</option>
+                  <option value="11-15">11-15 horas</option>
+                  <option value="16+">Más de 16 horas</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="why-join" class="form-label required"
+                >¿Por qué quieres unirte a Serakdep MS?</label
+              >
+              <textarea
+                id="why-join"
+                class="form-control"
+                rows="4"
+                required
+                placeholder="Cuéntanos tus motivaciones, qué esperas del clan, qué podrías aportar..."
+              ></textarea>
+              <div class="character-count">
+                <span id="char-count">0</span>/500 caracteres
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="referral" class="form-label required"
+                >¿Cómo nos encontraste?</label
+              >
+              <select id="referral" class="form-control" required>
+                <option value="">Selecciona una opción</option>
+                <option value="friend">Amigo/Miembro del clan</option>
+                <option value="social">Redes sociales</option>
+                <option value="roblox">Dentro de Roblox</option>
+                <option value="search">Búsqueda en internet</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="whatsapp" class="form-label"
+                >Número de WhatsApp (opcional)</label
+              >
+              <div class="input-with-icon">
+                <input
+                  type="tel"
+                  id="whatsapp"
+                  class="form-control"
+                  placeholder="+52 123 456 7890"
+                />
+              </div>
+              <small class="form-help"
+                >Para contactarte más rápido sobre tu solicitud</small
+              >
+            </div>
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="terms" required />
+              <label for="terms">
+                He leído y acepto el
+                <a
+                  href="reglamento.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >reglamento del clan</a
+                >
+                y autorizo el tratamiento de mis datos para la gestión de
+                membresía. *
+              </label>
+            </div>
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="whatsapp-consent" />
+              <label for="whatsapp-consent">
+                Acepto recibir comunicación por WhatsApp sobre mi solicitud y
+                actividades del clan.
+              </label>
+            </div>
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="newsletter" />
+              <label for="newsletter">
+                Me gustaría recibir noticias sobre eventos especiales del clan.
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-large form-submit-btn"
+              id="submit-btn"
+            >
+              <i class="fas fa-paper-plane"></i> Enviar Solicitud
+            </button>
+          </form>
+
+          <div id="success-message" class="success-message">
+            <div class="success-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>¡Solicitud Enviada con Éxito!</h3>
+            <p>
+              Hemos recibido tu solicitud. Te contactaremos por WhatsApp o
+              Roblox en las próximas 48 horas.
+            </p>
+            <!-- ENLACE CORREGIDO: Añadido rel="noopener noreferrer" (línea 263) -->
+            <a
+              href="https://chat.whatsapp.com/KMM8RYx429z9i25YINcKfG"
+              class="btn btn-whatsapp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-whatsapp"></i> Unirse al Grupo de Nuevos
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Serakdep MS</h3>
+            <p>
+              Clan de Roblox para todas las edades. Únete a nuestra comunidad y
+              vive la mejor experiencia de gaming.
+            </p>
+            <div class="social-links">
+              <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+              <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h3 class="footer-title">Enlaces Rápidos</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="index.html"
+                  ><i class="fas fa-chevron-right"></i> Inicio</a
+                >
+              </li>
+              <li>
+                <a href="reglamento.html"
+                  ><i class="fas fa-chevron-right"></i> Reglamento</a
+                >
+              </li>
+              <li>
+                <a href="formulario.html"
+                  ><i class="fas fa-chevron-right"></i> Formulario</a
+                >
+              </li>
+              <li>
+                <a href="faq.html"><i class="fas fa-chevron-right"></i> FAQ</a>
+              </li>
+              <li>
+                <a href="eventos.html"
+                  ><i class="fas fa-chevron-right"></i> Eventos</a
+                >
+              </li>
+              <li>
+                <a href="noticias.html"
+                  ><i class="fas fa-chevron-right"></i> Noticias</a
+                >
+              </li>
+              <li>
+                <a href="contacto.html"
+                  ><i class="fas fa-chevron-right"></i> Contacto</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3 class="footer-title">Contacto</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:contacto@serakdepms.com"
+                  ><i class="fas fa-envelope"></i> contacto@serakdepms.com</a
+                >
+              </li>
+              <!-- ENLACE CORREGIDO: Añadido rel="noopener noreferrer" (línea 331) -->
+              <li>
+                <a
+                  href="https://wa.me/573116546484"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fab fa-whatsapp"></i> WhatsApp del Clan</a
+                >
+              </li>
+              <li>
+                <a href="contacto.html#reportar"
+                  ><i class="fas fa-user-shield"></i> Reportar problema</a
+                >
+              </li>
+              <li>
+                <a href="contacto.html#sugerencias"
+                  ><i class="fas fa-lightbulb"></i> Sugerencias</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <p>
+            © <span id="current-year">2025</span> Serakdep MS - Clan de Roblox.
+            Todos los derechos reservados.
+          </p>
+          <p>Esta página no está afiliada a Roblox Corporation.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="js/form.js"></script>
+  </body>
+</html>

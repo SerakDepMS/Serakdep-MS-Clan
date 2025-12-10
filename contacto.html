@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- METADATOS SEO -->
+    <title>Contacto - Serakdep MS - Clan de Roblox</title>
+    <meta
+      name="description"
+      content="Contacta al clan Serakdep MS de Roblox - WhatsApp, email, reportar problemas, sugerencias y más"
+    />
+    <meta
+      name="keywords"
+      content="Roblox, clan, contacto, WhatsApp, email, reportar, sugerencias, Serakdep MS"
+    />
+
+    <!-- FAVICON COMPLETO CON TUS ARCHIVOS -->
+    <!-- Todos estos archivos deben estar en la misma carpeta que index.html -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <!-- Para dispositivos Android -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="favicon/android-chrome-512x512.png"
+    />
+
+    <!-- Icono tradicional -->
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+
+    <!-- COLOR DE TEMA -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- TUS ESTILOS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <!-- Font Awesome optimizado -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Preconexiones para mejor rendimiento -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-container">
+        <div class="logo">
+          <a href="index.html">Serakdep <span>MS</span></a>
+        </div>
+        <!-- BOTÓN CORREGIDO: Añadido aria-label y aria-expanded (línea 21) -->
+        <button
+          class="mobile-menu-btn"
+          aria-label="Abrir menú de navegación"
+          aria-expanded="false"
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="reglamento.html">Reglamento</a></li>
+            <li><a href="formulario.html">Formulario</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="noticias.html">Noticias</a></li>
+            <li><a href="contacto.html" class="active">Contacto</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <h1 class="page-title"><i class="fas fa-envelope"></i> Contacto</h1>
+
+        <div class="card fade-in">
+          <h2 class="card-title">Información de Contacto</h2>
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="contact-icon whatsapp">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <h3>WhatsApp</h3>
+              <p>Contacto principal del clan</p>
+              <!-- ENLACE CORREGIDO: Añadido rel="noopener noreferrer" (línea 49) -->
+              <a
+                href="https://wa.me/573116546484"
+                class="btn btn-small btn-whatsapp"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fab fa-whatsapp"></i> Enviar mensaje
+              </a>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon email">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <h3>Email</h3>
+              <p>Para consultas formales</p>
+              <a href="mailto:contacto@serakdepms.com" class="btn btn-small">
+                <i class="fas fa-envelope"></i> Enviar correo
+              </a>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-icon discord">
+                <i class="fab fa-discord"></i>
+              </div>
+              <h3>Discord</h3>
+              <p>Comunidad en Discord</p>
+              <a href="#" class="btn btn-small discord-btn">
+                <i class="fab fa-discord"></i> Unirse al servidor
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card fade-in" id="reportar">
+          <h2 class="card-title">
+            <i class="fas fa-user-shield"></i> Reportar un Problema
+          </h2>
+          <p>
+            Si tienes algún problema con un miembro del clan o necesitas
+            reportar una situación, utiliza este formulario:
+          </p>
+
+          <form id="report-form" class="contact-form">
+            <div class="form-group">
+              <label for="report-type" class="form-label required"
+                >Tipo de problema</label
+              >
+              <select id="report-type" class="form-control" required>
+                <option value="">Selecciona el tipo</option>
+                <option value="member">Problema con un miembro</option>
+                <option value="staff">Problema con staff/administrador</option>
+                <option value="technical">Problema técnico</option>
+                <option value="other">Otro tipo de problema</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="report-details" class="form-label required"
+                >Describe el problema</label
+              >
+              <textarea
+                id="report-details"
+                class="form-control"
+                rows="5"
+                required
+                placeholder="Describe con detalle lo ocurrido, incluye nombres de usuario, fecha y hora si es posible..."
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="report-evidence" class="form-label"
+                >Evidencia (opcional)</label
+              >
+              <input
+                type="text"
+                id="report-evidence"
+                class="form-control"
+                placeholder="Enlace a capturas de pantalla, videos, etc."
+              />
+            </div>
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="report-confidential" required />
+              <label for="report-confidential">
+                Entiendo que este reporte será tratado de manera confidencial y
+                se investigará adecuadamente.
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-large form-submit-btn">
+              <i class="fas fa-paper-plane"></i> Enviar Reporte
+            </button>
+          </form>
+        </div>
+
+        <div class="card fade-in" id="sugerencias">
+          <h2 class="card-title">
+            <i class="fas fa-lightbulb"></i> Sugerencias y Mejoras
+          </h2>
+          <p>
+            Tu opinión es importante para nosotros. ¿Tienes ideas para mejorar
+            el clan?
+          </p>
+
+          <form id="suggestion-form" class="contact-form">
+            <div class="form-group">
+              <label for="suggestion-type" class="form-label required"
+                >Área de mejora</label
+              >
+              <select id="suggestion-type" class="form-control" required>
+                <option value="">Selecciona el área</option>
+                <option value="events">Eventos y actividades</option>
+                <option value="communication">Comunicación y grupos</option>
+                <option value="rules">Reglas y normas</option>
+                <option value="organization">Organización del clan</option>
+                <option value="other">Otra área</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="suggestion-details" class="form-label required"
+                >Tu sugerencia</label
+              >
+              <textarea
+                id="suggestion-details"
+                class="form-control"
+                rows="5"
+                required
+                placeholder="Describe tu sugerencia con detalle, explica cómo crees que mejoraría el clan..."
+              ></textarea>
+            </div>
+
+            <div class="form-checkbox">
+              <input type="checkbox" id="suggestion-anonymous" />
+              <label for="suggestion-anonymous">
+                Enviar de forma anónima (opcional)
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-large form-submit-btn">
+              <i class="fas fa-lightbulb"></i> Enviar Sugerencia
+            </button>
+          </form>
+        </div>
+
+        <div class="card fade-in">
+          <h2 class="card-title">
+            <i class="fas fa-users"></i> Equipo Administrativo
+          </h2>
+          <p>
+            Nuestro equipo está disponible para ayudarte con cualquier duda o
+            problema:
+          </p>
+
+          <div class="team-cards">
+            <div class="team-card">
+              <div class="team-avatar founder">
+                <i class="fas fa-crown"></i>
+              </div>
+              <h4>Fundador</h4>
+              <p>Máxima autoridad del clan</p>
+            </div>
+
+            <div class="team-card">
+              <div class="team-avatar admin">
+                <i class="fas fa-user-shield"></i>
+              </div>
+              <h4>Administradores</h4>
+              <p>Gestionan operaciones diarias</p>
+            </div>
+
+            <div class="team-card">
+              <div class="team-avatar moderator">
+                <i class="fas fa-user-check"></i>
+              </div>
+              <h4>Moderadores</h4>
+              <p>Mantienen el orden en la comunidad</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="footer-title">Serakdep MS</h3>
+            <p>
+              Clan de Roblox para todas las edades. Únete a nuestra comunidad y
+              vive la mejor experiencia de gaming.
+            </p>
+            <div class="social-links">
+              <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+              <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h3 class="footer-title">Enlaces Rápidos</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="index.html"
+                  ><i class="fas fa-chevron-right"></i> Inicio</a
+                >
+              </li>
+              <li>
+                <a href="reglamento.html"
+                  ><i class="fas fa-chevron-right"></i> Reglamento</a
+                >
+              </li>
+              <li>
+                <a href="formulario.html"
+                  ><i class="fas fa-chevron-right"></i> Formulario</a
+                >
+              </li>
+              <li>
+                <a href="faq.html"><i class="fas fa-chevron-right"></i> FAQ</a>
+              </li>
+              <li>
+                <a href="eventos.html"
+                  ><i class="fas fa-chevron-right"></i> Eventos</a
+                >
+              </li>
+              <li>
+                <a href="noticias.html"
+                  ><i class="fas fa-chevron-right"></i> Noticias</a
+                >
+              </li>
+              <li>
+                <a href="contacto.html"
+                  ><i class="fas fa-chevron-right"></i> Contacto</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h3 class="footer-title">Contacto</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="mailto:contacto@serakdepms.com"
+                  ><i class="fas fa-envelope"></i> contacto@serakdepms.com</a
+                >
+              </li>
+              <!-- ENLACE CORREGIDO: Añadido rel="noopener noreferrer" (línea 288) -->
+              <li>
+                <a
+                  href="https://wa.me/573116546484"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fab fa-whatsapp"></i> WhatsApp del Clan</a
+                >
+              </li>
+              <li>
+                <a href="#reportar"
+                  ><i class="fas fa-user-shield"></i> Reportar problema</a
+                >
+              </li>
+              <li>
+                <a href="#sugerencias"
+                  ><i class="fas fa-lightbulb"></i> Sugerencias</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <p>
+            © <span id="current-year">2025</span> Serakdep MS - Clan de Roblox.
+            Todos los derechos reservados.
+          </p>
+          <p>Esta página no está afiliada a Roblox Corporation.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="js/form.js"></script>
+  </body>
+</html>
