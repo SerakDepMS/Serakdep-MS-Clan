@@ -1,0 +1,2 @@
+Paso 4: Personalizar eventos
+En js/eventos.js, modifica la sección window.calendarEvents con tus eventos reales.

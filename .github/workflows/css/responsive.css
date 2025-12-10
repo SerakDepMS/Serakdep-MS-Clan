@@ -1,0 +1,802 @@
+/* responsive.css - SOLUCIÓN COMPLETA PARA NOTICIAS RESPONSIVE */
+
+/* ===== LAYOUT PRINCIPAL PARA NOTICIAS ===== */
+.noticias-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+/* Contenedor principal de noticias */
+.news-main-content {
+  width: 100%;
+}
+
+/* Sidebar para noticias */
+.news-sidebar {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* ===== TABLET (768px a 1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .noticias-layout {
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+  }
+
+  .news-main-content {
+    width: 100%;
+  }
+
+  .news-sidebar {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  /* Ajustes de grid para noticias en tablet */
+  .news-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  .news-card.featured {
+    grid-column: span 2 !important;
+  }
+
+  /* Estadísticas en 2 columnas */
+  .news-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    overflow-x: visible !important;
+    padding: 0 !important;
+    margin: 30px 0 !important;
+  }
+
+  .stat-item {
+    width: auto !important;
+    min-width: auto !important;
+    margin-right: 0 !important;
+  }
+
+  /* Sidebar widgets en una columna */
+  .sidebar-widget {
+    margin-bottom: 20px;
+  }
+}
+
+/* ===== DESKTOP (1024px en adelante) ===== */
+@media (min-width: 1024px) {
+  .noticias-layout {
+    grid-template-columns: 3fr 1fr;
+    gap: 40px;
+  }
+
+  .news-main-content {
+    width: 100%;
+  }
+
+  .news-sidebar {
+    width: 100%;
+  }
+
+  /* Restauramos el grid de 3 columnas */
+  .news-container {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+  }
+
+  .news-card.featured {
+    grid-column: span 1 !important;
+  }
+
+  /* Estadísticas en 4 columnas */
+  .news-stats {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    overflow-x: visible !important;
+    padding: 0 !important;
+    margin: 40px 0 !important;
+  }
+
+  .stat-item {
+    width: auto !important;
+    min-width: auto !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* ===== MÓVIL PEQUEÑO (hasta 767px) ===== */
+@media (max-width: 767px) {
+  /* Layout principal para noticias en móvil */
+  .noticias-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Contenedor de noticias en una columna */
+  .news-container {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  /* Estadísticas en 2 columnas en móvil - ARREGLADO */
+  .news-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    margin: 20px 0 !important;
+    overflow-x: visible !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .stat-item {
+    width: 100% !important;
+    min-width: auto !important;
+    margin-right: 0 !important;
+    padding: 15px !important;
+    gap: 15px !important;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-align: left;
+    height: auto;
+  }
+
+  .stat-icon {
+    width: 50px !important;
+    height: 50px !important;
+    font-size: 1.2em !important;
+    flex-shrink: 0;
+  }
+
+  .stat-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stat-value {
+    font-size: 1.5em !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Filtros con scroll horizontal */
+  .news-filters {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    margin: 20px 0 !important;
+    justify-content: flex-start;
+  }
+
+  .filter-btn {
+    white-space: nowrap;
+    padding: 8px 15px !important;
+    font-size: 0.9em;
+  }
+
+  /* Tarjetas de noticias más compactas */
+  .news-card {
+    margin-bottom: 10px;
+  }
+
+  .news-card-header {
+    padding: 15px 15px 8px 15px !important;
+  }
+
+  .news-meta-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .news-title {
+    font-size: 1.2em !important;
+    margin-bottom: 10px !important;
+  }
+
+  .news-excerpt {
+    font-size: 0.9em !important;
+    margin-bottom: 15px !important;
+  }
+
+  .news-card-footer {
+    padding: 15px !important;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn-read-more {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .news-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Sidebar en móvil */
+  .sidebar-widget {
+    padding: 20px !important;
+    margin-bottom: 20px;
+  }
+
+  /* WhatsApp widget en móvil */
+  .whatsapp-widget {
+    padding: 20px !important;
+  }
+
+  .whatsapp-stats {
+    grid-template-columns: 1fr !important;
+    gap: 15px;
+  }
+
+  .whatsapp-buttons {
+    flex-direction: column;
+  }
+
+  .btn-whatsapp,
+  .btn-outline-whatsapp {
+    width: 100%;
+  }
+
+  .whatsapp-features li {
+    font-size: 0.85em;
+    padding: 6px 0;
+  }
+
+  /* Paginación en móvil */
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+    margin: 30px 0 !important;
+  }
+
+  .page-numbers {
+    order: -1;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .page-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px !important;
+  }
+
+  /* Admin panel en móvil */
+  .admin-panel {
+    padding: 15px !important;
+    margin: 15px 0 !important;
+  }
+
+  .admin-stats {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  .admin-buttons {
+    flex-direction: column;
+  }
+
+  .admin-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Botón admin flotante en móvil */
+  .admin-login-btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  /* Formulario de noticias en móvil */
+  .news-form {
+    padding: 20px !important;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .form-checkboxes {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Modal en móvil */
+  .login-box {
+    margin: 0 15px;
+    padding: 20px !important;
+  }
+}
+
+/* ===== MÓVIL MUY PEQUEÑO (hasta 480px) ===== */
+@media (max-width: 480px) {
+  .news-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stat-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .stat-icon {
+    margin: 0 auto;
+  }
+
+  .news-badges {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge-important,
+  .badge-pinned,
+  .badge-new {
+    font-size: 0.7em;
+    padding: 4px 10px;
+  }
+
+  .page-title {
+    font-size: 1.8rem !important;
+    text-align: center;
+  }
+
+  .page-subtitle {
+    font-size: 1rem !important;
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .panda-decorative {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* ===== AJUSTES PARA LOS ELEMENTOS QUE YA TENÍAS ===== */
+/* (Estos son tus estilos originales que se mantienen) */
+.games-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.game-tag {
+  background: var(--light-green);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: var(--accent-green);
+  margin-bottom: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ... y todos los otros estilos que ya tenías ... */
+/* responsive.css - Actualizado */
+/* Estilos para dispositivos móviles */
+
+@media (max-width: 1024px) {
+  .container {
+    width: 95%;
+    padding: 0 15px;
+  }
+
+  .header-container {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--primary-green);
+    padding: 20px;
+    box-shadow: var(--shadow-medium);
+    z-index: 1000;
+  }
+
+  nav.active {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav ul li {
+    margin: 0;
+  }
+
+  nav ul li a {
+    display: block;
+    padding: 12px 15px;
+    text-align: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .games-tags {
+    justify-content: center;
+  }
+
+  .features-grid,
+  .contact-cards,
+  .team-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .sanciones-table {
+    min-width: 600px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.6rem;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .btn-large {
+    padding: 12px 24px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .panda-decorative {
+    font-size: 2.5rem;
+  }
+}
+
+/* Estilos específicos para elementos */
+.games-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.game-tag {
+  background: var(--light-green);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: var(--accent-green);
+  margin-bottom: 10px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.reglamento-lista {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.reglamento-lista li {
+  margin-bottom: 10px;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.sanciones-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sanciones-table th {
+  background: var(--light-green);
+  padding: 12px;
+  text-align: left;
+  color: var(--primary-green);
+}
+
+.sanciones-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.table-note {
+  margin-top: 15px;
+  font-style: italic;
+  color: #666;
+}
+
+.faq-container {
+  margin-top: 20px;
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.faq-answer {
+  padding: 15px 0;
+  display: none;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-item.active .faq-arrow {
+  transform: rotate(180deg);
+}
+
+.faq-arrow {
+  transition: transform 0.3s ease;
+}
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.contact-card {
+  text-align: center;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.contact-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 1.8rem;
+  color: white;
+}
+
+.contact-icon.whatsapp {
+  background: #25d366;
+}
+
+.contact-icon.email {
+  background: #ea4335;
+}
+
+.contact-icon.discord {
+  background: #5865f2;
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.discord-btn {
+  background: #5865f2;
+}
+
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.team-card {
+  text-align: center;
+  padding: 20px;
+  border: 2px solid var(--light-green);
+  border-radius: 10px;
+}
+
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+}
+
+.team-avatar.founder {
+  background: var(--accent-green);
+}
+
+.team-avatar.admin {
+  background: var(--secondary-green);
+}
+
+.team-avatar.moderator {
+  background: var(--primary-green);
+}
+
+.contact-form {
+  margin-top: 20px;
+}
+
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 30px;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: var(--accent-green);
+  margin-bottom: 20px;
+}
+
+.form-messages {
+  margin-bottom: 20px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.form-checkbox input[type="checkbox"] {
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.form-checkbox label {
+  line-height: 1.5;
+}
+
+/* ===== ESTADÍSTICAS DESLIZABLES HORIZONTALMENTE - ELIMINADO/REEMPLAZADO ===== */
+
+/* Estilo base para .news-stats - ahora es grid por defecto desde noticias.css */
+/* Los media queries ya están definidos arriba para cada tamaño de pantalla */
+
+/* Eliminamos toda la sección problemática de estadísticas deslizables */
+/* Y la reemplazamos con un estilo simple */
+
+.news-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 40px 0;
+}
+
+@media (max-width: 1023px) {
+  .news-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .news-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Eliminar scroll indicators ya que no necesitamos scroll horizontal */
+.scroll-indicator,
+.news-stats-container {
+  display: none;
+}
