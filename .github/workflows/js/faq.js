@@ -1,0 +1,58 @@
+// faq.js - Corregido
+document.addEventListener("DOMContentLoaded", function () {
+  const faqItems = document.querySelectorAll(".faq-item");
+
+  faqItems.forEach((item) => {
+    const question = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+
+    if (question && answer) {
+      // Añadir flecha si no existe
+      let arrow = question.querySelector(".faq-arrow");
+      if (!arrow) {
+        arrow = document.createElement("i");
+        arrow.className = "fas fa-chevron-down faq-arrow";
+        question.appendChild(arrow);
+      }
+
+      // Configurar evento de clic
+      question.addEventListener("click", function () {
+        // Cerrar otros items
+        faqItems.forEach((otherItem) => {
+          if (otherItem !== item && otherItem.classList.contains("active")) {
+            otherItem.classList.remove("active");
+            const otherAnswer = otherItem.querySelector(".faq-answer");
+            if (otherAnswer) {
+              otherAnswer.style.display = "none";
+            }
+          }
+        });
+
+        // Alternar estado actual
+        item.classList.toggle("active");
+
+        if (item.classList.contains("active")) {
+          answer.style.display = "block";
+          arrow.style.transform = "rotate(180deg)";
+        } else {
+          answer.style.display = "none";
+          arrow.style.transform = "rotate(0deg)";
+        }
+      });
+
+      // Ocultar respuestas inicialmente
+      answer.style.display = "none";
+    }
+  });
+
+  // Abrir FAQ específico desde URL hash
+  const hash = window.location.hash;
+  if (hash) {
+    const targetItem = document.querySelector(hash);
+    if (targetItem && targetItem.classList.contains("faq-item")) {
+      setTimeout(() => {
+        targetItem.querySelector(".faq-question")?.click();
+      }, 100);
+    }
+  }
+});
