@@ -573,3 +573,5 @@ function updateWhatsAppLink() {
     whatsappLink.href = `https://wa.me/573116546484?text=${encodedMessage}`;
   }
 }
+
+
