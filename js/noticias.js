@@ -47,7 +47,7 @@ let newsDatabase = {
     members: 125,
     notifications: 48,
     clicks: 0,
-    joinLink: "https://whatsapp.com/channel/0029VaYOURCHANNELCODE",
+    joinLink: "https://whatsapp.com/channel/0029VbBhOLo60eBgats9rn31",
   },
   news: [],
 };
@@ -886,7 +886,7 @@ function loadFromLocalStorage() {
             members: 125,
             notifications: 48,
             clicks: 0,
-            joinLink: "https://whatsapp.com/channel/0029VaYOURCHANNELCODE",
+            joinLink: "https://whatsapp.com/channel/0029VbBhOLo60eBgats9rn31",
           };
         }
       }
@@ -1096,5 +1096,6 @@ setTimeout(() => {
   console.log("🔍 Iniciando prueba de conexión...");
   testNpointConnection();
 }, 2000);
+
 
 
