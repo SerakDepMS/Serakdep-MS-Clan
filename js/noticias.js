@@ -1096,3 +1096,5 @@ setTimeout(() => {
   console.log("🔍 Iniciando prueba de conexión...");
   testNpointConnection();
 }, 2000);
+
+
