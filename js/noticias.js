@@ -883,8 +883,8 @@ function loadFromLocalStorage() {
         // Asegurar que todos los campos existan
         if (!newsDatabase.whatsappStats) {
           newsDatabase.whatsappStats = {
-            members: 125,
-            notifications: 48,
+            members: 0,
+            notifications: 0,
             clicks: 0,
             joinLink: "https://whatsapp.com/channel/0029VbBhOLo60eBgats9rn31",
           };
@@ -1096,6 +1096,7 @@ setTimeout(() => {
   console.log("🔍 Iniciando prueba de conexión...");
   testNpointConnection();
 }, 2000);
+
 
 
 
