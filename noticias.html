@@ -53,6 +53,27 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- CONFIGURACIÓN NPONT.IO -->
+    <script>
+      // ========================
+      // CONFIGURACIÓN NPONT.IO
+      // ========================
+
+      const API_DB = "https://api.npoint.io/c7935f8e8b0b09b0b07b";
+
+      // Variable de debug para verificar
+      window.APP_CONFIG = {
+        API_DB: API_DB,
+        VERSION: "2.0.0",
+        DEBUG: true,
+        MODE: "read-only",
+      };
+
+      console.log("✅ Sistema de Noticias Solo Lectura");
+      console.log("🔗 URL npoint.io:", API_DB);
+      console.log("📄 Modo: Solo lectura (sin comentarios)");
+    </script>
   </head>
   <body>
     <!-- Header -->
@@ -78,154 +99,8 @@
       </div>
     </header>
 
-    <!-- Botón flotante para login de admin -->
-    <button class="admin-login-btn" id="admin-login-btn">
-      <i class="fas fa-user-shield"></i> Admin
-    </button>
-
-    <!-- Modal de Login -->
-    <div class="login-modal" id="login-modal">
-      <div class="login-box">
-        <div class="login-header">
-          <h3><i class="fas fa-lock"></i> Acceso Administrador</h3>
-          <button class="close-login" id="close-login">&times;</button>
-        </div>
-        <div class="login-body">
-          <p>Ingresa la contraseña para acceder al panel de administración.</p>
-          <div class="form-group">
-            <input
-              type="password"
-              id="admin-password"
-              placeholder="Contraseña"
-              autocomplete="current-password"
-            />
-          </div>
-          <button class="btn btn-primary" id="btn-login">
-            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-          </button>
-          <div class="login-footer">
-            <small>Solo para administradores del clan</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <main>
       <div class="container">
-        <!-- Panel de Administrador (oculto inicialmente) -->
-        <div class="admin-panel" id="admin-panel">
-          <div class="admin-header">
-            <h3><i class="fas fa-user-shield"></i> Panel de Administrador</h3>
-            <button class="btn-logout" id="btn-logout">
-              <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-            </button>
-          </div>
-          <div class="admin-content">
-            <div class="admin-stats">
-              <div class="stat-card admin">
-                <i class="fas fa-newspaper"></i>
-                <div>
-                  <h4>Noticias</h4>
-                  <p id="admin-total-news">0</p>
-                </div>
-              </div>
-              <div class="stat-card admin">
-                <i class="fas fa-eye"></i>
-                <div>
-                  <h4>Vistas</h4>
-                  <p id="admin-total-views">0</p>
-                </div>
-              </div>
-            </div>
-            <div class="admin-buttons">
-              <button class="btn btn-success" id="btn-new-news">
-                <i class="fas fa-plus"></i> Nueva Noticia
-              </button>
-              <button class="btn btn-primary" id="btn-manage-news">
-                <i class="fas fa-edit"></i> Gestionar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Formulario para agregar/editar noticia -->
-        <div class="news-form" id="news-form">
-          <h3>
-            <i class="fas fa-newspaper"></i>
-            <span id="form-title">Nueva Noticia</span>
-          </h3>
-
-          <div class="form-group">
-            <label for="news-title"
-              ><i class="fas fa-heading"></i> Título:</label
-            >
-            <input
-              type="text"
-              id="news-title"
-              placeholder="Título de la noticia"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="news-category"
-              ><i class="fas fa-tag"></i> Categoría:</label
-            >
-            <select id="news-category">
-              <option value="update">🔄 Actualización</option>
-              <option value="collaboration">🤝 Colaboración</option>
-              <option value="event">🎉 Evento</option>
-              <option value="tournament">🏆 Torneo</option>
-              <option value="maintenance">🔧 Mantenimiento</option>
-              <option value="announcement">📢 Anuncio</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="news-content"
-              ><i class="fas fa-align-left"></i> Contenido:</label
-            >
-            <textarea
-              id="news-content"
-              rows="5"
-              placeholder="Contenido de la noticia..."
-            ></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="news-image"
-              ><i class="fas fa-image"></i> Imagen URL (opcional):</label
-            >
-            <input
-              type="text"
-              id="news-image"
-              placeholder="https://ejemplo.com/imagen.jpg"
-            />
-          </div>
-
-          <div class="form-checkboxes">
-            <label class="checkbox-label">
-              <input type="checkbox" id="news-important" />
-              <span
-                ><i class="fas fa-exclamation-triangle"></i> Noticia
-                Importante</span
-              >
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="news-pinned" />
-              <span><i class="fas fa-thumbtack"></i> Fijar Noticia</span>
-            </label>
-          </div>
-
-          <div class="form-actions">
-            <button class="btn btn-success" id="btn-save-news">
-              <i class="fas fa-save"></i> Guardar
-            </button>
-            <button class="btn btn-secondary" id="btn-cancel-news">
-              <i class="fas fa-times"></i> Cancelar
-            </button>
-          </div>
-        </div>
-
         <!-- Título principal -->
         <div class="page-header">
           <div class="panda-decorative">🐼</div>
@@ -236,6 +111,14 @@
             Mantente informado sobre las últimas actualizaciones, colaboraciones
             y eventos
           </p>
+          <div class="system-info">
+            <span class="info-badge">
+              <i class="fas fa-book-reader"></i> Modo Solo Lectura
+            </span>
+            <span class="info-badge">
+              <i class="fas fa-sync-alt"></i> Actualización Automática
+            </span>
+          </div>
         </div>
 
         <!-- Filtros de Noticias -->
@@ -243,17 +126,17 @@
           <button class="filter-btn active" data-filter="all">
             <i class="fas fa-layer-group"></i> Todas
           </button>
-          <button class="filter-btn" data-filter="update">
-            <i class="fas fa-sync-alt"></i> Actualizaciones
+          <button class="filter-btn" data-filter="announcement">
+            <i class="fas fa-bullhorn"></i> Anuncios
+          </button>
+          <button class="filter-btn" data-filter="tournament">
+            <i class="fas fa-trophy"></i> Torneos
           </button>
           <button class="filter-btn" data-filter="collaboration">
             <i class="fas fa-handshake"></i> Colaboraciones
           </button>
           <button class="filter-btn" data-filter="event">
             <i class="fas fa-calendar-star"></i> Eventos
-          </button>
-          <button class="filter-btn" data-filter="tournament">
-            <i class="fas fa-trophy"></i> Torneos
           </button>
           <button class="filter-btn" data-filter="important">
             <i class="fas fa-exclamation-circle"></i> Importantes
@@ -307,7 +190,7 @@
         <div class="news-container" id="news-container">
           <div class="loading-news">
             <i class="fas fa-spinner fa-spin"></i>
-            <p>Cargando noticias...</p>
+            <p>Cargando noticias desde el servidor...</p>
           </div>
         </div>
 
@@ -316,11 +199,14 @@
           <div class="sidebar-widget">
             <h3><i class="fas fa-fire"></i> Noticias Destacadas</h3>
             <div class="highlighted-news" id="highlighted-news">
-              <!-- Se carga dinámicamente -->
+              <div class="loading-highlighted">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Cargando destacadas...</p>
+              </div>
             </div>
           </div>
 
-          <!-- WIDGET DE WHATSAPP - REEMPLAZADO -->
+          <!-- WIDGET DE WHATSAPP -->
           <div class="sidebar-widget">
             <h3><i class="fab fa-whatsapp"></i> Canal de WhatsApp</h3>
             <p>
@@ -347,7 +233,6 @@
               </div>
 
               <div class="whatsapp-buttons">
-                <!-- REEMPLAZA ESTE LINK CON EL DE TU CANAL DE WHATSAPP -->
                 <a
                   href="https://whatsapp.com/channel/0029VaYOURCHANNELCODE"
                   class="btn btn-whatsapp"
@@ -383,6 +268,34 @@
               </div>
             </div>
           </div>
+
+          <!-- INFORMACIÓN DEL SISTEMA -->
+          <div class="sidebar-widget system-widget">
+            <h3><i class="fas fa-info-circle"></i> Información del Sistema</h3>
+            <div class="system-status">
+              <div class="status-item">
+                <i class="fas fa-database"></i>
+                <div>
+                  <h4>Fuente de Datos</h4>
+                  <p>npoint.io (en línea)</p>
+                </div>
+              </div>
+              <div class="status-item">
+                <i class="fas fa-sync-alt"></i>
+                <div>
+                  <h4>Actualización</h4>
+                  <p>Automática cada 5 min</p>
+                </div>
+              </div>
+              <div class="status-item">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                  <h4>Modo</h4>
+                  <p>Solo lectura</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </aside>
 
         <!-- Paginación -->
@@ -412,6 +325,11 @@
               <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
               <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
               <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a
+                href="https://www.tiktok.com/@serakdrji9t?_r=1&_t=ZS-92BbcmSBX8h"
+                title="TikTok"
+                ><i class="fab fa-tiktok"></i
+              ></a>
             </div>
           </div>
 
@@ -427,9 +345,6 @@
                 <a href="reglamento.html"
                   ><i class="fas fa-chevron-right"></i> Reglamento</a
                 >
-              </li>
-              <li>
-                <a href="formulario.html"><i class="fas fa-chevron-right"></i> Formulario</a>
               </li>
               <li>
                 <a href="faq.html"><i class="fas fa-chevron-right"></i> FAQ</a>
@@ -455,7 +370,10 @@
           <div class="footer-section">
             <h3 class="footer-title">Noticias Recientes</h3>
             <ul class="recent-news" id="recent-news-footer">
-              <!-- Se cargarán las 3 noticias más recientes -->
+              <li>
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Cargando noticias...</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -466,13 +384,34 @@
             Todos los derechos reservados.
           </p>
           <p>Esta página no está afiliada a Roblox Corporation.</p>
+          <p class="system-version">
+            <small>Sistema de noticias v2.0 - Modo solo lectura</small>
+          </p>
         </div>
       </div>
     </footer>
 
     <!-- Scripts -->
     <script src="js/main.js"></script>
+
+    <!-- Mensaje de carga simplificado -->
+    <script>
+      console.log("🚀 Sistema de Noticias - Modo Solo Lectura");
+      console.log("📡 Conectando con npoint.io...");
+
+      // Ocultar mensaje de carga después de 3 segundos
+      setTimeout(() => {
+        const loading = document.querySelector(".loading-news");
+        if (
+          loading &&
+          document.getElementById("news-container").children.length > 1
+        ) {
+          loading.style.display = "none";
+        }
+      }, 3000);
+    </script>
+
     <script src="js/noticias.js"></script>
   </body>
-</html>
+  </html>
 
