@@ -490,4 +490,5 @@ function animateValue(element, start, end, duration, suffix = "") {
     }
   };
   window.requestAnimationFrame(step);
-}
+    }
+
