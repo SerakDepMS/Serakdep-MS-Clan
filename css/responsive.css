@@ -768,14 +768,6 @@
   line-height: 1.5;
 }
 
-/* ===== ESTADÍSTICAS DESLIZABLES HORIZONTALMENTE - ELIMINADO/REEMPLAZADO ===== */
-
-/* Estilo base para .news-stats - ahora es grid por defecto desde noticias.css */
-/* Los media queries ya están definidos arriba para cada tamaño de pantalla */
-
-/* Eliminamos toda la sección problemática de estadísticas deslizables */
-/* Y la reemplazamos con un estilo simple */
-
 .news-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -799,6 +791,6 @@
 .scroll-indicator,
 .news-stats-container {
   display: none;
-}
+    }
 
 
