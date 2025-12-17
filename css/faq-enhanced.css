@@ -1,0 +1,397 @@
+/* faq-enhanced.css - Estilos mejorados para FAQ */
+
+/* Barra de búsqueda */
+.faq-search-container {
+  margin: 20px 0 30px;
+}
+
+.search-box {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-box i {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+#faq-search {
+  width: 100%;
+  padding: 15px 20px 15px 50px;
+  font-size: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+#faq-search:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.search-results-count {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #3498db;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: none;
+}
+
+/* Categorías */
+.faq-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+.faq-category-btn {
+  background: white;
+  border: 2px solid #e0e0e0;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faq-category-btn:hover {
+  background: #f8f9fa;
+  border-color: #bdc3c7;
+  transform: translateY(-2px);
+}
+
+.faq-category-btn.active {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.faq-category-btn i {
+  font-size: 1rem;
+}
+
+/* Títulos de categoría */
+.faq-category-title {
+  color: #2c3e50;
+  margin: 40px 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #3498db;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.faq-category-title i {
+  color: #3498db;
+}
+
+/* FAQ Items mejorados */
+.faq-item {
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-item.active {
+  border-color: #3498db;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+  padding: 20px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.faq-question:hover {
+  background: #f8f9fa;
+}
+
+.faq-question i:first-child {
+  color: #3498db;
+  font-size: 1.2rem;
+  width: 30px;
+  flex-shrink: 0;
+}
+
+.faq-question span {
+  flex: 1;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin: 0 15px;
+}
+
+.faq-arrow {
+  color: #7f8c8d;
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.active .faq-arrow {
+  transform: rotate(180deg);
+  color: #3498db;
+}
+
+.faq-answer {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.faq-item.active .faq-answer {
+  padding: 20px;
+  max-height: 1000px;
+}
+
+.faq-answer p {
+  margin-bottom: 15px;
+  color: #2c3e50;
+  line-height: 1.6;
+}
+
+.faq-answer ul,
+.faq-answer ol {
+  margin: 10px 0 15px 20px;
+  color: #2c3e50;
+}
+
+.faq-answer li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.faq-answer strong {
+  color: #2c3e50;
+}
+
+/* Lista de juegos */
+.games-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.game-item {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.game-item:hover {
+  border-color: #3498db;
+  transform: translateY(-2px);
+}
+
+.game-item i {
+  color: #3498db;
+  font-size: 1.2rem;
+}
+
+.game-item span {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+/* Sección de soporte */
+.faq-support {
+  background: linear-gradient(135deg, #3498db, #2c3e50);
+  color: white;
+  margin-top: 40px;
+}
+
+.faq-support-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.support-icon {
+  font-size: 3rem;
+  opacity: 0.9;
+}
+
+.support-text {
+  flex: 1;
+}
+
+.support-text h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+
+.support-text p {
+  margin: 0 0 20px 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.support-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  border-color: #25d366;
+}
+
+.btn-whatsapp:hover {
+  background: #128c7e;
+  border-color: #128c7e;
+}
+
+/* Estadísticas */
+.faq-stats {
+  margin-top: 30px;
+}
+
+.stats-title {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.3rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-color: #3498db;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #3498db;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq-categories {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .faq-category-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .faq-support-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .support-buttons {
+    justify-content: center;
+  }
+
+  .games-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .faq-question span {
+    font-size: 1rem;
+  }
+
+  .faq-question {
+    padding: 15px;
+  }
+
+  .faq-answer {
+    padding: 0 15px;
+  }
+
+  .faq-item.active .faq-answer {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .support-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .games-list {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-category-btn {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+  }
+}
