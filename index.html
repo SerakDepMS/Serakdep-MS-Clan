@@ -16,7 +16,6 @@
     />
 
     <!-- FAVICON COMPLETO CON TUS ARCHIVOS -->
-    <!-- Todos estos archivos deben estar en la misma carpeta que index.html -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -35,8 +34,6 @@
       href="favicon/favicon-16x16.png"
     />
     <link rel="manifest" href="favicon/site.webmanifest" />
-
-    <!-- Para dispositivos Android -->
     <link
       rel="icon"
       type="image/png"
@@ -49,8 +46,6 @@
       sizes="512x512"
       href="favicon/android-chrome-512x512.png"
     />
-
-    <!-- Icono tradicional -->
     <link rel="shortcut icon" href="favicon/favicon.ico" />
 
     <!-- COLOR DE TEMA -->
@@ -59,6 +54,10 @@
     <!-- TUS ESTILOS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/video-player.css" />
+    <!-- CSS DEL REPRODUCTOR -->
+    <link rel="stylesheet" href="css/logo.css" />
+    <!-- CSS DEL LOGO -->
 
     <!-- Font Awesome optimizado -->
     <link
@@ -103,11 +102,154 @@
 
     <main>
       <div class="container">
-        <div class="panda-decorative">🐼</div>
-
         <h1 class="page-title">
           <i class="fas fa-home"></i> Bienvenido a Serakdep MS
         </h1>
+
+        <!-- LOGO DEL CLAN -->
+        <div class="clan-logo-section">
+          <div class="clan-logo-container">
+            <img
+              src="images/clan-logo.png"
+              alt="Logo del Clan Serakdep MS"
+              class="clan-logo"
+              id="clan-logo"
+            />
+            <div class="logo-glow"></div>
+          </div>
+          <div class="logo-text">
+            <p class="clan-slogan">Unidos-por-la-pasión-del-gaming</p>
+            <div class="logo-badges">
+              <span class="badge"
+                ><i class="fas fa-shield-alt"></i> Clan Verificado</span
+              >
+              <span class="badge"
+                ><i class="fas fa-users"></i> +12 Miembros</span
+              >
+              <span class="badge"
+                ><i class="fas fa-globe-americas"></i> Comunidad Global</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- REPRODUCTOR DE VIDEO MEJORADO CON MÚLTIPLES VIDEOS -->
+        <div class="video-player-container">
+          <div class="video-wrapper">
+            <video
+              id="main-video"
+              class="video-player"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            >
+              <!-- Las fuentes se asignarán dinámicamente con JavaScript -->
+              <p>Tu navegador no soporta videos HTML5.</p>
+            </video>
+
+            <!-- Overlay de carga -->
+            <div class="video-overlay" id="video-overlay">
+              <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>Cargando video...</span>
+              </div>
+            </div>
+
+            <!-- Botón de reproducción grande (solo visible cuando está pausado) -->
+            <button
+              class="big-play-btn"
+              id="big-play-btn"
+              title="Reproducir video"
+            >
+              <i class="fas fa-play"></i>
+            </button>
+
+            <!-- Controles mejorados -->
+            <div class="video-controls">
+              <!-- Controles principales -->
+              <div class="main-controls">
+                <button
+                  class="control-btn"
+                  id="play-pause-btn"
+                  title="Reproducir/Pausar"
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+
+                <button
+                  class="control-btn"
+                  id="next-video-btn"
+                  title="Siguiente video"
+                >
+                  <i class="fas fa-forward"></i>
+                </button>
+
+                <button class="control-btn" id="volume-btn" title="Volumen">
+                  <i class="fas fa-volume-up"></i>
+                </button>
+
+                <!-- Contador de videos -->
+                <div class="video-counter">
+                  <span id="current-video">1</span> /
+                  <span id="total-videos">5</span>
+                </div>
+              </div>
+
+              <!-- Controles secundarios -->
+              <div class="secondary-controls">
+                <button
+                  class="control-btn"
+                  id="fullscreen-btn"
+                  title="Pantalla completa"
+                >
+                  <i class="fas fa-expand"></i>
+                </button>
+
+                <button
+                  class="control-btn"
+                  id="random-btn"
+                  title="Reproducción aleatoria"
+                >
+                  <i class="fas fa-random"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Controles de volumen (aparece al hacer hover en el botón de volumen) -->
+            <div class="volume-controls" id="volume-controls">
+              <input
+                type="range"
+                id="volume-slider"
+                min="0"
+                max="1"
+                step="0.1"
+                value="0"
+                title="Control de volumen"
+              />
+            </div>
+
+            <!-- Indicador de modo aleatorio -->
+            <div class="random-mode-indicator" id="random-indicator">
+              <i class="fas fa-random"></i> Aleatorio
+            </div>
+
+            <!-- Indicador de sonido -->
+            <div class="sound-indicator" id="sound-indicator">
+              <i class="fas fa-volume-up"></i> Sonido
+            </div>
+          </div>
+
+          <!-- Información del video -->
+          <div class="video-info">
+            <h3 class="video-title" id="video-title">Presentación del Clan</h3>
+            <p class="video-description" id="video-description">
+              ¡Bienvenido a Serakdep MS! Un clan de Roblox donde la diversión y
+              el respeto son lo primero.
+            </p>
+          </div>
+        </div>
 
         <div class="card fade-in">
           <h2 class="card-title">¿Qué es Serakdep MS?</h2>
@@ -296,5 +438,10 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/video-player.js"></script>
+    <!-- JS DEL REPRODUCTOR -->
+    <script src="js/logo-animations.js"></script>
+    <!-- JS PARA ANIMACIONES DEL LOGO -->
   </body>
-</html>
+  </html>
+
