@@ -54,10 +54,8 @@
     <!-- TUS ESTILOS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-    <link rel="stylesheet" href="css/video-player.css" />
-    <!-- CSS DEL REPRODUCTOR -->
+    <link rel="stylesheet" href="css/video-player-final.css" />
     <link rel="stylesheet" href="css/logo.css" />
-    <!-- CSS DEL LOGO -->
 
     <!-- Font Awesome optimizado -->
     <link
@@ -78,7 +76,6 @@
         <div class="logo">
           <a href="index.html">Serakdep <span>MS</span></a>
         </div>
-        <!-- BOTÓN CORREGIDO: Añadido aria-label y aria-expanded -->
         <button
           class="mobile-menu-btn"
           aria-label="Abrir menú de navegación"
@@ -124,7 +121,7 @@
                 ><i class="fas fa-shield-alt"></i> Clan Verificado</span
               >
               <span class="badge"
-                ><i class="fas fa-users"></i> +12 Miembros</span
+                ><i class="fas fa-users"></i> +500 Miembros</span
               >
               <span class="badge"
                 ><i class="fas fa-globe-americas"></i> Comunidad Global</span
@@ -133,124 +130,321 @@
           </div>
         </div>
 
-        <!-- REPRODUCTOR DE VIDEO MEJORADO CON MÚLTIPLES VIDEOS -->
-        <div class="video-player-container">
-          <div class="video-wrapper">
-            <video
-              id="main-video"
-              class="video-player"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-            >
-              <!-- Las fuentes se asignarán dinámicamente con JavaScript -->
-              <p>Tu navegador no soporta videos HTML5.</p>
-            </video>
+        <!-- REPRODUCTOR DE VIDEO MEJORADO -->
+        <div class="video-player-final">
+          <!-- Área del video -->
+          <div class="video-display-area">
+            <div class="video-container">
+              <video
+                id="main-video"
+                class="main-video-player"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              >
+                <!-- Las fuentes se asignarán dinámicamente con JavaScript -->
+                <p>Tu navegador no soporta videos HTML5.</p>
+              </video>
 
-            <!-- Overlay de carga -->
-            <div class="video-overlay" id="video-overlay">
-              <div class="loading-spinner">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span>Cargando video...</span>
+              <!-- Overlay de carga -->
+              <div class="video-loading-overlay" id="video-loading">
+                <div class="loading-animation">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <span>Cargando video...</span>
+                </div>
+              </div>
+
+              <!-- Botón de reproducción grande -->
+              <button
+                class="video-center-play-btn"
+                id="center-play-btn"
+                title="Reproducir video"
+              >
+                <i class="fas fa-play"></i>
+              </button>
+
+              <!-- Indicadores flotantes - SOLO SONIDO (se eliminó el de aleatorio) -->
+              <div class="video-floating-indicators">
+                <div
+                  class="floating-indicator sound-indicator"
+                  id="floating-sound"
+                >
+                  <i class="fas fa-volume-up"></i> <span>Sonido Activado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel de controles (FUERA DEL VIDEO) -->
+          <div class="video-controls-panel">
+            <!-- Información del video -->
+            <div class="video-meta-info">
+              <h3 class="video-current-title" id="video-title">
+                Presentación del Clan
+              </h3>
+              <p class="video-current-description" id="video-description">
+                ¡Bienvenido a Serakdep MS! Un clan de Roblox donde la diversión
+                y el respeto son lo primero.
+              </p>
+            </div>
+
+            <!-- Barra de progreso -->
+            <div class="video-progress-section">
+              <div class="progress-track" id="progress-track">
+                <div class="progress-slider" id="progress-slider">
+                  <div class="slider-thumb"></div>
+                </div>
+              </div>
+              <div class="time-indicators">
+                <span class="current-time" id="current-time">0:00</span>
+                <span class="time-separator">/</span>
+                <span class="total-time" id="total-time">0:00</span>
               </div>
             </div>
 
-            <!-- Botón de reproducción grande (solo visible cuando está pausado) -->
-            <button
-              class="big-play-btn"
-              id="big-play-btn"
-              title="Reproducir video"
-            >
-              <i class="fas fa-play"></i>
-            </button>
-
-            <!-- Controles mejorados -->
-            <div class="video-controls">
-              <!-- Controles principales -->
-              <div class="main-controls">
+            <!-- Controles principales -->
+            <div class="main-controls-section">
+              <!-- Grupo izquierdo: Navegación -->
+              <div class="controls-group nav-group">
                 <button
-                  class="control-btn"
-                  id="play-pause-btn"
+                  class="control-button nav-button prev-button"
+                  id="prev-button"
+                  title="Video anterior"
+                >
+                  <i class="fas fa-step-backward"></i>
+                </button>
+                <button
+                  class="control-button main-play-button"
+                  id="main-play-button"
                   title="Reproducir/Pausar"
                 >
                   <i class="fas fa-play"></i>
                 </button>
-
                 <button
-                  class="control-btn"
-                  id="next-video-btn"
+                  class="control-button nav-button next-button"
+                  id="next-button"
                   title="Siguiente video"
                 >
-                  <i class="fas fa-forward"></i>
+                  <i class="fas fa-step-forward"></i>
                 </button>
-
-                <button class="control-btn" id="volume-btn" title="Volumen">
-                  <i class="fas fa-volume-up"></i>
-                </button>
-
-                <!-- Contador de videos -->
-                <div class="video-counter">
-                  <span id="current-video">1</span> /
-                  <span id="total-videos">5</span>
-                </div>
               </div>
 
-              <!-- Controles secundarios -->
-              <div class="secondary-controls">
+              <!-- Grupo central: Información y funciones -->
+              <div class="controls-group center-group">
+                <div class="video-counter-display">
+                  <span class="counter-current" id="counter-current">1</span>
+                  <span class="counter-separator">de</span>
+                  <span class="counter-total" id="counter-total">5</span>
+                </div>
+                <!-- SE ELIMINÓ EL BOTÓN DE ALEATORIO -->
                 <button
-                  class="control-btn"
-                  id="fullscreen-btn"
+                  class="control-button function-button volume-toggle"
+                  id="volume-toggle"
+                  title="Volumen"
+                >
+                  <i class="fas fa-volume-up"></i>
+                </button>
+              </div>
+
+              <!-- Grupo derecho: Acciones -->
+              <div class="controls-group action-group">
+                <button
+                  class="control-button action-button fullscreen-toggle"
+                  id="fullscreen-toggle"
                   title="Pantalla completa"
                 >
                   <i class="fas fa-expand"></i>
                 </button>
-
                 <button
-                  class="control-btn"
-                  id="random-btn"
-                  title="Reproducción aleatoria"
+                  class="control-button action-button settings-toggle"
+                  id="settings-toggle"
+                  title="Configuración"
                 >
-                  <i class="fas fa-random"></i>
+                  <i class="fas fa-cog"></i>
                 </button>
               </div>
             </div>
 
-            <!-- Controles de volumen (aparece al hacer hover en el botón de volumen) -->
-            <div class="volume-controls" id="volume-controls">
-              <input
-                type="range"
-                id="volume-slider"
-                min="0"
-                max="1"
-                step="0.1"
-                value="0"
-                title="Control de volumen"
-              />
+            <!-- Controles táctiles para móviles (ordenados y grandes) -->
+            <div class="mobile-touch-controls">
+              <div class="touch-controls-row">
+                <button
+                  class="touch-control-button large-touch-button"
+                  id="mobile-prev-btn"
+                  title="Video anterior"
+                >
+                  <i class="fas fa-backward"></i>
+                  <span class="touch-label">Anterior</span>
+                </button>
+                <button
+                  class="touch-control-button large-touch-button play-button"
+                  id="mobile-play-btn"
+                  title="Reproducir/Pausar"
+                >
+                  <i class="fas fa-play"></i>
+                  <span class="touch-label">Reproducir</span>
+                </button>
+                <button
+                  class="touch-control-button large-touch-button"
+                  id="mobile-next-btn"
+                  title="Siguiente video"
+                >
+                  <i class="fas fa-forward"></i>
+                  <span class="touch-label">Siguiente</span>
+                </button>
+              </div>
+              <div class="touch-controls-row">
+                <button
+                  class="touch-control-button"
+                  id="mobile-volume-btn"
+                  title="Volumen"
+                >
+                  <i class="fas fa-volume-up"></i>
+                  <span class="touch-label">Volumen</span>
+                </button>
+                <!-- SE ELIMINÓ EL BOTÓN DE ALEATORIO -->
+                <button
+                  class="touch-control-button"
+                  id="mobile-fullscreen-btn"
+                  title="Pantalla completa"
+                >
+                  <i class="fas fa-expand"></i>
+                  <span class="touch-label">Pantalla</span>
+                </button>
+                <button
+                  class="touch-control-button"
+                  id="mobile-settings-btn"
+                  title="Configuración"
+                >
+                  <i class="fas fa-cog"></i>
+                  <span class="touch-label">Ajustes</span>
+                </button>
+              </div>
             </div>
 
-            <!-- Indicador de modo aleatorio -->
-            <div class="random-mode-indicator" id="random-indicator">
-              <i class="fas fa-random"></i> Aleatorio
-            </div>
-
-            <!-- Indicador de sonido -->
-            <div class="sound-indicator" id="sound-indicator">
-              <i class="fas fa-volume-up"></i> Sonido
+            <!-- Slider de volumen desplegable -->
+            <div class="volume-slider-container" id="volume-slider-container">
+              <div class="volume-slider-wrapper">
+                <i class="fas fa-volume-down volume-icon-low"></i>
+                <input
+                  type="range"
+                  class="volume-slider"
+                  id="volume-slider"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value="0"
+                />
+                <i class="fas fa-volume-up volume-icon-high"></i>
+              </div>
+              <div class="volume-percentage" id="volume-percentage">0%</div>
             </div>
           </div>
 
-          <!-- Información del video -->
-          <div class="video-info">
-            <h3 class="video-title" id="video-title">Presentación del Clan</h3>
-            <p class="video-description" id="video-description">
-              ¡Bienvenido a Serakdep MS! Un clan de Roblox donde la diversión y
-              el respeto son lo primero.
-            </p>
+          <!-- Menú de configuración -->
+          <div class="settings-menu-overlay" id="settings-overlay">
+            <div class="settings-menu-container">
+              <div class="settings-menu-header">
+                <h3><i class="fas fa-cog"></i> Configuración del Video</h3>
+                <button class="settings-close-btn" id="settings-close-btn">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+
+              <div class="settings-menu-content">
+                <!-- Velocidad de reproducción -->
+                <div class="settings-group">
+                  <h4>
+                    <i class="fas fa-tachometer-alt"></i> Velocidad de
+                    Reproducción
+                  </h4>
+                  <div class="speed-buttons">
+                    <button class="speed-option" data-speed="0.5">0.5x</button>
+                    <button class="speed-option active" data-speed="1.0">
+                      Normal
+                    </button>
+                    <button class="speed-option" data-speed="1.5">1.5x</button>
+                    <button class="speed-option" data-speed="2.0">2.0x</button>
+                  </div>
+                </div>
+
+                <!-- Calidad (simulado) -->
+                <div class="settings-group">
+                  <h4><i class="fas fa-hd"></i> Calidad del Video</h4>
+                  <div class="quality-buttons">
+                    <button class="quality-option active" data-quality="auto">
+                      Automática
+                    </button>
+                    <button class="quality-option" data-quality="720">
+                      720p
+                    </button>
+                    <button class="quality-option" data-quality="480">
+                      480p
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Opciones adicionales -->
+                <div class="settings-group">
+                  <h4><i class="fas fa-sliders-h"></i> Opciones</h4>
+                  <div class="settings-options">
+                    <label class="setting-option">
+                      <input type="checkbox" id="autoplay-toggle" checked />
+                      <span class="option-label">Reproducción automática</span>
+                    </label>
+                    <label class="setting-option">
+                      <input type="checkbox" id="loop-toggle" checked />
+                      <span class="option-label">Repetir video</span>
+                    </label>
+                    <label class="setting-option">
+                      <input type="checkbox" id="subtitles-toggle" />
+                      <span class="option-label">Mostrar subtítulos</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Acciones -->
+                <div class="settings-group">
+                  <h4><i class="fas fa-tools"></i> Acciones</h4>
+                  <div class="action-buttons">
+                    <button class="action-btn restart-btn" id="restart-video">
+                      <i class="fas fa-redo"></i> Reiniciar Video
+                    </button>
+                    <button class="action-btn download-btn" id="download-video">
+                      <i class="fas fa-download"></i> Descargar Video
+                    </button>
+                    <button class="action-btn share-btn" id="share-video">
+                      <i class="fas fa-share-alt"></i> Compartir
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Información del video -->
+                <div class="settings-group">
+                  <h4><i class="fas fa-info-circle"></i> Información</h4>
+                  <div class="video-info-display">
+                    <div class="info-item">
+                      <span class="info-label">Formato:</span>
+                      <span class="info-value" id="info-format">MP4</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Duración:</span>
+                      <span class="info-value" id="info-duration">0:30</span>
+                    </div>
+                    <div class="info-item">
+                      <span class="info-label">Tamaño:</span>
+                      <span class="info-value" id="info-size">15 MB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
+        <!-- Resto del contenido... -->
         <div class="card fade-in">
           <h2 class="card-title">¿Qué es Serakdep MS?</h2>
           <p>
@@ -399,29 +593,60 @@
             <h3 class="footer-title">Contacto</h3>
             <ul class="footer-links">
               <li>
-                <a href="mailto:serakdepmsofficial7@gmail.com"
-                  ><i class="fas fa-envelope"></i>
-                  serakdepmsofficial7@gmail.com</a
-                >
+                <a href="mailto:serakdepmsofficial7@gmail.com">
+                  <i class="fas fa-envelope"></i> serakdepmsofficial7@gmail.com
+                </a>
               </li>
-              <!-- ENLACE CORREGIDO: Añadido rel="noopener noreferrer" -->
               <li>
                 <a
                   href="https://wa.me/573116546484"
                   target="_blank"
                   rel="noopener noreferrer"
-                  ><i class="fab fa-whatsapp"></i> WhatsApp del Clan</a
                 >
+                  <i class="fab fa-whatsapp"></i> WhatsApp del Clan
+                </a>
               </li>
               <li>
-                <a href="contacto.html#reportar"
-                  ><i class="fas fa-user-shield"></i> Reportar problema</a
-                >
+                <a href="contacto.html#reportar">
+                  <i class="fas fa-user-shield"></i> Reportar problema
+                </a>
               </li>
               <li>
-                <a href="contacto.html#sugerencias"
-                  ><i class="fas fa-lightbulb"></i> Sugerencias</a
-                >
+                <a href="contacto.html#sugerencias">
+                  <i class="fas fa-lightbulb"></i> Sugerencias
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- NUEVA SECCIÓN LEGAL -->
+          <div class="footer-section">
+            <h3 class="footer-title">Información Legal</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="privacidad.html">
+                  <i class="fas fa-user-shield"></i> Política de Privacidad
+                </a>
+              </li>
+              <li>
+                <a href="terminos.html">
+                  <i class="fas fa-file-contract"></i> Términos de Servicio
+                </a>
+              </li>
+              <li>
+                <a href="cookies.html">
+                  <i class="fas fa-cookie-bite"></i> Política de Cookies
+                </a>
+              </li>
+              <li>
+                <a href="dmca.html">
+                  <i class="fas fa-balance-scale"></i> Aviso DMCA
+                </a>
+              </li>
+              <li>
+                <a href="contacto.html#legal">
+                  <i class="fas fa-gavel"></i> Asuntos Legales
+                </a>
               </li>
             </ul>
           </div>
@@ -438,10 +663,8 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="js/video-player.js"></script>
-    <!-- JS DEL REPRODUCTOR -->
+    <script src="js/video-player-final.js"></script>
     <script src="js/logo-animations.js"></script>
-    <!-- JS PARA ANIMACIONES DEL LOGO -->
   </body>
-  </html>
+</html>
 
