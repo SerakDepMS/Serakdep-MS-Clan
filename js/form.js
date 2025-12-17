@@ -130,14 +130,6 @@ function setupInscriptionForm() {
       // Mostrar mensaje de éxito
       form.style.display = "none";
       successMessage.style.display = "block";
-
-      // Enviar notificación por WhatsApp si hay consentimiento
-      if (
-        formData.whatsappConsent &&
-        formData.whatsapp !== "No proporcionado"
-      ) {
-        sendWhatsAppNotification(formData);
-      }
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       showMessage(
@@ -471,26 +463,6 @@ async function getIPAddress() {
   }
 }
 
-function sendWhatsAppNotification(data) {
-  const message =
-    `📋 *NUEVA SOLICITUD SERAKDEP MS*\n\n` +
-    `👤 *Jugador:* ${data.robloxName}\n` +
-    `🎂 *Edad:* ${data.age} años\n` +
-    `🌍 *País:* ${data.country}\n` +
-    `🎮 *Juega:* ${data.games}\n` +
-    `⏰ *Experiencia:* ${data.experience}\n` +
-    `📞 *WhatsApp:* ${data.whatsapp}\n\n` +
-    `📧 *Revisa tu email para más detalles*`;
-
-  const encodedMessage = encodeURIComponent(message);
-
-  // REEMPLAZA con tu número de WhatsApp
-  const whatsappUrl = `https://wa.me/+573116546484?text=${encodedMessage}`;
-
-  // Abre en nueva pestaña
-  window.open(whatsappUrl, "_blank");
-}
-
 function showMessage(text, type, form = null) {
   // Crear o encontrar contenedor de mensajes
   let messageContainer;
@@ -573,5 +545,4 @@ function updateWhatsAppLink() {
     whatsappLink.href = `https://wa.me/573116546484?text=${encodedMessage}`;
   }
 }
-
 
