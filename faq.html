@@ -15,8 +15,7 @@
       content="Roblox, clan, FAQ, preguntas frecuentes, Serakdep MS, reglas, admisión"
     />
 
-    <!-- FAVICON COMPLETO CON TUS ARCHIVOS -->
-    <!-- Todos estos archivos deben estar en la misma carpeta que index.html -->
+    <!-- FAVICON -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -35,8 +34,6 @@
       href="favicon/favicon-16x16.png"
     />
     <link rel="manifest" href="favicon/site.webmanifest" />
-
-    <!-- Para dispositivos Android -->
     <link
       rel="icon"
       type="image/png"
@@ -49,8 +46,6 @@
       sizes="512x512"
       href="favicon/android-chrome-512x512.png"
     />
-
-    <!-- Icono tradicional -->
     <link rel="shortcut icon" href="favicon/favicon.ico" />
 
     <!-- COLOR DE TEMA -->
@@ -59,8 +54,9 @@
     <!-- TUS ESTILOS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/faq-enhanced.css" />
 
-    <!-- Font Awesome optimizado -->
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -79,7 +75,6 @@
         <div class="logo">
           <a href="index.html">Serakdep <span>MS</span></a>
         </div>
-        <!-- BOTÓN CORREGIDO: Añadido aria-label y aria-expanded -->
         <button
           class="mobile-menu-btn"
           aria-label="Abrir menú de navegación"
@@ -107,151 +102,719 @@
           <i class="fas fa-question-circle"></i> Preguntas Frecuentes
         </h1>
 
+        <!-- Barra de búsqueda -->
+        <div class="faq-search-container">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="faq-search"
+              placeholder="Buscar en preguntas frecuentes..."
+            />
+            <div class="search-results-count" id="search-results"></div>
+          </div>
+        </div>
+
+        <!-- Categorías de FAQ -->
+        <div class="faq-categories">
+          <button class="faq-category-btn active" data-category="all">
+            <i class="fas fa-list"></i> Todas
+          </button>
+          <button class="faq-category-btn" data-category="admision">
+            <i class="fas fa-user-plus"></i> Admisión
+          </button>
+          <button class="faq-category-btn" data-category="reglas">
+            <i class="fas fa-gavel"></i> Reglas
+          </button>
+          <button class="faq-category-btn" data-category="comunidad">
+            <i class="fas fa-users"></i> Comunidad
+          </button>
+          <button class="faq-category-btn" data-category="tecnico">
+            <i class="fas fa-cog"></i> Técnico
+          </button>
+          <button class="faq-category-btn" data-category="eventos">
+            <i class="fas fa-calendar-alt"></i> Eventos
+          </button>
+        </div>
+
         <div class="faq-container">
-          <div class="card fade-in">
-            <div class="faq-item">
-              <div class="faq-question">
-                <i class="fas fa-user-plus"></i>
-                <span>¿Cuál es la edad mínima para unirse al clan?</span>
-                <i class="fas fa-chevron-down faq-arrow"></i>
-              </div>
-              <div class="faq-answer">
-                <p>
-                  La edad mínima para unirse al clan es 13 años. Los miembros
-                  entre 13 y 17 años deben contar con conocimiento y aprobación
-                  de sus padres o tutores.
-                </p>
-              </div>
-            </div>
+          <!-- CATEGORÍA: ADMISIÓN -->
+          <div class="faq-category-section" data-category="admision">
+            <h2 class="faq-category-title">
+              <i class="fas fa-user-plus"></i> Admisión y Registro
+            </h2>
 
-            <div class="faq-item">
-              <div class="faq-question">
-                <i class="fas fa-clock"></i>
-                <span>¿Cuánto tiempo toma el proceso de admisión?</span>
-                <i class="fas fa-chevron-down faq-arrow"></i>
+            <div class="card fade-in">
+              <div class="faq-item" data-category="admision">
+                <div class="faq-question">
+                  <i class="fas fa-user-plus"></i>
+                  <span>¿Cuál es la edad mínima para unirse al clan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    La edad mínima para unirse al clan es 13 años. Los miembros
+                    entre 13 y 17 años deben contar con conocimiento y
+                    aprobación de sus padres o tutores. Verificamos la edad
+                    durante el proceso de admisión para asegurar un ambiente
+                    seguro para todos.
+                  </p>
+                </div>
               </div>
-              <div class="faq-answer">
-                <p>
-                  El proceso completo generalmente toma entre 1 y 2 semanas:
-                </p>
-                <ol>
-                  <li>Revisión del formulario: 24-48 horas</li>
-                  <li>Entrevista por WhatsApp: 1-3 días</li>
-                  <li>Periodo de prueba: 7-10 días</li>
-                </ol>
-              </div>
-            </div>
 
-            <div class="faq-item">
-              <div class="faq-question">
-                <i class="fas fa-gamepad"></i>
-                <span>¿Qué juegos son populares en el clan?</span>
-                <i class="fas fa-chevron-down faq-arrow"></i>
+              <div class="faq-item" data-category="admision">
+                <div class="faq-question">
+                  <i class="fas fa-clock"></i>
+                  <span>¿Cuánto tiempo toma el proceso de admisión?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    El proceso completo generalmente toma entre 1 y 2 semanas:
+                  </p>
+                  <ol>
+                    <li>
+                      <strong>Revisión del formulario:</strong> 24-48 horas
+                    </li>
+                    <li><strong>Entrevista por WhatsApp:</strong> 1-3 días</li>
+                    <li><strong>Periodo de prueba:</strong> 7-10 días</li>
+                  </ol>
+                  <p>
+                    El tiempo puede variar dependiendo de la cantidad de
+                    solicitudes.
+                  </p>
+                </div>
               </div>
-              <div class="faq-answer">
-                <p>
-                  Nuestros miembros juegan una variedad de juegos, los más
-                  populares son:
-                </p>
-                <ul>
-                  <li>Blox Fruits</li>
-                  <li>Adopt Me</li>
-                  <li>Brookhaven</li>
-                  <li>Arsenal</li>
-                  <li>King Legacy</li>
-                  <li>Driving Empire</li>
-                </ul>
-              </div>
-            </div>
-          </div>
 
-          <div class="card fade-in">
-            <div class="faq-item">
-              <div class="faq-question">
-                <i class="fas fa-users"></i>
-                <span>¿Cómo están organizados los grupos de WhatsApp?</span>
-                <i class="fas fa-chevron-down faq-arrow"></i>
+              <div class="faq-item" data-category="admision">
+                <div class="faq-question">
+                  <i class="fas fa-file-signature"></i>
+                  <span>¿Qué información necesito para registrarme?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Para completar el formulario de admisión necesitarás:</p>
+                  <ul>
+                    <li>Nombre de usuario de Roblox (verificado)</li>
+                    <li>Correo electrónico activo</li>
+                    <li>Número de WhatsApp (opcional pero recomendado)</li>
+                    <li>Edad y país de residencia</li>
+                    <li>Experiencia previa en clanes (si aplica)</li>
+                    <li>Juegos de Roblox que más te gustan</li>
+                  </ul>
+                </div>
               </div>
-              <div class="faq-answer">
-                <p>Tenemos varios grupos organizados por función:</p>
-                <ul>
-                  <li>
-                    <strong>Comunidad Principal:</strong> Todos los miembros
-                    verificados
-                  </li>
-                  <li>
-                    <strong>Nuevos Ingresos:</strong> Para candidatos en periodo
-                    de prueba
-                  </li>
-                  <li>
-                    <strong>Game Nights:</strong> Organización de partidas
-                  </li>
-                  <li>
-                    <strong>Charla General:</strong> Conversación informal
-                  </li>
-                  <li><strong>Staff:</strong> Solo para administradores</li>
-                </ul>
-              </div>
-            </div>
 
-            <div class="faq-item">
-              <div class="faq-question">
-                <i class="fas fa-calendar-alt"></i>
-                <span>¿Qué tipo de eventos organizan?</span>
-                <i class="fas fa-chevron-down faq-arrow"></i>
-              </div>
-              <div class="faq-answer">
-                <p>Organizamos diferentes tipos de eventos:</p>
-                <ul>
-                  <li>
-                    <strong>Torneos semanales:</strong> Con premios y
-                    reconocimientos
-                  </li>
-                  <li>
-                    <strong>Game Nights:</strong> Noches de juego temáticas
-                  </li>
-                  <li>
-                    <strong>Eventos especiales:</strong> Para festividades y
-                    celebraciones
-                  </li>
-                  <li>
-                    <strong>Competencias internas:</strong> Entre equipos del
-                    clan
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <div class="faq-question">
-                <i class="fas fa-ban"></i>
-                <span>¿Qué conductas están prohibidas en el clan?</span>
-                <i class="fas fa-chevron-down faq-arrow"></i>
-              </div>
-              <div class="faq-answer">
-                <p>
-                  Las siguientes conductas pueden resultar en expulsión
-                  inmediata:
-                </p>
-                <ul>
-                  <li>Acoso, bullying o discriminación</li>
-                  <li>Uso de hacks, exploits o trampas</li>
-                  <li>Compartir contenido inapropiado</li>
-                  <li>Suplantación de identidad</li>
-                  <li>Spam o flood en los grupos</li>
-                </ul>
+              <div class="faq-item" data-category="admision">
+                <div class="faq-question">
+                  <i class="fas fa-ban"></i>
+                  <span>¿Puedo ser rechazado? ¿Por qué motivos?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Sí, puedes ser rechazado por los siguientes motivos:</p>
+                  <ul>
+                    <li>No cumplir con la edad mínima</li>
+                    <li>Proporcionar información falsa</li>
+                    <li>Historial negativo en otros clanes</li>
+                    <li>Cuenta de Roblox con advertencias o baneos</li>
+                    <li>Falta de actividad demostrable en Roblox</li>
+                    <li>No completar el proceso de entrevista</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="card fade-in text-center">
-            <h2 class="card-title">¿No encontraste tu respuesta?</h2>
-            <p>
-              Si tienes otra pregunta, no dudes en contactarnos directamente.
-            </p>
-            <a href="contacto.html" class="btn btn-large">
-              <i class="fas fa-envelope"></i> Contactar al Clan
-            </a>
+          <!-- CATEGORÍA: REGLAS -->
+          <div class="faq-category-section" data-category="reglas">
+            <h2 class="faq-category-title">
+              <i class="fas fa-gavel"></i> Reglas y Normas
+            </h2>
+
+            <div class="card fade-in">
+              <div class="faq-item" data-category="reglas">
+                <div class="faq-question">
+                  <i class="fas fa-ban"></i>
+                  <span>¿Qué conductas están prohibidas en el clan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    Las siguientes conductas pueden resultar en advertencia o
+                    expulsión inmediata:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Acoso, bullying o discriminación</strong> por
+                      cualquier motivo
+                    </li>
+                    <li>
+                      <strong>Uso de hacks, exploits o trampas</strong> en
+                      cualquier juego
+                    </li>
+                    <li>
+                      <strong>Compartir contenido inapropiado</strong> para
+                      menores
+                    </li>
+                    <li>
+                      <strong>Suplantación de identidad</strong> de otros
+                      miembros o staff
+                    </li>
+                    <li>
+                      <strong>Spam o flood</strong> en los grupos de
+                      comunicación
+                    </li>
+                    <li>
+                      <strong>Divulgación de información privada</strong> de
+                      otros miembros
+                    </li>
+                    <li>
+                      <strong>Creación de conflictos innecesarios</strong> en la
+                      comunidad
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="reglas">
+                <div class="faq-question">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span>¿Cuál es el sistema de advertencias?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Contamos con un sistema de 3 advertencias:</p>
+                  <ol>
+                    <li>
+                      <strong>Primera advertencia:</strong> Notificación y
+                      registro
+                    </li>
+                    <li>
+                      <strong>Segunda advertencia:</strong> Suspensión temporal
+                      (3-7 días)
+                    </li>
+                    <li>
+                      <strong>Tercera advertencia:</strong> Expulsión permanente
+                      del clan
+                    </li>
+                  </ol>
+                  <p>
+                    Algunas faltas graves pueden resultar en expulsión inmediata
+                    sin advertencias previas.
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="reglas">
+                <div class="faq-question">
+                  <i class="fas fa-handshake"></i>
+                  <span>¿Debo cambiar mi nombre en Roblox al unirme?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    <strong>No es obligatorio</strong> cambiar tu nombre en
+                    Roblox. Sin embargo:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Recomendado:</strong> Agregar [SMS] al inicio o
+                      final de tu nombre de usuario
+                    </li>
+                    <li>
+                      <strong>Ejemplo:</strong> [SMS]Jugador123 o
+                      Jugador123[SMS]
+                    </li>
+                    <li>
+                      <strong>Ventajas:</strong> Identificación más fácil en
+                      juegos y eventos
+                    </li>
+                    <li>
+                      <strong>No afecta:</strong> Tu membresía si decides no
+                      hacerlo
+                    </li>
+                  </ul>
+                  <p>
+                    Esta práctica es voluntaria y solo para mostrar orgullo de
+                    clan.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORÍA: COMUNIDAD -->
+          <div class="faq-category-section" data-category="comunidad">
+            <h2 class="faq-category-title">
+              <i class="fas fa-users"></i> Comunidad y Miembros
+            </h2>
+
+            <div class="card fade-in">
+              <div class="faq-item" data-category="comunidad">
+                <div class="faq-question">
+                  <i class="fas fa-users"></i>
+                  <span>¿Cómo están organizados los grupos de WhatsApp?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Tenemos varios grupos organizados por función:</p>
+                  <ul>
+                    <li>
+                      <strong>Comunidad Principal:</strong> Todos los miembros
+                      verificados
+                    </li>
+                    <li>
+                      <strong>Nuevos Ingresos:</strong> Para candidatos en
+                      periodo de prueba
+                    </li>
+                    <li>
+                      <strong>Game Nights:</strong> Organización de partidas y
+                      eventos
+                    </li>
+                    <li>
+                      <strong>Charla General:</strong> Conversación informal
+                      sobre cualquier tema
+                    </li>
+                    <li>
+                      <strong>Staff:</strong> Solo para administradores y
+                      moderadores
+                    </li>
+                    <li>
+                      <strong>Eventos Especiales:</strong> Para torneos y
+                      competencias
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="comunidad">
+                <div class="faq-question">
+                  <i class="fas fa-gamepad"></i>
+                  <span>¿Qué juegos son populares en el clan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    Nuestros miembros juegan una variedad de juegos, los más
+                    populares son:
+                  </p>
+                  <div class="games-list">
+                    <div class="game-item">
+                      <i class="fas fa-dragon"></i>
+                      <span>Blox Fruits</span>
+                    </div>
+                    <div class="game-item">
+                      <i class="fas fa-home"></i>
+                      <span>Brookhaven</span>
+                    </div>
+                    <div class="game-item">
+                      <i class="fas fa-baby"></i>
+                      <span>Adopt Me</span>
+                    </div>
+                    <div class="game-item">
+                      <i class="fas fa-crosshairs"></i>
+                      <span>Arsenal</span>
+                    </div>
+                    <div class="game-item">
+                      <i class="fas fa-crown"></i>
+                      <span>King Legacy</span>
+                    </div>
+                    <div class="game-item">
+                      <i class="fas fa-car"></i>
+                      <span>Driving Empire</span>
+                    </div>
+                  </div>
+                  <p>
+                    Pero estamos abiertos a cualquier juego de Roblox que
+                    disfruten los miembros.
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="comunidad">
+                <div class="faq-question">
+                  <i class="fas fa-user-friends"></i>
+                  <span>¿Puedo invitar a mis amigos al clan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    <strong>¡Sí, puedes invitar a tus amigos!</strong> Tenemos
+                    un programa de referidos:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Requisitos:</strong> Tu amigo debe cumplir con
+                      todos los requisitos del clan
+                    </li>
+                    <li>
+                      <strong>Proceso:</strong> Deben aplicar individualmente
+                      por el formulario
+                    </li>
+                    <li>
+                      <strong>Ventajas:</strong> Amigos que juegan juntos pueden
+                      solicitar estar en el mismo grupo
+                    </li>
+                    <li>
+                      <strong>Reconocimiento:</strong> Miembros que refieren
+                      activamente pueden obtener rangos especiales
+                    </li>
+                  </ul>
+                  <p>
+                    Recuerda que cada solicitud se evalúa individualmente según
+                    los criterios del clan.
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="comunidad">
+                <div class="faq-question">
+                  <i class="fas fa-chart-line"></i>
+                  <span>¿Cómo puedo ascender en los rangos del clan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>El ascenso en rangos se basa en méritos y contribución:</p>
+                  <ol>
+                    <li>
+                      <strong>Actividad constante</strong> en juegos y grupos
+                    </li>
+                    <li>
+                      <strong>Participación activa</strong> en eventos del clan
+                    </li>
+                    <li>
+                      <strong>Ayuda a nuevos miembros</strong> y buena conducta
+                    </li>
+                    <li>
+                      <strong>Iniciativa para organizar</strong> actividades
+                    </li>
+                    <li><strong>Tiempo como miembro</strong> verificada</li>
+                    <li>
+                      <strong>Recomendaciones positivas</strong> de otros
+                      miembros
+                    </li>
+                  </ol>
+                  <p>
+                    Los ascensos se evalúan mensualmente por el equipo de staff.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORÍA: TÉCNICO -->
+          <div class="faq-category-section" data-category="tecnico">
+            <h2 class="faq-category-title">
+              <i class="fas fa-cog"></i> Aspectos Técnicos
+            </h2>
+
+            <div class="card fade-in">
+              <div class="faq-item" data-category="tecnico">
+                <div class="faq-question">
+                  <i class="fas fa-wifi"></i>
+                  <span>¿Necesito algún requisito especial de conexión?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Para una experiencia óptima, recomendamos:</p>
+                  <ul>
+                    <li>
+                      <strong>Conexión estable</strong> a internet (mínimo 5
+                      Mbps)
+                    </li>
+                    <li>
+                      <strong>Dispositivo compatible</strong> con Roblox (PC,
+                      móvil, tablet, consola)
+                    </li>
+                    <li>
+                      <strong>Cuenta de Roblox</strong> verificada y en buen
+                      estado
+                    </li>
+                    <li>
+                      <strong>WhatsApp</strong> para comunicación (opcional pero
+                      muy útil)
+                    </li>
+                    <li>
+                      <strong>Micrófono</strong> para ciertos eventos (no
+                      obligatorio)
+                    </li>
+                  </ul>
+                  <p>
+                    No necesitas equipos de gama alta, solo lo suficiente para
+                    jugar Roblox sin problemas.
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="tecnico">
+                <div class="faq-question">
+                  <i class="fas fa-money-bill-wave"></i>
+                  <span>¿Hay algún costo para unirse al clan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    <strong>¡Absolutamente gratis!</strong> Serakdep MS es
+                    completamente gratuito:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Sin cuotas</strong> de membresía mensuales o
+                      anuales
+                    </li>
+                    <li>
+                      <strong>Sin pagos</strong> para participar en eventos
+                    </li>
+                    <li><strong>Sin costos</strong> por ascensos de rango</li>
+                    <li>
+                      <strong>Acceso gratuito</strong> a todos los grupos y
+                      recursos
+                    </li>
+                  </ul>
+                  <p>
+                    Nunca pediremos dinero a cambio de membresía, rangos o
+                    beneficios. Si alguien lo hace, repórtalo inmediatamente.
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="tecnico">
+                <div class="faq-question">
+                  <i class="fas fa-shield-alt"></i>
+                  <span>¿Cómo protegen mi información personal?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Tomamos muy en serio tu privacidad:</p>
+                  <ul>
+                    <li>
+                      <strong>Información limitada:</strong> Solo pedimos datos
+                      necesarios
+                    </li>
+                    <li>
+                      <strong>Uso restringido:</strong> Solo para gestión del
+                      clan
+                    </li>
+                    <li>
+                      <strong>Sin compartir:</strong> Nunca vendemos o
+                      compartimos datos
+                    </li>
+                    <li>
+                      <strong>Eliminación:</strong> Puedes solicitar eliminar
+                      tus datos cuando quieras
+                    </li>
+                    <li>
+                      <strong>Comunicación segura:</strong> Grupos privados con
+                      administradores
+                    </li>
+                  </ul>
+                  <p>
+                    Consulta nuestra
+                    <a href="privacidad.html">Política de Privacidad</a> para
+                    más detalles.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORÍA: EVENTOS -->
+          <div class="faq-category-section" data-category="eventos">
+            <h2 class="faq-category-title">
+              <i class="fas fa-calendar-alt"></i> Eventos y Actividades
+            </h2>
+
+            <div class="card fade-in">
+              <div class="faq-item" data-category="eventos">
+                <div class="faq-question">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>¿Qué tipo de eventos organizan?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Organizamos diferentes tipos de eventos regularmente:</p>
+                  <ul>
+                    <li>
+                      <strong>Torneos semanales:</strong> Con premios y
+                      reconocimientos
+                    </li>
+                    <li>
+                      <strong>Game Nights:</strong> Noches de juego temáticas
+                    </li>
+                    <li>
+                      <strong>Eventos especiales:</strong> Para festividades y
+                      celebraciones
+                    </li>
+                    <li>
+                      <strong>Competencias internas:</strong> Entre equipos del
+                      clan
+                    </li>
+                    <li>
+                      <strong>Encuentros amistosos:</strong> Con otros clanes
+                      aliados
+                    </li>
+                    <li>
+                      <strong>Actividades de rol:</strong> En juegos como
+                      Brookhaven
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="eventos">
+                <div class="faq-question">
+                  <i class="fas fa-trophy"></i>
+                  <span>¿Hay premios en los eventos y torneos?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>Sí, ofrecemos diferentes tipos de premios:</p>
+                  <ul>
+                    <li>
+                      <strong>Reconocimiento:</strong> Rangos especiales en el
+                      clan
+                    </li>
+                    <li>
+                      <strong>Badges exclusivos:</strong> Insignias de honor
+                    </li>
+                    <li>
+                      <strong>Roles destacados:</strong> En nuestros grupos
+                    </li>
+                    <li>
+                      <strong>Premios virtuales:</strong> Items especiales en
+                      algunos juegos
+                    </li>
+                    <li>
+                      <strong>Mención honorífica:</strong> En nuestras redes
+                      sociales
+                    </li>
+                  </ul>
+                  <p>Los premios varían según el tipo y tamaño del evento.</p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="eventos">
+                <div class="faq-question">
+                  <i class="fas fa-hand-paper"></i>
+                  <span>¿Es obligatorio participar en eventos?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p>
+                    <strong>No es obligatorio,</strong> pero sí altamente
+                    recomendado:
+                  </p>
+                  <ul>
+                    <li>
+                      <strong>Participación voluntaria:</strong> Nunca obligamos
+                    </li>
+                    <li>
+                      <strong>Beneficios:</strong> Mejora tu rango y
+                      reconocimiento
+                    </li>
+                    <li>
+                      <strong>Socialización:</strong> Conoces mejor a otros
+                      miembros
+                    </li>
+                    <li>
+                      <strong>Diversión garantizada:</strong> Eventos diseñados
+                      para disfrutar
+                    </li>
+                  </ul>
+                  <p>
+                    Entendemos que todos tienen horarios diferentes, por eso los
+                    eventos son flexibles.
+                  </p>
+                </div>
+              </div>
+
+              <div class="faq-item" data-category="eventos">
+                <div class="faq-question">
+                  <i class="fas fa-lightbulb"></i>
+                  <span>¿Puedo proponer ideas para eventos?</span>
+                  <i class="fas fa-chevron-down faq-arrow"></i>
+                </div>
+                <div class="faq-answer">
+                  <p><strong>¡Claro que sí! Valoramos tus ideas:</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Canal de sugerencias:</strong> En WhatsApp y
+                      Discord
+                    </li>
+                    <li>
+                      <strong>Formulario de ideas:</strong> Disponible en
+                      nuestro sitio
+                    </li>
+                    <li>
+                      <strong>Reuniones mensuales:</strong> Para discutir nuevas
+                      propuestas
+                    </li>
+                    <li>
+                      <strong>Crédito:</strong> Si tu idea se implementa, se te
+                      da reconocimiento
+                    </li>
+                  </ul>
+                  <p>
+                    Las mejores ideas nacen de la comunidad. ¡Anímate a
+                    compartir las tuyas!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ adicional de soporte -->
+        <div class="card fade-in faq-support">
+          <div class="faq-support-content">
+            <div class="support-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+            <div class="support-text">
+              <h3>¿No encontraste lo que buscabas?</h3>
+              <p>
+                Contáctanos directamente y nuestro equipo de soporte te ayudará
+                con cualquier duda.
+              </p>
+              <div class="support-buttons">
+                <a href="contacto.html" class="btn btn-large">
+                  <i class="fas fa-envelope"></i> Contactar Soporte
+                </a>
+                <a
+                  href="https://wa.me/573116546484"
+                  target="_blank"
+                  class="btn btn-large btn-whatsapp"
+                >
+                  <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Estadísticas -->
+        <div class="faq-stats card fade-in">
+          <h3 class="stats-title">
+            <i class="fas fa-chart-bar"></i> Estadísticas de Ayuda
+          </h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">18</div>
+              <div class="stat-label">Preguntas Resueltas</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">24h</div>
+              <div class="stat-label">Tiempo de Respuesta</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">98%</div>
+              <div class="stat-label">Satisfacción</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">500+</div>
+              <div class="stat-label">Miembros Ayudados</div>
+            </div>
           </div>
         </div>
       </div>
@@ -322,29 +885,60 @@
             <h3 class="footer-title">Contacto</h3>
             <ul class="footer-links">
               <li>
-                <a href="mailto:serakdepmsofficial7@gmail.com"
-                  ><i class="fas fa-envelope"></i>
-                  serakdepmsofficial7@gmail.com</a
-                >
+                <a href="mailto:serakdepmsofficial7@gmail.com">
+                  <i class="fas fa-envelope"></i> serakdepmsofficial7@gmail.com
+                </a>
               </li>
-              <!-- ENLACE CORREGIDO: Añadido rel="noopener noreferrer" (línea 247) -->
               <li>
                 <a
                   href="https://wa.me/573116546484"
                   target="_blank"
                   rel="noopener noreferrer"
-                  ><i class="fab fa-whatsapp"></i> WhatsApp del Clan</a
                 >
+                  <i class="fab fa-whatsapp"></i> WhatsApp del Clan
+                </a>
               </li>
               <li>
-                <a href="contacto.html#reportar"
-                  ><i class="fas fa-user-shield"></i> Reportar problema</a
-                >
+                <a href="contacto.html#reportar">
+                  <i class="fas fa-user-shield"></i> Reportar problema
+                </a>
               </li>
               <li>
-                <a href="contacto.html#sugerencias"
-                  ><i class="fas fa-lightbulb"></i> Sugerencias</a
-                >
+                <a href="contacto.html#sugerencias">
+                  <i class="fas fa-lightbulb"></i> Sugerencias
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- NUEVA SECCIÓN LEGAL -->
+          <div class="footer-section">
+            <h3 class="footer-title">Información Legal</h3>
+            <ul class="footer-links">
+              <li>
+                <a href="privacidad.html">
+                  <i class="fas fa-user-shield"></i> Política de Privacidad
+                </a>
+              </li>
+              <li>
+                <a href="terminos.html">
+                  <i class="fas fa-file-contract"></i> Términos de Servicio
+                </a>
+              </li>
+              <li>
+                <a href="cookies.html">
+                  <i class="fas fa-cookie-bite"></i> Política de Cookies
+                </a>
+              </li>
+              <li>
+                <a href="dmca.html">
+                  <i class="fas fa-balance-scale"></i> Aviso DMCA
+                </a>
+              </li>
+              <li>
+                <a href="contacto.html#legal">
+                  <i class="fas fa-gavel"></i> Asuntos Legales
+                </a>
               </li>
             </ul>
           </div>
@@ -361,6 +955,6 @@
     </footer>
 
     <script src="js/main.js"></script>
-    <script src="js/faq.js"></script>
+    <script src="js/faq-enhanced.js"></script>
   </body>
 </html>
