@@ -5,7 +5,7 @@ class VideoPlayer {
     this.video = document.getElementById("main-video");
     this.videoList = [
       {
-        src: "makima-from-chainsaw-man.3840x2160.mp4",
+        src: "snaptik_7521747178734325010.mp4",
         title: "Trailer Oficial del Clan",
         description:
           "Presentación de Serakdep MS: Un clan unido por la pasión por Roblox.",
@@ -450,4 +450,5 @@ class VideoPlayer {
 document.addEventListener("DOMContentLoaded", () => {
   new VideoPlayer();
 });
+
 
