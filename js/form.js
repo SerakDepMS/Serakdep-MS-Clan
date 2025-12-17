@@ -544,5 +544,5 @@ function updateWhatsAppLink() {
     // REEMPLAZA con tu número de WhatsApp
     whatsappLink.href = `https://wa.me/573116546484?text=${encodedMessage}`;
   }
-}
+          }
 
