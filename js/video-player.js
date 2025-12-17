@@ -5,28 +5,28 @@ class VideoPlayer {
     this.video = document.getElementById("main-video");
     this.videoList = [
       {
-        src: "snaptik_7521747178734325010.mp4",
+        src: "video1.mp4",
         title: "Trailer Oficial del Clan",
         description:
           "Presentación de Serakdep MS: Un clan unido por la pasión por Roblox.",
       },
       {
-        src: "snaptik_7529605531388955911.mp4",
+        src: "video2.mp4",
         title: "Gameplay: Blox Fruits",
         description: "Nuestros miembros dominando los mares de Blox Fruits.",
       },
       {
-        src: "celestial-veil.3840x2160.mp4",
+        src: "video3.mp4",
         title: "Eventos de la Semana",
         description: "Revisión de los mejores eventos y torneos de la semana.",
       },
       {
-        src: "snaptik_7530315646731603205.mp4",
+        src: "video4.mp4",
         title: "Nuestra Comunidad",
         description: "Conoce a los miembros de Serakdep MS y sus experiencias.",
       },
       {
-        src: "snaptik_7520935301603134736.mp4",
+        src: "video5.mp4",
         title: "Tutoriales y Consejos",
         description:
           "Aprende estrategias y mejora tu juego con nuestros tutoriales.",
@@ -450,5 +450,6 @@ class VideoPlayer {
 document.addEventListener("DOMContentLoaded", () => {
   new VideoPlayer();
 });
+
 
 
