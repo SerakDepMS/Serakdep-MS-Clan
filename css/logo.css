@@ -1,0 +1,301 @@
+/* logo.css - Estilos para el logo del clan */
+
+.clan-logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px auto;
+  padding: 25px;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 0.1) 0%,
+    rgba(52, 152, 219, 0.1) 100%
+  );
+  border-radius: 20px;
+  border: 2px solid rgba(52, 152, 219, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  position: relative;
+  overflow: hidden;
+}
+
+.clan-logo-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(52, 152, 219, 0.05) 0%,
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+.clan-logo-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.clan-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 15px rgba(231, 76, 60, 0.3));
+  animation: logoFloat 6s ease-in-out infinite;
+  transition: transform 0.5s ease;
+}
+
+.clan-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 8px 20px rgba(231, 76, 60, 0.4));
+}
+
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(
+    circle,
+    rgba(231, 76, 60, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  z-index: -1;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.logo-text {
+  text-align: center;
+  z-index: 1;
+}
+
+.clan-name {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1px;
+}
+
+.clan-name span {
+  color: #e74c3c;
+  position: relative;
+}
+
+.clan-name span::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #e74c3c, transparent);
+  border-radius: 2px;
+}
+
+.clan-slogan {
+  font-size: 1.3rem;
+  color: #7f8c8d;
+  margin: 0 0 25px 0;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.logo-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #3498db, #2c3e80);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+.badge i {
+  font-size: 0.9rem;
+}
+
+.badge:nth-child(2) {
+  background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.badge:nth-child(3) {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+/* Animaciones */
+@keyframes logoFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  75% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* Efecto de partículas (opcional) */
+.logo-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(52, 152, 219, 0.6);
+  border-radius: 50%;
+  animation: particleFloat 8s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .clan-logo-section {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .clan-logo-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .logo-glow {
+    width: 170px;
+    height: 170px;
+  }
+
+  .clan-name {
+    font-size: 2.2rem;
+  }
+
+  .clan-slogan {
+    font-size: 1.1rem;
+  }
+
+  .logo-badges {
+    gap: 8px;
+  }
+
+  .badge {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clan-logo-section {
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  .clan-logo-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .logo-glow {
+    width: 150px;
+    height: 150px;
+  }
+
+  .clan-name {
+    font-size: 1.8rem;
+  }
+
+  .clan-slogan {
+    font-size: 1rem;
+  }
+
+  .logo-badges {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .badge {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+
+/* Efecto de brillo al cargar */
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.clan-logo-container {
+  animation: logoEntrance 1s ease-out;
+}
+
+/* Efecto de texto emergente */
+.logo-text {
+  animation: textEntrance 1s ease-out 0.3s both;
+}
+
+@keyframes textEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
