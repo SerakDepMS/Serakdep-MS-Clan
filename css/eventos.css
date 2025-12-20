@@ -234,249 +234,6 @@
   font-weight: bold;
 }
 
-/* ===== TIMELINE ===== */
-.event-timeline {
-  position: relative;
-  padding-left: 30px;
-  margin: 20px 0;
-}
-
-.event-timeline::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, #4caf50, #8bc34a);
-  border-radius: 2px;
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 25px;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  border-left: 5px solid #4caf50;
-  transition: all 0.3s ease;
-}
-
-.timeline-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: -30px;
-  top: 25px;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #4caf50;
-  border: 4px solid white;
-  box-shadow: 0 0 0 3px #4caf50;
-  z-index: 1;
-}
-
-.event-date {
-  background: #e8f5e9;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-/* ===== TORNEOS ===== */
-.tournament-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 15px;
-  padding: 25px;
-  margin: 20px 0;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-}
-
-.tournament-card::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.1);
-  transform: rotate(45deg);
-  animation: shine 3s infinite linear;
-}
-
-@keyframes shine {
-  0% {
-    transform: rotate(45deg) translateX(-100%);
-  }
-  100% {
-    transform: rotate(45deg) translateX(100%);
-  }
-}
-
-.tournament-btn {
-  background: white !important;
-  color: #764ba2 !important;
-  border: none !important;
-  font-weight: 600 !important;
-  margin-top: 15px;
-}
-
-.tournament-btn:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
-}
-
-.prize-amount {
-  font-size: 2.2em;
-  font-weight: bold;
-  color: #ffd700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  display: inline-block;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.game-icon-large {
-  font-size: 2.8em;
-  margin-bottom: 15px;
-  display: block;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* ===== CONTADORES ===== */
-.countdown-timer {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 25px 0;
-  flex-wrap: wrap;
-}
-
-.timer-unit {
-  background: white;
-  padding: 15px 10px;
-  border-radius: 10px;
-  text-align: center;
-  min-width: 80px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.timer-unit:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.timer-number {
-  font-size: 2em;
-  font-weight: bold;
-  color: #4caf50;
-  display: block;
-  line-height: 1;
-}
-
-.timer-label {
-  font-size: 0.8em;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 5px;
-}
-
-/* ===== ESTADOS DE INSCRIPCIÓN ===== */
-.registration-status {
-  display: inline-block;
-  padding: 8px 20px;
-  border-radius: 25px;
-  font-weight: bold;
-  margin: 10px 0;
-  font-size: 0.9em;
-  letter-spacing: 0.5px;
-}
-
-.status-open {
-  background: #4caf50;
-  color: white;
-  animation: blink 2s infinite;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-.status-closed {
-  background: #f44336;
-  color: white;
-}
-
-.status-upcoming {
-  background: #ff9800;
-  color: white;
-}
-
-/* ===== LISTA DE PARTICIPANTES ===== */
-.participants-list {
-  max-height: 220px;
-  overflow-y: auto;
-  margin-top: 20px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 8px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
-
-.participants-list h4 {
-  margin-top: 0;
-  color: white;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  padding-bottom: 10px;
-}
-
-.participants-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.participants-list li {
-  padding: 8px 12px;
-  margin: 5px 0;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  border-left: 3px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.2s ease;
-}
-
-.participants-list li:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateX(5px);
-}
-
 /* ===== TABLA DE RESULTADOS ===== */
 .results-table {
   width: 100%;
@@ -546,19 +303,6 @@
     padding: 8px 3px;
   }
 
-  .timer-unit {
-    min-width: 70px;
-    padding: 12px 8px;
-  }
-
-  .timer-number {
-    font-size: 1.6em;
-  }
-
-  .countdown-timer {
-    gap: 10px;
-  }
-
   .calendar-header {
     flex-direction: column;
     gap: 15px;
@@ -594,607 +338,6 @@
     font-size: 10px;
     top: -5px;
     right: -5px;
-  }
-
-  .timer-unit {
-    min-width: 60px;
-    padding: 10px 5px;
-  }
-
-  .timer-number {
-    font-size: 1.4em;
-  }
-}
-
-/* ===== LOGROS Y RECONOCIMIENTOS ===== */
-.achievements-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin: 25px 0;
-}
-
-.achievement-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  border: 2px solid #dee2e6;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.achievement-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-color: #4caf50;
-}
-
-.achievement-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
-}
-
-.achievement-icon {
-  font-size: 3em;
-  color: #4caf50;
-  margin-bottom: 15px;
-}
-
-.achievement-card h3 {
-  margin: 10px 0;
-  color: #333;
-  font-size: 1.3em;
-}
-
-.achievement-card p {
-  color: #666;
-  font-size: 0.9em;
-  margin-bottom: 15px;
-}
-
-.achievement-progress {
-  margin-top: 15px;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: #e0e0e0;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 8px;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
-  border-radius: 4px;
-  transition: width 1s ease;
-}
-
-.achievement-progress span {
-  font-size: 0.8em;
-  color: #666;
-  display: block;
-  text-align: right;
-}
-
-/* Tabla de Top Achievers */
-.top-achievers {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 2px solid #4caf50;
-}
-
-.achievers-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-.achievers-table th {
-  background: #4caf50;
-  color: white;
-  padding: 12px;
-  text-align: left;
-  font-weight: 600;
-}
-
-.achievers-table td {
-  padding: 12px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.achievers-table tr:hover {
-  background: #f5f5f5;
-}
-
-.points-badge {
-  background: linear-gradient(135deg, #ffd700, #ffa500);
-  color: #333;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.9em;
-  box-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
-}
-
-/* ===== SISTEMA DE RANGOS ===== */
-.ranks-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin: 25px 0;
-}
-
-.rank-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.rank-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.rank-elite {
-  background: linear-gradient(135deg, #ffd700, #ffa500);
-  color: #333;
-  border-color: #ffd700;
-}
-
-.rank-veteran {
-  background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
-  color: white;
-  border-color: #c0c0c0;
-}
-
-.rank-member {
-  background: linear-gradient(135deg, #cd7f32, #a0522d);
-  color: white;
-  border-color: #cd7f32;
-}
-
-.rank-novice {
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-  color: #333;
-  border-color: #4caf50;
-}
-
-.rank-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.rank-icon {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
-
-.rank-card h3 {
-  margin: 0;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.rank-info p {
-  margin: 8px 0;
-  font-size: 0.9em;
-  line-height: 1.4;
-}
-
-.rank-info strong {
-  color: inherit;
-  opacity: 0.9;
-}
-
-/* Progresión de Rangos */
-.rank-progression {
-  margin-top: 30px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.progress-steps {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-  flex-wrap: wrap;
-}
-
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.step-number {
-  width: 40px;
-  height: 40px;
-  background: #e0e0e0;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  margin-bottom: 8px;
-  transition: all 0.3s ease;
-}
-
-.step.active .step-number {
-  background: #4caf50;
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
-}
-
-.step-label {
-  font-size: 0.9em;
-  color: #666;
-  font-weight: 500;
-}
-
-.step.active .step-label {
-  color: #4caf50;
-  font-weight: bold;
-}
-
-.step-connector {
-  width: 50px;
-  height: 2px;
-  background: #e0e0e0;
-  margin: 0 10px;
-}
-
-.step-connector.active {
-  background: #4caf50;
-}
-
-.progress-text {
-  color: #666;
-  font-style: italic;
-  margin-top: 10px;
-  font-size: 0.9em;
-}
-
-/* ===== ESTADÍSTICAS DEL CLAN ===== */
-.stats-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  margin-top: 20px;
-}
-
-@media (min-width: 992px) {
-  .stats-container {
-    grid-template-columns: 2fr 1fr;
-  }
-}
-
-.main-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.stat-card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.stat-icon {
-  font-size: 2.5em;
-  color: #4caf50;
-  width: 60px;
-  height: 60px;
-  background: #e8f5e9;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stat-content {
-  flex: 1;
-}
-
-.stat-content h3 {
-  margin: 0 0 5px 0;
-  font-size: 0.9em;
-  color: #666;
-  font-weight: 500;
-}
-
-.stat-value {
-  font-size: 2em;
-  font-weight: bold;
-  color: #333;
-  margin: 5px 0;
-}
-
-.stat-change {
-  font-size: 0.8em;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.positive {
-  color: #4caf50;
-}
-
-.stat-party {
-  font-size: 0.8em;
-  color: #666;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-/* Juegos Populares */
-.popular-games,
-.live-party {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-}
-
-.popular-games h3,
-.live-party h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #333;
-  border-bottom: 2px solid #4caf50;
-  padding-bottom: 10px;
-}
-
-.games-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.game-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.game-item:hover {
-  background: #e9ecef;
-  transform: translateX(5px);
-}
-
-.game-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.game-icon {
-  font-size: 2em;
-}
-
-.game-info h4 {
-  margin: 0;
-  font-size: 1.1em;
-}
-
-.game-info p {
-  margin: 2px 0 0 0;
-  color: #666;
-  font-size: 0.85em;
-}
-
-.game-stats {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 100px;
-}
-
-.game-stats .progress-bar {
-  width: 80px;
-  height: 6px;
-}
-
-.game-stats span {
-  font-weight: bold;
-  color: #333;
-  min-width: 35px;
-}
-
-/* Party en Vivo */
-.party-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 12px;
-  padding: 20px;
-  margin-top: 15px;
-}
-
-.party-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.party-game {
-  font-weight: bold;
-  font-size: 1.1em;
-}
-
-.party-status {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8em;
-}
-
-.party-status.active {
-  background: #4caf50;
-}
-
-.party-members {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.party-member {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-}
-
-.party-member img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-.party-member div {
-  flex: 1;
-}
-
-.party-member strong {
-  display: block;
-  font-size: 0.95em;
-}
-
-.party-member small {
-  font-size: 0.8em;
-  opacity: 0.8;
-}
-
-.party-info {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  font-size: 0.9em;
-  opacity: 0.9;
-}
-
-.party-info p {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.btn-party {
-  background: white !important;
-  color: #764ba2 !important;
-  width: 100%;
-  justify-content: center;
-  font-weight: 600 !important;
-}
-
-.btn-party:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3) !important;
-}
-
-/* ===== ANIMACIONES ADICIONALES ===== */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.floating {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* ===== RESPONSIVE ADICIONAL ===== */
-@media (max-width: 768px) {
-  .achievements-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ranks-container {
-    grid-template-columns: 1fr;
-  }
-
-  .main-stats {
-    grid-template-columns: 1fr;
-  }
-
-  .progress-steps {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .step-connector {
-    width: 2px;
-    height: 30px;
-  }
-
-  .stat-card {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .game-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .game-stats {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .game-stats .progress-bar {
-    width: 100%;
   }
 }
 
@@ -1296,91 +439,6 @@
   display: inline-block;
 }
 
-/* ===== JUEGOS POPULARES ===== */
-.games-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin: 25px 0;
-}
-
-.game-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 12px;
-  padding: 20px;
-  border: 2px solid #dee2e6;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  border-color: #4caf50;
-}
-
-.game-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
-}
-
-.game-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.game-icon {
-  font-size: 2.5em;
-  background: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.game-card h3 {
-  margin: 0;
-  color: #333;
-  font-size: 1.3em;
-}
-
-.game-card > p {
-  color: #666;
-  margin-bottom: 15px;
-  line-height: 1.5;
-}
-
-.game-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.9em;
-}
-
-.game-stats p {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #555;
-}
-
-.game-stats i {
-  color: #4caf50;
-  width: 20px;
-}
-
 /* ===== ESTADÍSTICAS DEL CLAN ===== */
 .stats-grid {
   display: grid;
@@ -1439,108 +497,14 @@
   color: #ef6c00;
 }
 
-/* Gráfico de Estadísticas */
-.stats-chart {
-  margin-top: 30px;
-  padding: 20px;
-  background: #f8f9fa;
-  border-radius: 10px;
-}
-
-.stats-chart h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #333;
-  border-bottom: 2px solid #4caf50;
-  padding-bottom: 10px;
-}
-
-.chart-bars {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.chart-bar {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.bar-label {
-  min-width: 120px;
-  font-weight: 500;
-  color: #333;
-  text-align: right;
-}
-
-.bar-container {
-  flex: 1;
-  height: 25px;
-  background: #e0e0e0;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-}
-
-.bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
-  border-radius: 12px;
-  transition: width 1s ease-in-out;
-  position: relative;
-}
-
-.bar-fill::after {
-  content: attr(data-value);
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  font-weight: bold;
-  font-size: 0.8em;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.bar-value {
-  min-width: 40px;
-  text-align: center;
-  font-weight: bold;
-  color: #333;
-}
-
 /* ===== RESPONSIVE ADICIONAL ===== */
 @media (max-width: 768px) {
   .ranks-container-simple {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .games-container {
-    grid-template-columns: 1fr;
-  }
-
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .chart-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .bar-label {
-    min-width: auto;
-    text-align: left;
-  }
-
-  .bar-container {
-    width: 100%;
-  }
-
-  .bar-fill::after {
-    display: none;
   }
 }
 
@@ -1556,16 +520,6 @@
   .stat-value {
     font-size: 2em;
   }
-}
-
-/* Estilos para corregir los estilos en línea */
-
-/* Para las barras de gráfico */
-.bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #4caf50, #8bc34a);
-  border-radius: 4px;
-  transition: width 0.8s ease;
 }
 
 /* Para el texto de recordatorio */
@@ -1588,9 +542,855 @@
   text-decoration: underline;
 }
 
-/* Para los porcentajes de juegos */
-.game-percentage {
-  font-weight: bold;
-  color: var(--accent-green);
+/* ===== EVENTO DE HOY ===== */
+.today-event-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+@media (min-width: 768px) {
+  .today-event-container {
+    flex-direction: row;
   }
+}
+
+.today-event-card {
+  flex: 1;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #4caf50;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+}
+
+.today-event-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.today-event-content.no-event {
+  flex-direction: column;
+  text-align: center;
+  gap: 15px;
+}
+
+.today-event-icon {
+  font-size: 3.5em;
+  background: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.today-event-details {
+  flex: 1;
+}
+
+.today-event-details h3 {
+  margin: 0 0 10px 0;
+  color: #2e7d32;
+  font-size: 1.4em;
+}
+
+.today-event-type {
+  display: inline-block;
+  background: #4caf50;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.today-event-description {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.today-event-time {
+  color: #666;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.today-countdown-container {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.today-countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.today-timer-unit {
+  background: #f8f9fa;
+  padding: 15px 10px;
+  border-radius: 10px;
+  text-align: center;
+  min-width: 80px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.today-timer-number {
+  font-size: 2em;
+  font-weight: bold;
+  color: #4caf50;
+  display: block;
+  line-height: 1;
+}
+
+.today-timer-label {
+  font-size: 0.8em;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+.countdown-note {
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* ===== INSCRIPCIÓN DE EQUIPOS ===== */
+.team-registration {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+@media (min-width: 992px) {
+  .team-registration {
+    flex-direction: row;
+  }
+}
+
+.registration-info {
+  flex: 2;
+}
+
+.registration-steps {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  counter-reset: step-counter;
+}
+
+.registration-steps li {
+  counter-increment: step-counter;
+  padding: 15px 15px 15px 60px;
+  margin: 10px 0;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #4caf50;
+  position: relative;
+  line-height: 1.5;
+}
+
+.registration-steps li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #4caf50;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.available-teams {
+  margin-top: 30px;
+}
+
+.available-teams h4 {
+  margin-bottom: 20px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.teams-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.teams-grid::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.teams-grid::-webkit-scrollbar-thumb {
+  background: #4caf50;
+  border-radius: 4px;
+}
+
+.teams-grid::-webkit-scrollbar-thumb:hover {
+  background: #3d8b40;
+}
+
+.team-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #4caf50;
+}
+
+.team-icon {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.team-card h5 {
+  margin: 10px 0 5px 0;
+  color: #333;
+  font-size: 1.1em;
+}
+
+.team-card p {
+  color: #666;
+  font-size: 0.85em;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.team-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9em;
+}
+
+.team-status {
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.team-status.open {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.team-status.full {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.registration-action {
+  flex: 1;
+}
+
+.whatsapp-invite {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+}
+
+.whatsapp-icon {
+  font-size: 3em;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.whatsapp-invite h4 {
+  margin: 0 0 15px 0;
+  color: white;
+  font-size: 1.3em;
+}
+
+.whatsapp-invite p {
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.whatsapp-invite ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.whatsapp-invite li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.whatsapp-invite li:last-child {
+  border-bottom: none;
+}
+
+.whatsapp-invite li::before {
+  content: "✓";
+  font-weight: bold;
+}
+
+.btn-whatsapp {
+  background: white !important;
+  color: #25d366 !important;
+  border: none !important;
+  font-weight: 600 !important;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3) !important;
+}
+
+.registration-note {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+.registration-note i {
+  color: white;
+  margin-right: 8px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .today-event-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .today-event-icon {
+    margin: 0 auto;
+  }
+
+  .today-countdown-timer {
+    gap: 10px;
+  }
+
+  .today-timer-unit {
+    min-width: 70px;
+    padding: 12px 8px;
+  }
+
+  .teams-grid {
+    grid-template-columns: 1fr;
+    max-height: 400px;
+  }
+
+  .team-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .today-timer-unit {
+    min-width: 60px;
+    padding: 10px 5px;
+  }
+
+  .today-timer-number {
+    font-size: 1.6em;
+  }
+
+  .today-event-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2.5em;
+  }
+
+  .teams-grid {
+    max-height: 350px;
+  }
+}
+
+/* Estilos para el calendario dinámico */
+.calendar-day.today {
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+  font-weight: bold;
+}
+
+.calendar-day.today .day-number {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.calendar-day.event-day {
+  position: relative;
+  cursor: pointer;
+}
+
+.calendar-day.event-day:hover {
+  background-color: #f5f5f5;
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+.calendar-day.event-tournament {
+  border-left: 3px solid #ff9800;
+}
+
+.calendar-day.event-game {
+  border-left: 3px solid #2196f3;
+}
+
+.calendar-day.event-special {
+  border-left: 3px solid #9c27b0;
+}
+
+.event-icons {
+  font-size: 1.2em;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.today-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #2196f3;
+  color: white;
+  font-size: 0.7em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+/* Estilos para lista de eventos */
+.events-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.events-count {
+  background-color: #e3f2fd;
+  color: #2196f3;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.event-list-item {
+  border-left: 4px solid #ddd;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 0 8px 8px 0;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.event-list-item.today-event-list {
+  border-left-color: #2196f3;
+  background-color: #e3f2fd;
+  transform: translateX(5px);
+}
+
+.event-list-item.soon-event-list {
+  border-left-color: #ff9800;
+  background-color: #fff3e0;
+}
+
+.event-list-item.past-event-list {
+  opacity: 0.7;
+  border-left-color: #9e9e9e;
+}
+
+.event-list-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.event-day-number {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.event-day-name {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.event-list-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.event-icon {
+  font-size: 1.2em;
+}
+
+.today-badge {
+  background-color: #2196f3;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.soon-badge {
+  background-color: #ff9800;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.event-list-description {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.event-list-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85em;
+  color: #777;
+}
+
+/* Estilos para el evento de hoy */
+.today-event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.today-event-badge {
+  background-color: #2196f3;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.today-event-meta {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Estilos para el modal de eventos */
+.event-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-modal-content {
+  background-color: white;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.event-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.event-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #666;
+}
+
+.event-modal-body {
+  padding: 20px;
+}
+
+.event-modal-icon {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.event-modal-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.event-modal-description {
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.event-modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-set-reminder,
+.btn-share-event {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-set-reminder {
+  background-color: #e3f2fd;
+  color: #2196f3;
+}
+
+.btn-share-event {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+/* Botón Hoy */
+.today-button {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.today-button:hover {
+  background-color: #1976d2;
+}
+
+/* Notificación */
+#calendar-notification {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.no-events-message {
+  text-align: center;
+  padding: 30px;
+  color: #666;
+}
+
+.no-events-message i {
+  font-size: 3em;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+/* Badge de recordatorio */
+.reminder-badge {
+  background-color: #ff9800;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 0.8em;
+  margin-left: 5px;
+  cursor: help;
+}
+
+/* Modal mejorado */
+.event-modal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-set-reminder,
+.btn-remove-reminder,
+.btn-share-event {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  min-width: 150px;
+}
+
+.btn-set-reminder {
+  background-color: #ff9800;
+  color: white;
+}
+
+.btn-set-reminder:hover {
+  background-color: #f57c00;
+}
+
+.btn-remove-reminder {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-remove-reminder:hover {
+  background-color: #d32f2f;
+}
+
+.btn-share-event {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-share-event:hover {
+  background-color: #1976d2;
+}
+
+/* Botones del contador */
+.countdown-action {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.btn-reminder {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-reminder:hover {
+  background-color: #f57c00;
+}
+
+.btn-join-discord,
+.btn-join-whatsapp {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 5px;
+}
+
+.btn-join-discord {
+  background-color: #5865f2;
+  color: white;
+}
+
+.btn-join-whatsapp {
+  background-color: #25d366;
+  color: white;
+}
+
+/* Eventos pasados */
+.past-event-list {
+  opacity: 0.6;
+  background-color: #f5f5f5;
+}
+
+.past-event-list .event-list-title {
+  text-decoration: line-through;
+}
 
