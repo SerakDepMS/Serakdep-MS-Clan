@@ -102,148 +102,240 @@
 
         <div class="alert alert-info">
           <i class="fas fa-info-circle"></i>
-          <strong>¡Siempre hay algo emocionante sucediendo!</strong> Participa
-          en nuestros eventos para ganar premios, hacer amigos y divertirte.
+          <strong>¡Bienvenidos al nuevo sistema de eventos!</strong> Aquí
+          encontrarás toda la información sobre nuestros torneos y actividades.
         </div>
 
-        <!-- Próximos Eventos -->
+        <!-- Evento de Hoy -->
         <div class="card fade-in">
           <h2 class="card-title">
-            <i class="fas fa-clock"></i> Próximos Eventos
+            <i class="fas fa-calendar-day"></i> Evento de Hoy
           </h2>
 
-          <div class="event-timeline">
-            <!-- Evento 1 -->
-            <div class="timeline-item">
-              <h3><i class="fas fa-crown"></i> Torneo Semanal: Blox Fruits</h3>
-              <p>
-                <strong>Fecha:</strong>
-                <span class="event-date" data-date="2025-03-15"
-                  >Sábado, 15 de Marzo - 18:00 GMT-5</span
-                >
-              </p>
-              <p>
-                <strong>Premio:</strong>
-                <span class="prize-amount">50K Robux</span> para el equipo
-                ganador
-              </p>
-              <p>
-                <strong>Descripción:</strong> Competencia por equipos de 3
-                jugadores. Eliminación directa.
-              </p>
-              <span class="registration-status status-open"
-                >Inscripciones Abiertas</span
-              >
-
-              <div class="countdown-timer" id="countdown1">
-                <!-- Se llenará con JavaScript -->
-              </div>
-
-              <a
-                href="https://chat.whatsapp.com/GRUPO_DE_TORNEOS"
-                class="btn btn-small btn-whatsapp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="fab fa-whatsapp"></i> Inscribirse por WhatsApp
-              </a>
+          <div class="today-event-container">
+            <div class="today-event-card" id="today-event">
+              <!-- Se llenará dinámicamente con JavaScript -->
             </div>
 
-            <!-- Evento 2 -->
-            <div class="timeline-item">
-              <h3><i class="fas fa-gamepad"></i> Game Night: Adopt Me</h3>
-              <p>
-                <strong>Fecha:</strong>
-                <span class="event-date" data-date="2025-03-14"
-                  >Viernes, 14 de Marzo - 20:00 GMT-5</span
-                >
-              </p>
-              <p><strong>Tipo:</strong> Evento casual - Sin competencia</p>
-              <p>
-                <strong>Actividad:</strong> Crianza de mascotas y construcción
-                de casas en grupo.
-              </p>
-              <span class="registration-status status-upcoming"
-                >Próximamente</span
-              >
-
-              <a
-                href="https://chat.whatsapp.com/GRUPO_DE_EVENTOS"
-                class="btn btn-small"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="fab fa-whatsapp"></i> Grupo de Confirmación
-              </a>
-            </div>
-
-            <!-- Evento 3 -->
-            <div class="timeline-item">
-              <h3><i class="fas fa-trophy"></i> Campeonato de Brookhaven RP</h3>
-              <p>
-                <strong>Fecha:</strong>
-                <span class="event-date" data-date="2025-03-16"
-                  >Domingo, 16 de Marzo - 16:00 GMT-5</span
-                >
-              </p>
-              <p>
-                <strong>Premio:</strong>
-                <span class="prize-amount">30K Robux</span> + Rango especial
-              </p>
-              <p>
-                <strong>Temática:</strong> Mejor historia de rol en 30 minutos.
-              </p>
-              <span class="registration-status status-open"
-                >Inscripciones Abiertas</span
-              >
-
-              <a
-                href="https://chat.whatsapp.com/GRUPO_DE_INSCRIPCION"
-                class="btn btn-small btn-whatsapp"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="fab fa-whatsapp"></i> Inscribirse Ahora
-              </a>
+            <div class="today-countdown-container" id="today-countdown">
+              <!-- Contador regresivo para el evento de hoy -->
             </div>
           </div>
         </div>
 
-        <!-- Torneos Activos -->
+        <!-- Inscripción de Equipos -->
         <div class="card fade-in">
           <h2 class="card-title">
-            <i class="fas fa-trophy"></i> Torneos Activos
+            <i class="fas fa-users"></i> Inscripción de Equipos
           </h2>
 
-          <div class="tournament-card">
-            <h3>
-              <span class="game-icon-large">🎮</span> Liga Blox Fruits 2025
-            </h3>
-            <p><strong>Duración:</strong> Marzo 10 - Abril 10</p>
-            <p>
-              <strong>Premio Total:</strong>
-              <span class="prize-amount">200K Robux</span>
-            </p>
-            <p><strong>Equipos Inscritos:</strong> 12/16</p>
-            <p><strong>Formato:</strong> Liga + Playoffs</p>
+          <div class="team-registration">
+            <div class="registration-info">
+              <h3><i class="fas fa-clipboard-check"></i> ¿Cómo inscribirse?</h3>
+              <ol class="registration-steps">
+                <li>Únete al grupo de WhatsApp de inscripciones</li>
+                <li>Indica en qué equipo quieres participar</li>
+                <li>Espera confirmación del líder del equipo</li>
+                <li>¡Listo! Ya estás inscrito</li>
+              </ol>
 
-            <div class="participants-list">
-              <h4>Equipos participantes:</h4>
-              <ul>
-                <li>🟢 Pandas Supreme (5-0)</li>
-                <li>🟢 Fruit Masters (4-1)</li>
-                <li>🟡 Dragon Warriors (3-2)</li>
-                <li>🟡 Shadow Hunters (3-2)</li>
-                <li>🔵 Ocean Crew (2-3)</li>
-                <li>🔵 Thunder Squad (2-3)</li>
-                <li>⚪ New Challengers (1-4)</li>
-                <li>⚪ Rookies (0-5)</li>
-              </ul>
+              <div class="available-teams">
+                <h4>
+                  <i class="fas fa-flag"></i> Equipos Disponibles (16 equipos)
+                </h4>
+                <div class="teams-grid">
+                  <!-- Equipos existentes -->
+                  <div class="team-card">
+                    <div class="team-icon">🐼</div>
+                    <h5>Pandas Supreme</h5>
+                    <p>Equipo élite - Líder: @PandaMaster</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">⚔️</div>
+                    <h5>Dragon Warriors</h5>
+                    <p>Equipo agresivo - Líder: @DragonSlayer</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌙</div>
+                    <h5>Shadow Hunters</h5>
+                    <p>Equipo estratégico - Líder: @ShadowMaster</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🔥</div>
+                    <h5>Thunder Squad</h5>
+                    <p>Equipo rápido - Líder: @ThunderBolt</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌟</div>
+                    <h5>Star Champions</h5>
+                    <p>Equipo competitivo - Líder: @StarLeader</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌊</div>
+                    <h5>Ocean Raiders</h5>
+                    <p>Equipo acuático - Líder: @OceanKing</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">⚡</div>
+                    <h5>Lightning Force</h5>
+                    <p>Equipo veloz - Líder: @LightningSpeed</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🛡️</div>
+                    <h5>Guardian Knights</h5>
+                    <p>Equipo defensivo - Líder: @GuardianShield</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌋</div>
+                    <h5>Volcano Titans</h5>
+                    <p>Equipo de poder - Líder: @VolcanoFire</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">❄️</div>
+                    <h5>Ice Phantoms</h5>
+                    <p>Equipo sigiloso - Líder: @IceGhost</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌀</div>
+                    <h5>Storm Chasers</h5>
+                    <p>Equipo caótico - Líder: @StormRider</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌌</div>
+                    <h5>Galaxy Warriors</h5>
+                    <p>Equipo cósmico - Líder: @GalaxyLord</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌿</div>
+                    <h5>Forest Rangers</h5>
+                    <p>Equipo natural - Líder: @ForestGuardian</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌅</div>
+                    <h5>Sunset Legends</h5>
+                    <p>Equipo legendario - Líder: @SunsetHero</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">🌃</div>
+                    <h5>Night Wolves</h5>
+                    <p>Equipo nocturno - Líder: @NightHunter</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 5/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+
+                  <div class="team-card">
+                    <div class="team-icon">☀️</div>
+                    <h5>Solar Flames</h5>
+                    <p>Equipo ardiente - Líder: @SolarBlaze</p>
+                    <div class="team-stats">
+                      <span><i class="fas fa-users"></i> 0/5</span>
+                      <span class="team-status open">Abierto</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <a href="#tabla-posiciones" class="btn btn-small tournament-btn">
-              <i class="fas fa-table"></i> Ver Tabla de Posiciones
-            </a>
+            <div class="registration-action">
+              <div class="whatsapp-invite">
+                <i class="fab fa-whatsapp whatsapp-icon"></i>
+                <h4>¡Únete al Grupo de Inscripciones!</h4>
+                <p>En este grupo podrás:</p>
+                <ul>
+                  <li>Inscribirte en un equipo</li>
+                  <li>Consultar disponibilidad</li>
+                  <li>Hablar con los líderes</li>
+                  <li>Coordinarte con tu equipo</li>
+                </ul>
+
+                <a
+                  href="https://chat.whatsapp.com/JuAiTl1OInpAvqtAK5PyqJ"
+                  class="btn btn-large btn-whatsapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-whatsapp"></i> Grupo de Inscripciones
+                </a>
+
+                <div class="registration-note">
+                  <i class="fas fa-info-circle"></i>
+                  <strong>Importante:</strong> Indica claramente en qué equipo
+                  quieres participar y tu nombre de usuario de Roblox.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -254,7 +346,8 @@
           </h2>
 
           <div class="event-calendar" id="event-calendar">
-            <div class="calendar-header">
+            <!-- CORREGIDO: Contenedor con clase calendar-navigation -->
+            <div class="calendar-header calendar-navigation">
               <button
                 id="prev-month"
                 class="calendar-nav-btn"
@@ -262,7 +355,15 @@
               >
                 <i class="fas fa-chevron-left"></i>
               </button>
-              <h3 id="current-month-year">Marzo 2025</h3>
+              <h3 id="current-month-year">Diciembre 2026</h3>
+              <!-- AGREGADO: Botón "Hoy" que el JavaScript necesita -->
+              <button
+                id="today-btn"
+                class="today-button"
+                aria-label="Ir al mes actual"
+              >
+                <i class="fas fa-calendar-day"></i> Hoy
+              </button>
               <button
                 id="next-month"
                 class="calendar-nav-btn"
@@ -306,30 +407,32 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- EDITA ESTAS FILAS MANUALMENTE EN GITHUB -->
                 <tr>
-                  <td>Torneo Blox Fruits Feb 2025</td>
-                  <td>🟢 Team DragonFruit</td>
-                  <td>75K Robux</td>
-                  <td>28 Feb 2025</td>
+                  <td>Torneo Navideño Blox Fruits</td>
+                  <td><!--🏆 @PandaMaster--></td>
+                  <td><!--500 Robux + Insignia Especial--></td>
+                  <td>22 Dic 2024</td>
                 </tr>
                 <tr>
-                  <td>Campeonato Arsenal</td>
-                  <td>🔵 Sharpshooters</td>
-                  <td>50K Robux</td>
-                  <td>21 Feb 2025</td>
+                  <td>Torneo de Fin de Año</td>
+                  <td><!--🏆 @DragonSlayer--></td>
+                  <td><!--1000 Robux--></td>
+                  <td>28 Dic 2024</td>
                 </tr>
                 <tr>
-                  <td>Competencia Adopt Me</td>
-                  <td>🟡 Pet Masters</td>
-                  <td>40K Robux</td>
-                  <td>14 Feb 2025</td>
+                  <td>Game Night Navideña</td>
+                  <td><!--🎮 @ShadowMaster (MVP)--></td>
+                  <td><!--Rango Élite por 1 mes--></td>
+                  <td>20 Dic 2024</td>
                 </tr>
                 <tr>
-                  <td>Torneo King Legacy</td>
-                  <td>🟣 Royal Warriors</td>
-                  <td>60K Robux</td>
-                  <td>7 Feb 2025</td>
+                  <td>Evento de Reencuentro</td>
+                  <td><!--🎪 Participación especial--></td>
+                  <td><!--Insignias de reconocimiento--></td>
+                  <td>8 Ene 2025</td>
                 </tr>
+                <!-- AGREGA MÁS FILAS SEGÚN NECESITES -->
               </tbody>
             </table>
           </div>
@@ -371,11 +474,11 @@
             <h3><i class="fas fa-gift"></i> Beneficios por Rango</h3>
             <ul>
               <li>
-                <strong>Élite:</strong> +30% premios, votación en decisiones,
+                <strong>Élite:</strong> +40% premios, votación en decisiones,
                 eventos exclusivos
               </li>
               <li>
-                <strong>Veterano:</strong> +15% premios, acceso a torneos
+                <strong>Veterano:</strong> +35% premios, acceso a torneos
                 especiales
               </li>
               <li>
@@ -386,157 +489,6 @@
                 <strong>Novato:</strong> Acceso limitado, sistema de mentoría
               </li>
             </ul>
-          </div>
-        </div>
-
-        <!-- Juegos Populares -->
-        <div class="card fade-in">
-          <h2 class="card-title">
-            <i class="fas fa-gamepad"></i> Juegos Populares
-          </h2>
-
-          <div class="games-container">
-            <div class="game-card">
-              <div class="game-header">
-                <span class="game-icon">⚔️</span>
-                <h3>Blox Fruits</h3>
-              </div>
-              <p>El juego más popular en el clan</p>
-              <div class="game-stats">
-                <p>
-                  <i class="fas fa-users"></i>
-                  <span class="game-percentage" data-percentage="85">85%</span>
-                  del clan juega
-                </p>
-                <p><i class="fas fa-trophy"></i> Torneos semanales</p>
-              </div>
-            </div>
-
-            <div class="game-card">
-              <div class="game-header">
-                <span class="game-icon">🏠</span>
-                <h3>Adopt Me</h3>
-              </div>
-              <p>Para eventos casuales y familiares</p>
-              <div class="game-stats">
-                <p>
-                  <i class="fas fa-users"></i>
-                  <span class="game-percentage" data-percentage="65">65%</span>
-                  del clan juega
-                </p>
-                <p><i class="fas fa-calendar"></i> Eventos mensuales</p>
-              </div>
-            </div>
-
-            <div class="game-card">
-              <div class="game-header">
-                <span class="game-icon">🔫</span>
-                <h3>Arsenal</h3>
-              </div>
-              <p>Competencias de disparos rápidas</p>
-              <div class="game-stats">
-                <p>
-                  <i class="fas fa-users"></i>
-                  <span class="game-percentage" data-percentage="45">45%</span>
-                  del clan juega
-                </p>
-                <p><i class="fas fa-bolt"></i> Torneos express</p>
-              </div>
-            </div>
-
-            <div class="game-card">
-              <div class="game-header">
-                <span class="game-icon">👑</span>
-                <h3>King Legacy</h3>
-              </div>
-              <p>Para los amantes de la aventura</p>
-              <div class="game-stats">
-                <p>
-                  <i class="fas fa-users"></i>
-                  <span class="game-percentage" data-percentage="35">35%</span>
-                  del clan juega
-                </p>
-                <p><i class="fas fa-crown"></i> Eventos especiales</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Estadísticas del Clan -->
-        <div class="card fade-in">
-          <h2 class="card-title">
-            <i class="fas fa-chart-line"></i> Estadísticas del Clan
-          </h2>
-
-          <div class="stats-grid">
-            <div class="stat-item">
-              <div class="stat-value" id="total-wins">247</div>
-              <div class="stat-label">Victorias Totales</div>
-              <div class="stat-trend positive">
-                <i class="fas fa-arrow-up"></i> 75% tasa de victorias
-              </div>
-            </div>
-
-            <div class="stat-item">
-              <div class="stat-value" id="events-done">52</div>
-              <div class="stat-label">Eventos Realizados</div>
-              <div class="stat-trend positive">
-                <i class="fas fa-calendar-plus"></i> 4 este mes
-              </div>
-            </div>
-
-            <div class="stat-item">
-              <div class="stat-value" id="total-prizes">1250K</div>
-              <div class="stat-label">Robux Repartidos</div>
-              <div class="stat-trend positive">
-                <i class="fas fa-money-bill-wave"></i> En 2025
-              </div>
-            </div>
-
-            <div class="stat-item">
-              <div class="stat-value" id="avg-participants">28</div>
-              <div class="stat-label">Participantes Promedio</div>
-              <div class="stat-trend stable">
-                <i class="fas fa-chart-line"></i> Por evento
-              </div>
-            </div>
-          </div>
-
-          <div class="stats-chart">
-            <h3><i class="fas fa-chart-bar"></i> Participación por Juego</h3>
-            <div class="chart-bars">
-              <div class="chart-bar">
-                <div class="bar-label">Blox Fruits</div>
-                <div class="bar-container">
-                  <div class="bar-fill" data-width="85"></div>
-                </div>
-                <div class="bar-value">85%</div>
-              </div>
-
-              <div class="chart-bar">
-                <div class="bar-label">Adopt Me</div>
-                <div class="bar-container">
-                  <div class="bar-fill" data-width="65"></div>
-                </div>
-                <div class="bar-value">65%</div>
-              </div>
-
-              <div class="chart-bar">
-                <div class="bar-label">Arsenal</div>
-                <div class="bar-container">
-                  <div class="bar-fill" data-width="45"></div>
-                </div>
-                <div class="bar-value">45%</div>
-              </div>
-
-              <div class="chart-bar">
-                <div class="bar-label">King Legacy</div>
-                <div class="bar-container">
-                  <div class="bar-fill" data-width="35"></div>
-                </div>
-                <div class="bar-value">35%</div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -728,7 +680,7 @@
 
         <div class="copyright">
           <p>
-            © <span id="current-year">2025</span> Serakdep MS - Clan de Roblox.
+            © <span id="current-year">2026</span> Serakdep MS - Clan de Roblox.
             Todos los derechos reservados.
           </p>
           <p>Esta página no está afiliada a Roblox Corporation.</p>
@@ -740,4 +692,5 @@
     <script src="js/eventos.js"></script>
   </body>
 </html>
+
 
