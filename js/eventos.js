@@ -6,48 +6,341 @@ document.addEventListener("DOMContentLoaded", function () {
     new Date().getFullYear();
 
   // Inicializar todas las funcionalidades
-  initCountdownTimers();
+  initCalendarData();
+  initTodayEvent();
   initCalendar();
   initEventListeners();
   initStatistics();
+  initReminderSystem(); // Inicializar sistema de recordatorios
+
+  // Actualizar contador de eventos realizados (pero NO la tabla de resultados)
+  updateEventsDoneCounter();
+
+  // Configurar actualización automática
+  setInterval(checkDateUpdate, 60000); // Verificar cada minuto
 
   console.log("Eventos.js cargado correctamente 🐼");
 });
 
-// ===== FUNCIONES DEL CALENDARIO =====
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
+// ===== VARIABLES GLOBALES =====
+let currentMonth = new Date().getMonth(); // Mes actual (0-11)
+let currentYear = new Date().getFullYear(); // Año actual
+let lastKnownDate = new Date(); // Para verificar cambios de fecha
 
-function initCalendar() {
-  // Datos de eventos
-  window.calendarEvents = {
-    "2025-03-08": { type: "game", icon: "🎮", title: "Game Night" },
-    "2025-03-13": { type: "special", icon: "🎪", title: "Evento Especial" },
-    "2025-03-14": { type: "game", icon: "🌙", title: "Game Night: Adopt Me" },
-    "2025-03-15": {
-      type: "tournament",
-      icon: "🏆",
-      title: "Torneo Blox Fruits",
+// ===== FUNCIÓN PARA OBTENER FECHA LOCAL CORRECTA =====
+function getLocalDate(dateString = null) {
+  if (!dateString) {
+    const now = new Date();
+    // Crear fecha local sin problemas de UTC
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  }
+
+  // Parsear fecha YYYY-MM-DD correctamente
+  const parts = dateString.split("-");
+  if (parts.length !== 3) return new Date(dateString);
+
+  // Usar new Date(año, mes-1, día) para evitar problemas de UTC
+  return new Date(
+    parseInt(parts[0]),
+    parseInt(parts[1]) - 1,
+    parseInt(parts[2])
+  );
+}
+
+function formatDateForKey(date) {
+  // Formato: YYYY-MM-DD (mes 1-12, no 0-11)
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+// ===== DATOS DE EVENTOS CONFIGURABLES =====
+function initCalendarData() {
+  const today = getLocalDate();
+  const currentYear = today.getFullYear();
+  const currentMonthNum = today.getMonth();
+
+  // Inicializar eventos si no existe
+  if (!window.calendarEvents) {
+    window.calendarEvents = {};
+  }
+
+  // Limpiar eventos pasados (más de 30 días)
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  Object.keys(window.calendarEvents).forEach((dateKey) => {
+    const eventDate = getLocalDate(dateKey);
+    if (eventDate < thirtyDaysAgo) {
+      delete window.calendarEvents[dateKey];
+    }
+  });
+
+  // Definir eventos fijos por mes (día del mes: detalles del evento)
+  const fixedEventsByMonth = {
+    // Diciembre (11) - Navidad
+    11: {
+      20: {
+        type: "game",
+        icon: "🎮",
+        title: "Game Night Navideña",
+        description: "Una noche especial de juegos con temática navideña",
+        time: "18:00 GMT-5",
+      },
+      22: {
+        type: "tournament",
+        icon: "🏆",
+        title: "Torneo Navideño Blox Fruits",
+        description: "Competencia especial de Navidad con premios especiales",
+        time: "19:00 GMT-5",
+      },
+      24: {
+        type: "special",
+        icon: "🎅",
+        title: "Nochebuena del Clan",
+        description:
+          "Celebración especial de Nochebuena con todos los miembros",
+        time: "20:00 GMT-5",
+      },
+      28: {
+        type: "tournament",
+        icon: "🎯",
+        title: "Torneo de Fin de Año",
+        description: "Último torneo del año con grandes premios",
+        time: "18:30 GMT-5",
+      },
+      31: {
+        type: "special",
+        icon: "🎊",
+        title: "Fiesta de Año Nuevo",
+        description: "Celebra el fin de año con el clan",
+        time: "22:00 GMT-5",
+      },
     },
-    "2025-03-16": {
-      type: "tournament",
-      icon: "🎭",
-      title: "Campeonato Brookhaven",
+    // Enero (0) - Año Nuevo
+    0: {
+      5: {
+        type: "game",
+        icon: "🎮",
+        title: "Game Night",
+        description: "Primera game night del año",
+        time: "18:00 GMT-5",
+      },
+      8: {
+        type: "special",
+        icon: "🎪",
+        title: "Evento de Reencuentro",
+        description: "Reencuentro después de las vacaciones",
+        time: "19:00 GMT-5",
+      },
+      12: {
+        type: "tournament",
+        icon: "🏆",
+        title: "Torneo Blox Fruits",
+        description: "Primer torneo oficial del año",
+        time: "18:00 GMT-5",
+      },
+      15: {
+        type: "tournament",
+        icon: "🎭",
+        title: "Campeonato Brookhaven",
+        description: "Competición en Brookhaven RP",
+        time: "19:30 GMT-5",
+      },
+      19: {
+        type: "game",
+        icon: "🌙",
+        title: "Game Night: Adopt Me",
+        description: "Noche temática de Adopt Me",
+        time: "18:00 GMT-5",
+      },
+      22: {
+        type: "tournament",
+        icon: "🎯",
+        title: "Torneo Arsenal",
+        description: "Competencia de disparos en Arsenal",
+        time: "19:00 GMT-5",
+      },
+      25: {
+        type: "special",
+        icon: "🎁",
+        title: "Evento Especial",
+        description: "Evento sorpresa del mes",
+        time: "20:00 GMT-5",
+      },
+      28: {
+        type: "tournament",
+        icon: "🏅",
+        title: "Competencia King Legacy",
+        description: "Torneo de King Legacy",
+        time: "18:30 GMT-5",
+      },
     },
-    "2025-03-19": { type: "tournament", icon: "🎯", title: "Torneo Arsenal" },
-    "2025-03-22": {
-      type: "tournament",
-      icon: "🏅",
-      title: "Competencia King Legacy",
-    },
-    "2025-03-25": { type: "special", icon: "🎁", title: "Evento Aniversario" },
-    "2025-03-28": { type: "special", icon: "🎊", title: "Fiesta del Clan" },
   };
 
+  // Generar eventos para los próximos 3 meses
+  for (let monthOffset = 0; monthOffset < 3; monthOffset++) {
+    const targetMonthNum = (currentMonthNum + monthOffset) % 12;
+    const targetYear =
+      currentYear + Math.floor((currentMonthNum + monthOffset) / 12);
+
+    // Agregar eventos fijos si existen para este mes
+    if (fixedEventsByMonth[targetMonthNum]) {
+      Object.keys(fixedEventsByMonth[targetMonthNum]).forEach((day) => {
+        const dateKey = `${targetYear}-${String(targetMonthNum + 1).padStart(
+          2,
+          "0"
+        )}-${String(day).padStart(2, "0")}`;
+
+        // Solo agregar si no existe ya
+        if (!window.calendarEvents[dateKey]) {
+          window.calendarEvents[dateKey] =
+            fixedEventsByMonth[targetMonthNum][day];
+        }
+      });
+    }
+
+    // Generar eventos recurrentes
+    generateRecurrentEvents(targetYear, targetMonthNum);
+  }
+
+  console.log(
+    `Calendario cargado con ${
+      Object.keys(window.calendarEvents).length
+    } eventos`
+  );
+}
+
+// Generar eventos recurrentes
+function generateRecurrentEvents(year, month) {
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Game Nights cada jueves
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = getLocalDate(
+      `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(
+        2,
+        "0"
+      )}`
+    );
+
+    // Jueves (4)
+    if (date.getDay() === 4) {
+      const dateKey = formatDateForKey(date);
+
+      if (!window.calendarEvents[dateKey]) {
+        window.calendarEvents[dateKey] = {
+          type: "game",
+          icon: "🎮",
+          title: "Game Night Semanal",
+          description:
+            "Noche de juegos semanal del clan. ¡Trae tu mejor energía!",
+          time: "18:00 GMT-5",
+        };
+      }
+    }
+  }
+}
+
+// ===== NUEVA FUNCIÓN: ACTUALIZAR CONTADOR DE EVENTOS REALIZADOS =====
+function updateEventsDoneCounter() {
+  const today = getLocalDate();
+
+  // Contar eventos pasados
+  const pastEvents = Object.entries(window.calendarEvents || {}).filter(
+    ([dateKey, event]) => {
+      const eventDate = getLocalDate(dateKey);
+      return eventDate < today;
+    }
+  ).length;
+
+  // Actualizar el contador en las estadísticas
+  const eventsDoneElement = document.getElementById("events-done");
+  if (eventsDoneElement) {
+    eventsDoneElement.textContent = pastEvents;
+  }
+
+  // También podemos actualizar las victorias totales si hay torneos pasados
+  const pastTournaments = Object.entries(window.calendarEvents || {}).filter(
+    ([dateKey, event]) => {
+      const eventDate = getLocalDate(dateKey);
+      return eventDate < today && event.type === "tournament";
+    }
+  ).length;
+
+  const totalWinsElement = document.getElementById("total-wins");
+  if (totalWinsElement) {
+    totalWinsElement.textContent = pastTournaments * 5; // Ejemplo: 5 victorias por torneo
+  }
+}
+
+// ===== FUNCIONES DEL CALENDARIO =====
+function initCalendar() {
+  updateCurrentDate();
   renderCalendar(currentMonth, currentYear);
   renderEventList(currentMonth, currentYear);
 }
 
+// Actualizar la fecha actual
+function updateCurrentDate() {
+  const now = getLocalDate();
+  currentMonth = now.getMonth();
+  currentYear = now.getFullYear();
+  lastKnownDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+}
+
+// Verificar si ha cambiado el día o año
+function checkDateUpdate() {
+  const now = getLocalDate();
+  const currentDate = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+
+  // Verificar si ha cambiado el día
+  if (currentDate.getTime() !== lastKnownDate.getTime()) {
+    console.log("¡Nuevo día detectado! Actualizando calendario...");
+
+    // Actualizar año en el copyright si cambió
+    const currentYearElement = document.getElementById("current-year");
+    if (currentYearElement) {
+      currentYearElement.textContent = now.getFullYear();
+    }
+
+    // Recargar datos y calendario
+    initCalendarData();
+    updateCurrentDate();
+
+    // Verificar recordatorios para hoy
+    checkTodayReminders();
+
+    // Actualizar visualización
+    if (currentMonth === now.getMonth() && currentYear === now.getFullYear()) {
+      renderCalendar(currentMonth, currentYear);
+      renderEventList(currentMonth, currentYear);
+    }
+
+    initTodayEvent();
+
+    // Actualizar contadores de estadísticas
+    updateEventsDoneCounter();
+  }
+}
+
+// Navegar al mes actual
+function navigateToCurrentMonth() {
+  const now = getLocalDate();
+  currentMonth = now.getMonth();
+  currentYear = now.getFullYear();
+  renderCalendar(currentMonth, currentYear);
+  renderEventList(currentMonth, currentYear);
+
+  showNotification("Calendario actualizado al mes actual", "info");
+}
+
+// Renderizar calendario
 function renderCalendar(month, year) {
   const calendarGrid = document.getElementById("calendar-grid");
   const monthYearElement = document.getElementById("current-month-year");
@@ -58,9 +351,10 @@ function renderCalendar(month, year) {
   calendarGrid.innerHTML = "";
 
   // Configurar fecha actual
-  const today = new Date();
-  const isCurrentMonth =
-    month === today.getMonth() && year === today.getFullYear();
+  const today = getLocalDate();
+  const todayDate = today.getDate();
+  const todayMonth = today.getMonth();
+  const todayYear = today.getFullYear();
 
   // Actualizar título del mes
   const monthNames = [
@@ -112,20 +406,32 @@ function renderCalendar(month, year) {
     dayElement.dataset.year = year;
 
     // Verificar si es hoy
-    if (isCurrentMonth && day === today.getDate()) {
+    const isToday =
+      year === todayYear && month === todayMonth && day === todayDate;
+    if (isToday) {
       dayElement.classList.add("today");
+      dayElement.title = "Hoy";
+    }
+
+    // Verificar si es fin de semana
+    const dayOfWeek = new Date(year, month, day).getDay();
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      dayElement.classList.add("weekend");
     }
 
     // Verificar si hay evento
     const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`;
-    const event = window.calendarEvents[dateKey];
+    const event = window.calendarEvents ? window.calendarEvents[dateKey] : null;
 
     if (event) {
       dayElement.classList.add("event-day");
-      dayElement.dataset.eventType = event.icon;
-      dayElement.title = event.title;
+      dayElement.dataset.eventType = event.type;
+      dayElement.title = `${event.title}\n${event.description || ""}`;
+
+      // Agregar clase específica por tipo de evento
+      dayElement.classList.add(`event-${event.type}`);
     }
 
     // Agregar número del día
@@ -134,18 +440,28 @@ function renderCalendar(month, year) {
     dayNumber.textContent = day;
     dayElement.appendChild(dayNumber);
 
-    // Agregar iconos de eventos si hay más de uno
+    // Agregar iconos de eventos si hay
     if (event) {
       const eventIcons = document.createElement("div");
       eventIcons.className = "event-icons";
       eventIcons.textContent = event.icon;
+      eventIcons.title = event.title;
       dayElement.appendChild(eventIcons);
+    }
+
+    // Agregar indicador de "hoy" si es el día actual
+    if (isToday) {
+      const todayIndicator = document.createElement("div");
+      todayIndicator.className = "today-indicator";
+      todayIndicator.textContent = "HOY";
+      dayElement.appendChild(todayIndicator);
     }
 
     calendarGrid.appendChild(dayElement);
   }
 }
 
+// Renderizar lista de eventos
 function renderEventList(month, year) {
   const eventsList = document.getElementById("calendar-events-list");
   if (!eventsList) return;
@@ -167,28 +483,41 @@ function renderEventList(month, year) {
 
   // Filtrar eventos del mes actual
   const currentMonthEvents = Object.entries(window.calendarEvents || {})
-    .filter(([date]) => {
-      const eventDate = new Date(date);
+    .filter(([dateKey]) => {
+      const eventDate = getLocalDate(dateKey);
       return eventDate.getMonth() === month && eventDate.getFullYear() === year;
     })
-    .sort(([dateA], [dateB]) => new Date(dateA) - new Date(dateB));
+    .sort(([dateA], [dateB]) => getLocalDate(dateA) - getLocalDate(dateB));
 
   if (currentMonthEvents.length === 0) {
     eventsList.innerHTML = `
-            <h4>Eventos de ${monthNames[month]} ${year}</h4>
-            <p style="text-align: center; color: #666; padding: 20px;">
-                No hay eventos programados para este mes.
-            </p>
-        `;
+      <div class="events-list-header">
+        <h4>Eventos de ${monthNames[month]} ${year}</h4>
+      </div>
+      <div class="no-events-message">
+        <i class="fas fa-calendar-times"></i>
+        <p>No hay eventos programados para este mes.</p>
+        <small>Los eventos se actualizan automáticamente cada mes</small>
+      </div>
+    `;
     return;
   }
 
-  let html = `<h4>Eventos de ${monthNames[month]} ${year}</h4>`;
+  let html = `
+    <div class="events-list-header">
+      <h4>Eventos de ${monthNames[month]} ${year}</h4>
+      <span class="events-count">${currentMonthEvents.length} eventos</span>
+    </div>
+    <div class="events-list-container">
+  `;
 
-  currentMonthEvents.forEach(([date, event]) => {
-    const eventDate = new Date(date);
+  const today = getLocalDate();
+
+  currentMonthEvents.forEach(([dateKey, event], index) => {
+    const eventDate = getLocalDate(dateKey);
     const day = eventDate.getDate();
-    const dayNames = [
+    const dayNames = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    const fullDayNames = [
       "Domingo",
       "Lunes",
       "Martes",
@@ -197,36 +526,97 @@ function renderEventList(month, year) {
       "Viernes",
       "Sábado",
     ];
-    const dayName = dayNames[eventDate.getDay()];
+    const dayName = fullDayNames[eventDate.getDay()];
+    const shortDayName = dayNames[eventDate.getDay()];
 
+    // Determinar tipo de evento
     let typeClass = "";
+    let typeColor = "";
     switch (event.type) {
       case "tournament":
         typeClass = "Torneo";
+        typeColor = "#FF9800";
         break;
       case "game":
         typeClass = "Game Night";
+        typeColor = "#2196F3";
         break;
       case "special":
         typeClass = "Especial";
+        typeColor = "#9C27B0";
         break;
+      default:
+        typeClass = "Evento";
+        typeColor = "#4CAF50";
     }
 
+    // Verificar si es hoy
+    const isToday =
+      eventDate.getDate() === today.getDate() &&
+      eventDate.getMonth() === today.getMonth() &&
+      eventDate.getFullYear() === today.getFullYear();
+
+    // Verificar si es pasado
+    const isPast =
+      eventDate <
+      new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+    // Verificar si es pronto (próximos 3 días)
+    const daysUntil = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+    const isSoon = daysUntil >= 0 && daysUntil <= 3;
+
+    const eventClass = isToday
+      ? "today-event-list"
+      : isPast
+      ? "past-event-list"
+      : isSoon
+      ? "soon-event-list"
+      : "";
+
+    // Verificar si tiene recordatorio
+    const hasReminder = checkIfHasReminder(dateKey);
+
     html += `
-            <div class="event-list-item">
-                <div class="event-list-date">
-                    ${dayName} ${day}
-                </div>
-                <div class="event-list-title">
-                    <strong>${event.icon} ${event.title}</strong>
-                </div>
-                <div class="event-list-type">
-                    ${typeClass}
-                </div>
-            </div>
-        `;
+      <div class="event-list-item ${eventClass}" data-event-date="${dateKey}">
+        <div class="event-list-date">
+          <div class="event-day-number">${day}</div>
+          <div class="event-day-name">${shortDayName}</div>
+        </div>
+        <div class="event-list-content">
+          <div class="event-list-title">
+            <span class="event-icon">${event.icon}</span>
+            <strong>${event.title}</strong>
+            ${isToday ? '<span class="today-badge">HOY</span>' : ""}
+            ${
+              isSoon && !isToday
+                ? `<span class="soon-badge">En ${daysUntil} día${
+                    daysUntil !== 1 ? "s" : ""
+                  }</span>`
+                : ""
+            }
+            ${
+              hasReminder
+                ? '<span class="reminder-badge" title="Tienes recordatorio para este evento"><i class="fas fa-bell"></i></span>'
+                : ""
+            }
+          </div>
+          <div class="event-list-description">
+            ${event.description || "¡No te pierdas este evento increíble!"}
+          </div>
+          <div class="event-list-footer">
+            <span class="event-list-type" style="color: ${typeColor}">
+              <i class="fas fa-tag"></i> ${typeClass}
+            </span>
+            <span class="event-list-time">
+              <i class="fas fa-clock"></i> ${event.time || "18:00 GMT-5"}
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
   });
 
+  html += `</div>`;
   eventsList.innerHTML = html;
 }
 
@@ -249,59 +639,218 @@ function changeMonth(direction) {
   renderEventList(currentMonth, currentYear);
 }
 
-// ===== CONTADORES REGRESIVOS =====
-function initCountdownTimers() {
-  // Configurar múltiples contadores
-  setupCountdown("countdown1", "2025-03-15T18:00:00-05:00");
-  // Puedes agregar más contadores aquí
+// ===== EVENTO DE HOY =====
+function initTodayEvent() {
+  const today = getLocalDate();
+  const todayKey = formatDateForKey(today);
+  const event = window.calendarEvents ? window.calendarEvents[todayKey] : null;
+
+  const todayEventElement = document.getElementById("today-event");
+  const todayCountdownElement = document.getElementById("today-countdown");
+
+  if (!todayEventElement || !todayCountdownElement) return;
+
+  if (event) {
+    // Mostrar información del evento de hoy
+    let typeText = "";
+    let typeColor = "";
+    switch (event.type) {
+      case "tournament":
+        typeText = "🏆 Torneo";
+        typeColor = "#FF9800";
+        break;
+      case "game":
+        typeText = "🎮 Game Night";
+        typeColor = "#2196F3";
+        break;
+      case "special":
+        typeText = "🎁 Evento Especial";
+        typeColor = "#9C27B0";
+        break;
+    }
+
+    todayEventElement.innerHTML = `
+      <div class="today-event-content">
+        <div class="today-event-icon" style="background-color: ${typeColor}20">${
+      event.icon
+    }</div>
+        <div class="today-event-details">
+          <div class="today-event-header">
+            <h3>${event.title}</h3>
+            <span class="today-event-badge">HOY</span>
+          </div>
+          <p class="today-event-type" style="color: ${typeColor}">${typeText}</p>
+          <p class="today-event-description">${
+            event.description || "¡No te pierdas este evento especial!"
+          }</p>
+          <div class="today-event-meta">
+            <span class="today-event-time"><i class="fas fa-clock"></i> ${
+              event.time || "18:00 GMT-5"
+            }</span>
+            <span class="today-event-location"><i class="fas fa-map-marker-alt"></i> Discord del Clan</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Configurar contador regresivo
+    setupTodayCountdown("today-countdown", event.time || "18:00");
+  } else {
+    // Buscar próximo evento
+    const nextEvent = findNextEvent();
+
+    if (nextEvent) {
+      const nextDate = getLocalDate(nextEvent.date);
+      const daysUntil = Math.ceil((nextDate - today) / (1000 * 60 * 60 * 24));
+      const formattedDate = formatDate(nextDate);
+
+      todayEventElement.innerHTML = `
+        <div class="today-event-content no-event">
+          <div class="today-event-icon">📅</div>
+          <div class="today-event-details">
+            <h3>Próximo evento en ${daysUntil} día${
+        daysUntil !== 1 ? "s" : ""
+      }</h3>
+            <p class="today-event-type">${nextEvent.icon} ${nextEvent.title}</p>
+            <p class="today-event-description">${formattedDate} - ${
+        nextEvent.time || "18:00 GMT-5"
+      }</p>
+            <div class="today-event-meta">
+              <span class="today-event-time"><i class="fas fa-calendar-day"></i> ${formattedDate}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      todayEventElement.innerHTML = `
+        <div class="today-event-content no-event">
+          <div class="today-event-icon">📅</div>
+          <div class="today-event-details">
+            <h3>No hay eventos hoy</h3>
+            <p class="today-event-description">Revisa el calendario para ver los próximos eventos programados.</p>
+            <div class="today-event-meta">
+              <span class="today-event-time"><i class="fas fa-sync-alt"></i> Los eventos se actualizan automáticamente</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    todayCountdownElement.innerHTML = `
+      <div class="next-event-info">
+        <i class="fas fa-calendar-alt"></i>
+        <p>Próximo evento: ${
+          nextEvent ? formatDate(getLocalDate(nextEvent.date)) : "Próximamente"
+        }</p>
+        ${nextEvent ? `<small>${nextEvent.title}</small>` : ""}
+      </div>
+    `;
+  }
 }
 
-function setupCountdown(elementId, targetDateString) {
+// Encontrar el próximo evento
+function findNextEvent() {
+  if (!window.calendarEvents) return null;
+
+  const today = getLocalDate();
+
+  const upcomingEvents = Object.entries(window.calendarEvents)
+    .filter(([dateKey]) => {
+      const eventDate = getLocalDate(dateKey);
+      return eventDate >= today;
+    })
+    .sort(([dateA], [dateB]) => getLocalDate(dateA) - getLocalDate(dateB));
+
+  if (upcomingEvents.length > 0) {
+    const [nextDate, nextEvent] = upcomingEvents[0];
+    return {
+      date: nextDate,
+      title: nextEvent.title,
+      icon: nextEvent.icon,
+      type: nextEvent.type,
+      time: nextEvent.time || "18:00 GMT-5",
+    };
+  }
+
+  return null;
+}
+
+function setupTodayCountdown(elementId, eventTime) {
   const countdownElement = document.getElementById(elementId);
   if (!countdownElement) return;
 
   function updateCountdown() {
-    const targetDate = new Date(targetDateString).getTime();
-    const now = new Date().getTime();
-    const timeLeft = targetDate - now;
+    const now = new Date();
+    const targetTime = new Date();
+
+    // Parsear hora del evento (ej: "18:00 GMT-5")
+    const timeMatch = eventTime.match(/(\d{1,2}):(\d{2})/);
+    if (timeMatch) {
+      targetTime.setHours(parseInt(timeMatch[1]), parseInt(timeMatch[2]), 0, 0);
+    } else {
+      targetTime.setHours(18, 0, 0, 0); // Hora por defecto
+    }
+
+    // Si ya pasó la hora de hoy, configurar para mañana
+    if (now > targetTime) {
+      targetTime.setDate(targetTime.getDate() + 1);
+    }
+
+    const timeLeft = targetTime - now;
 
     if (timeLeft > 0) {
-      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
       const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
       countdownElement.innerHTML = `
-                <div class="timer-unit">
-                    <span class="timer-number">${days}</span>
-                    <span class="timer-label">Días</span>
-                </div>
-                <div class="timer-unit">
-                    <span class="timer-number">${hours}</span>
-                    <span class="timer-label">Horas</span>
-                </div>
-                <div class="timer-unit">
-                    <span class="timer-number">${minutes}</span>
-                    <span class="timer-label">Minutos</span>
-                </div>
-                <div class="timer-unit">
-                    <span class="timer-number">${seconds}</span>
-                    <span class="timer-label">Segundos</span>
-                </div>
-            `;
+        <div class="today-countdown-timer">
+          <div class="today-timer-unit">
+            <span class="today-timer-number">${hours
+              .toString()
+              .padStart(2, "0")}</span>
+            <span class="today-timer-label">Horas</span>
+          </div>
+          <div class="today-timer-separator">:</div>
+          <div class="today-timer-unit">
+            <span class="today-timer-number">${minutes
+              .toString()
+              .padStart(2, "0")}</span>
+            <span class="today-timer-label">Minutos</span>
+          </div>
+          <div class="today-timer-separator">:</div>
+          <div class="today-timer-unit">
+            <span class="today-timer-number">${seconds
+              .toString()
+              .padStart(2, "0")}</span>
+            <span class="today-timer-label">Segundos</span>
+          </div>
+        </div>
+        <p class="countdown-note">El evento comienza a las ${eventTime}</p>
+        <div class="countdown-action">
+          <button class="btn-reminder" onclick="setReminderForToday()">
+            <i class="fas fa-bell"></i> Recordarme
+          </button>
+        </div>
+      `;
     } else {
       countdownElement.innerHTML = `
-                <div style="text-align: center; width: 100%;">
-                    <p style="color: #4CAF50; font-weight: bold; font-size: 1.2em;">
-                        <i class="fas fa-play-circle"></i> ¡El evento ha comenzado!
-                    </p>
-                    <p style="color: #666; font-size: 0.9em;">
-                        Únete al grupo de WhatsApp para participar
-                    </p>
-                </div>
-            `;
+        <div class="event-started">
+          <div class="event-started-icon">
+            <i class="fas fa-play-circle"></i>
+          </div>
+          <p class="event-started-title">¡El evento ha comenzado!</p>
+          <p class="event-started-subtitle">Únete ahora para participar</p>
+          <div class="event-started-actions">
+            <button class="btn-join-discord" onclick="joinDiscord()">
+              <i class="fab fa-discord"></i> Unirse a Discord
+            </button>
+            <button class="btn-join-whatsapp" onclick="joinWhatsApp()">
+              <i class="fab fa-whatsapp"></i> Grupo de WhatsApp
+            </button>
+          </div>
+        </div>
+      `;
     }
   }
 
@@ -310,18 +859,173 @@ function setupCountdown(elementId, targetDateString) {
   setInterval(updateCountdown, 1000);
 }
 
+// ===== SISTEMA DE RECORDATORIOS =====
+function initReminderSystem() {
+  // Verificar recordatorios pendientes
+  checkTodayReminders();
+
+  // Configurar intervalo para verificar recordatorios cada minuto
+  setInterval(checkReminders, 60000);
+}
+
+function checkTodayReminders() {
+  const reminders = getReminders();
+  const today = formatDateForKey(getLocalDate());
+
+  reminders.forEach((reminder) => {
+    if (reminder.date === today) {
+      showNotification(
+        `Recordatorio: ${reminder.title} hoy a las ${reminder.time}`,
+        "info"
+      );
+    }
+  });
+}
+
+function checkReminders() {
+  const reminders = getReminders();
+  const now = new Date();
+
+  reminders.forEach((reminder, index) => {
+    const reminderDate = getLocalDate(reminder.date);
+    const reminderTime = reminder.time || "18:00";
+    const timeMatch = reminderTime.match(/(\d{1,2}):(\d{2})/);
+
+    if (timeMatch) {
+      const eventDateTime = new Date(reminderDate);
+      eventDateTime.setHours(
+        parseInt(timeMatch[1]),
+        parseInt(timeMatch[2]),
+        0,
+        0
+      );
+
+      // Notificar 15 minutos antes
+      const notificationTime = new Date(
+        eventDateTime.getTime() - 15 * 60 * 1000
+      );
+
+      if (
+        now >= notificationTime &&
+        now < eventDateTime &&
+        !reminder.notified
+      ) {
+        // Mostrar notificación del navegador si está permitido
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification(`Recordatorio: ${reminder.title}`, {
+            body: `Comienza en 15 minutos (${reminder.time})`,
+            icon: "/favicon.ico",
+          });
+        }
+
+        // Mostrar notificación en la página
+        showNotification(`¡En 15 minutos: ${reminder.title}!`, "warning");
+
+        // Marcar como notificado
+        reminders[index].notified = true;
+        saveReminders(reminders);
+      }
+    }
+  });
+}
+
+function setReminder(eventDate, eventTitle, eventTime = "18:00") {
+  const reminders = getReminders();
+  const reminderId = `${eventDate}-${eventTitle}`;
+
+  // Verificar si ya existe
+  const existingIndex = reminders.findIndex((r) => r.id === reminderId);
+
+  if (existingIndex >= 0) {
+    // Ya existe, preguntar si eliminar
+    if (
+      confirm(
+        "¿Ya tienes un recordatorio para este evento. ¿Quieres eliminarlo?"
+      )
+    ) {
+      reminders.splice(existingIndex, 1);
+      saveReminders(reminders);
+      showNotification("Recordatorio eliminado", "info");
+      return;
+    }
+  } else {
+    // Agregar nuevo recordatorio
+    reminders.push({
+      id: reminderId,
+      date: eventDate,
+      title: eventTitle,
+      time: eventTime,
+      notified: false,
+      created: new Date().toISOString(),
+    });
+
+    saveReminders(reminders);
+    showNotification(`Recordatorio establecido para ${eventTitle}`, "success");
+
+    // Solicitar permisos para notificaciones si no se han pedido
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+  }
+
+  // Actualizar lista de eventos si está visible
+  renderEventList(currentMonth, currentYear);
+}
+
+function setReminderForToday() {
+  const today = getLocalDate();
+  const todayKey = formatDateForKey(today);
+  const event = window.calendarEvents[todayKey];
+
+  if (event) {
+    setReminder(todayKey, event.title, event.time || "18:00");
+  }
+}
+
+function getReminders() {
+  try {
+    const reminders = localStorage.getItem("eventReminders");
+    return reminders ? JSON.parse(reminders) : [];
+  } catch (e) {
+    console.error("Error cargando recordatorios:", e);
+    return [];
+  }
+}
+
+function saveReminders(reminders) {
+  try {
+    localStorage.setItem("eventReminders", JSON.stringify(reminders));
+  } catch (e) {
+    console.error("Error guardando recordatorios:", e);
+  }
+}
+
+function checkIfHasReminder(dateKey) {
+  const reminders = getReminders();
+  return reminders.some((reminder) => reminder.date === dateKey);
+}
+
+function removeReminder(dateKey, eventTitle) {
+  const reminders = getReminders();
+  const reminderId = `${dateKey}-${eventTitle}`;
+  const newReminders = reminders.filter((r) => r.id !== reminderId);
+  saveReminders(newReminders);
+  return newReminders;
+}
+
 // ===== ESTADÍSTICAS =====
 function initStatistics() {
   animateStatCounters();
-  animateChartBars();
 }
 
 function animateStatCounters() {
   const stats = [
-    { element: "total-wins", target: 156, duration: 2000 },
-    { element: "events-done", target: 48, duration: 2000 },
-    { element: "total-prizes", target: 225, duration: 2000 },
-    { element: "avg-participants", target: 18, duration: 2000 },
+    { element: "total-prizes", target: getRandomInt(5, 20), duration: 2000 },
+    {
+      element: "avg-participants",
+      target: getRandomInt(15, 40),
+      duration: 2000,
+    },
   ];
 
   stats.forEach((stat) => {
@@ -329,7 +1033,7 @@ function animateStatCounters() {
     if (!element) return;
 
     let current = 0;
-    const increment = stat.target / (stat.duration / 16); // 60fps
+    const increment = stat.target / (stat.duration / 16);
     const timer = setInterval(() => {
       current += increment;
       if (current >= stat.target) {
@@ -337,7 +1041,6 @@ function animateStatCounters() {
         clearInterval(timer);
       }
 
-      // Formatear el valor
       let displayValue;
       if (stat.element === "total-prizes") {
         displayValue = `${Math.floor(current)}K`;
@@ -350,26 +1053,12 @@ function animateStatCounters() {
   });
 }
 
-function animateChartBars() {
-  const bars = document.querySelectorAll(".bar-fill");
-
-  bars.forEach((bar, index) => {
-    // Reiniciar ancho a 0 para animación
-    const originalWidth = bar.style.width;
-    bar.style.width = "0%";
-
-    // Animar después de un retraso
-    setTimeout(() => {
-      bar.style.width = originalWidth;
-    }, 300 * index);
-  });
-}
-
 // ===== EVENT LISTENERS =====
 function initEventListeners() {
   // Botones de navegación del calendario
   const prevBtn = document.getElementById("prev-month");
   const nextBtn = document.getElementById("next-month");
+  const todayBtn = document.getElementById("today-btn");
 
   if (prevBtn) {
     prevBtn.addEventListener("click", () => changeMonth("prev"));
@@ -379,12 +1068,30 @@ function initEventListeners() {
     nextBtn.addEventListener("click", () => changeMonth("next"));
   }
 
+  // Botón para ir al día de hoy
+  if (todayBtn) {
+    todayBtn.addEventListener("click", navigateToCurrentMonth);
+  } else {
+    // Crear botón si no existe
+    const navButtons = document.querySelector(".calendar-navigation");
+    if (navButtons) {
+      const btn = document.createElement("button");
+      btn.id = "today-btn";
+      btn.className = "today-button";
+      btn.innerHTML = '<i class="fas fa-calendar-day"></i> Hoy';
+      btn.addEventListener("click", navigateToCurrentMonth);
+      navButtons.appendChild(btn);
+    }
+  }
+
   // Navegación por teclado
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
       changeMonth("prev");
     } else if (e.key === "ArrowRight") {
       changeMonth("next");
+    } else if (e.key === "Home" || e.key === "h") {
+      navigateToCurrentMonth();
     }
   });
 
@@ -402,11 +1109,20 @@ function initEventListeners() {
       const event = window.calendarEvents[dateKey];
 
       if (event) {
-        alert(
-          `Evento: ${event.title}\nFecha: ${day}/${month}/${year}\n\n${
-            event.description || "¡No te lo pierdas!"
-          }`
-        );
+        showEventModal(event, dateKey);
+      }
+    }
+
+    // Click en items de lista de eventos
+    if (e.target.closest(".event-list-item")) {
+      const eventItem = e.target.closest(".event-list-item");
+      const date = eventItem.dataset.eventDate;
+      const event = window.calendarEvents[date];
+
+      if (event) {
+        const eventDate = getLocalDate(date);
+        const formattedDate = formatDate(eventDate);
+        showEventModal(event, date, formattedDate);
       }
     }
   });
@@ -429,6 +1145,162 @@ function initEventListeners() {
   });
 }
 
+// Mostrar modal de evento
+function showEventModal(event, dateKey, displayDate = null) {
+  // Crear modal si no existe
+  let modal = document.getElementById("event-modal");
+
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "event-modal";
+    modal.className = "event-modal";
+    modal.innerHTML = `
+      <div class="event-modal-content">
+        <div class="event-modal-header">
+          <h3 id="event-modal-title"></h3>
+          <button class="event-modal-close">&times;</button>
+        </div>
+        <div class="event-modal-body">
+          <div class="event-modal-icon" id="event-modal-icon"></div>
+          <div class="event-modal-info">
+            <p id="event-modal-date"></p>
+            <p id="event-modal-type"></p>
+          </div>
+          <p class="event-modal-description" id="event-modal-description"></p>
+          <div class="event-modal-actions">
+            <button class="btn-set-reminder" id="btn-set-reminder">
+              <i class="fas fa-bell"></i> Establecer recordatorio
+            </button>
+            <button class="btn-remove-reminder" id="btn-remove-reminder" style="display: none;">
+              <i class="fas fa-bell-slash"></i> Eliminar recordatorio
+            </button>
+            <button class="btn-share-event" id="btn-share-event">
+              <i class="fas fa-share-alt"></i> Compartir
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Cerrar modal
+    modal.querySelector(".event-modal-close").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Cerrar al hacer click fuera
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+
+  // Verificar si ya tiene recordatorio
+  const hasReminder = checkIfHasReminder(dateKey);
+
+  // Configurar contenido
+  let typeText = "";
+  let typeColor = "";
+  switch (event.type) {
+    case "tournament":
+      typeText = "🏆 Torneo";
+      typeColor = "#FF9800";
+      break;
+    case "game":
+      typeText = "🎮 Game Night";
+      typeColor = "#2196F3";
+      break;
+    case "special":
+      typeText = "🎁 Evento Especial";
+      typeColor = "#9C27B0";
+      break;
+  }
+
+  const eventDate = displayDate || formatDate(getLocalDate(dateKey));
+
+  modal.querySelector("#event-modal-title").textContent = event.title;
+  modal.querySelector(
+    "#event-modal-icon"
+  ).innerHTML = `<span style="font-size: 3em;">${event.icon}</span>`;
+  modal.querySelector("#event-modal-date").innerHTML = `📅 ${eventDate} - 🕕 ${
+    event.time || "18:00 GMT-5"
+  }`;
+  modal.querySelector(
+    "#event-modal-type"
+  ).innerHTML = `<span style="color: ${typeColor}">${typeText}</span>`;
+  modal.querySelector("#event-modal-description").textContent =
+    event.description || "¡No te pierdas este evento increíble!";
+
+  // Configurar botones de recordatorio
+  const setReminderBtn = modal.querySelector("#btn-set-reminder");
+  const removeReminderBtn = modal.querySelector("#btn-remove-reminder");
+
+  if (hasReminder) {
+    setReminderBtn.style.display = "none";
+    removeReminderBtn.style.display = "inline-block";
+    removeReminderBtn.onclick = function () {
+      removeReminder(dateKey, event.title);
+      showNotification("Recordatorio eliminado", "info");
+      modal.style.display = "none";
+      renderEventList(currentMonth, currentYear);
+    };
+  } else {
+    setReminderBtn.style.display = "inline-block";
+    removeReminderBtn.style.display = "none";
+    setReminderBtn.onclick = function () {
+      setReminder(dateKey, event.title, event.time || "18:00");
+      modal.style.display = "none";
+    };
+  }
+
+  // Configurar botón compartir
+  modal.querySelector("#btn-share-event").onclick = function () {
+    shareEvent(event, dateKey);
+  };
+
+  // Mostrar modal
+  modal.style.display = "flex";
+}
+
+// Compartir evento
+function shareEvent(event, dateKey) {
+  const eventDate = getLocalDate(dateKey);
+  const formattedDate = formatDate(eventDate);
+  const text = `¡Únete a nuestro evento: ${
+    event.title
+  }!\n📅 ${formattedDate}\n🕕 ${event.time || "18:00 GMT-5"}\n\n${
+    event.description || "¡No te lo pierdas!"
+  }\n\n#ClanEvents`;
+
+  if (navigator.share) {
+    navigator
+      .share({
+        title: event.title,
+        text: text,
+        url: window.location.href,
+      })
+      .catch(console.error);
+  } else {
+    // Copiar al portapapeles
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        showNotification("Evento copiado al portapapeles", "success");
+      })
+      .catch(() => {
+        // Fallback para navegadores antiguos
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        showNotification("Evento copiado al portapapeles", "success");
+      });
+  }
+}
+
 // ===== FUNCIONES UTILITARIAS =====
 function formatDate(date) {
   const options = {
@@ -440,27 +1312,67 @@ function formatDate(date) {
   return date.toLocaleDateString("es-ES", options);
 }
 
-// Al final del archivo eventos.js, agrega:
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
+function showNotification(message, type = "info") {
+  // Crear elemento de notificación si no existe
+  let notification = document.getElementById("calendar-notification");
+
+  if (!notification) {
+    notification = document.createElement("div");
+    notification.id = "calendar-notification";
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
+      display: none;
+    `;
+    document.body.appendChild(notification);
+  }
+
+  // Configurar color según tipo
+  const colors = {
+    info: "#2196F3",
+    success: "#4CAF50",
+    warning: "#FF9800",
+    error: "#F44336",
+  };
+
+  notification.style.backgroundColor = colors[type] || colors.info;
+  notification.textContent = message;
+  notification.style.display = "block";
+
+  // Auto-ocultar después de 3 segundos
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3000);
+}
+
+// Funciones auxiliares para botones
+function joinDiscord() {
+  showNotification("Redirigiendo a Discord...", "info");
+  // window.open("https://discord.gg/tuclan", "_blank");
+}
+
+function joinWhatsApp() {
+  showNotification("Redirigiendo a WhatsApp...", "info");
+  // window.open("https://chat.whatsapp.com/JuAiTl1OInpAvqtAK5PyqJ", "_blank");
+}
+
+// Inicializar valores de estadísticas con animación
 document.addEventListener("DOMContentLoaded", function () {
-  // Inicializar barras de gráfico
-  const bars = document.querySelectorAll(".bar-fill");
-  bars.forEach((bar) => {
-    const width = bar.getAttribute("data-width");
-    if (width) {
-      // Esperar un poco para que la animación sea visible
-      setTimeout(() => {
-        bar.style.width = `${width}%`;
-      }, 300);
-    }
-  });
-
-  // Inicializar valores de estadísticas con animación
   const statValues = [
-    { id: "total-wins", target: 247 },
-    { id: "events-done", target: 52 },
-    { id: "total-prizes", target: 1250 },
-    { id: "avg-participants", target: 28 },
+    { id: "total-prizes", target: getRandomInt(5, 20) },
+    { id: "avg-participants", target: getRandomInt(15, 40) },
   ];
 
   statValues.forEach((stat) => {
@@ -490,5 +1402,5 @@ function animateValue(element, start, end, duration, suffix = "") {
     }
   };
   window.requestAnimationFrame(step);
-    }
+}
 
