@@ -1,7 +1,7 @@
 // form.js - Configurado con EmailJS
 document.addEventListener("DOMContentLoaded", function () {
   // INICIALIZAR EMAILJS - REEMPLAZA CON TU PUBLIC KEY
-  emailjs.init("KZquan0PhqC35uDYw"); // Cambia esto por tu Public Key de EmailJS
+  emailjs.init("KZquan0PhqC35uDYw");
 
   // Formulario de inscripción
   const inscriptionForm = document.getElementById("inscription-form");
@@ -21,12 +21,28 @@ document.addEventListener("DOMContentLoaded", function () {
     setupSuggestionForm();
   }
 
+  // Formulario de aspirantes a administrador
+  const adminForm = document.getElementById("admin-application-form");
+  if (adminForm) {
+    setupAdminApplicationForm();
+  }
+
   // Configurar contador de caracteres
   setupCharacterCounter();
 
   // Configurar validación de edad
   setupAgeValidation();
+
+  // Configurar navegación para aspirantes a admin
+  setupAdminNavigation();
+
+  // Configurar cuestionario de autoevaluación
+  setupEvaluationQuiz();
 });
+
+// ============================================
+// FUNCIONES DE CONFIGURACIÓN INICIAL
+// ============================================
 
 function setupCharacterCounter() {
   const whyJoinTextarea = document.getElementById("why-join");
@@ -63,6 +79,142 @@ function setupAgeValidation() {
         this.value = 13;
       }
     });
+  }
+}
+
+function setupEvaluationQuiz() {
+  const calculateBtn = document.getElementById("calculate-score");
+
+  if (calculateBtn) {
+    calculateBtn.addEventListener("click", function () {
+      calculateEvaluationScore();
+    });
+  }
+}
+
+// ============================================
+// NAVEGACIÓN PARA ASPIRANTES A ADMINISTRADOR
+// ============================================
+
+function setupAdminNavigation() {
+  // Función para scroll suave a cualquier sección
+  function smoothScrollToSection(sectionId, focusFirstInput = false) {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    // Offset para header fijo
+    const header = document.querySelector("header");
+    const headerHeight = header ? header.offsetHeight : 0;
+
+    // Calcular posición
+    const sectionTop = section.offsetTop - headerHeight - 20;
+
+    // Hacer scroll suave
+    window.scrollTo({
+      top: sectionTop,
+      behavior: "smooth",
+    });
+
+    // Efecto visual de destacado
+    section.classList.add("section-highlight");
+    setTimeout(() => {
+      section.classList.remove("section-highlight");
+    }, 2000);
+
+    // Enfocar el primer campo si es un formulario
+    if (focusFirstInput && sectionId === "aspirantes-admin") {
+      setTimeout(() => {
+        const firstInput = section.querySelector("input, textarea, select");
+        if (firstInput) {
+          firstInput.focus({ preventScroll: true });
+        }
+      }, 800);
+    }
+  }
+
+  // 1. Manejar clic en el botón "Continuar al Formulario" (de requisitos a formulario)
+  const continueBtn = document.querySelector(".requirements-continue-btn");
+  if (continueBtn) {
+    // Si es un enlace <a>
+    if (continueBtn.tagName === "A") {
+      continueBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        smoothScrollToSection("aspirantes-admin", true);
+      });
+    }
+    // Si es un botón <button>
+    else if (continueBtn.tagName === "BUTTON") {
+      continueBtn.addEventListener("click", function () {
+        smoothScrollToSection("aspirantes-admin", true);
+      });
+    }
+  }
+
+  // 2. Manejar clic en enlaces del footer "Aspirar a Admin"
+  document.querySelectorAll('a[href*="#requisitos-admin"]').forEach((link) => {
+    link.addEventListener("click", function (e) {
+      // Solo si estamos en contacto.html
+      if (window.location.pathname.includes("contacto.html")) {
+        e.preventDefault();
+        smoothScrollToSection("requisitos-admin");
+      }
+    });
+  });
+
+  // 3. Manejar clic en enlaces directos al formulario
+  document.querySelectorAll('a[href*="#aspirantes-admin"]').forEach((link) => {
+    link.addEventListener("click", function (e) {
+      if (window.location.pathname.includes("contacto.html")) {
+        e.preventDefault();
+        smoothScrollToSection("aspirantes-admin", true);
+      }
+    });
+  });
+
+  // 4. Manejar carga de página con hash en URL
+  function handleHashOnLoad() {
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1); // Eliminar el #
+
+      // Pequeño delay para asegurar que el DOM esté completamente cargado
+      setTimeout(() => {
+        if (hash === "requisitos-admin" || hash === "aspirantes-admin") {
+          smoothScrollToSection(hash, hash === "aspirantes-admin");
+        }
+      }, 300);
+    }
+  }
+
+  // Ejecutar al cargar
+  handleHashOnLoad();
+
+  // También ejecutar si el hash cambia dinámicamente
+  window.addEventListener("hashchange", handleHashOnLoad);
+
+  // 5. Crear botón "Volver a Requisitos" en el formulario
+  const adminForm = document.getElementById("aspirantes-admin");
+  if (adminForm) {
+    // Verificar si ya existe el botón
+    const existingBackBtn = adminForm.querySelector(".back-to-requisitos-btn");
+    if (!existingBackBtn) {
+      // Crear botón "Volver a Requisitos"
+      const backToRequisitosBtn = document.createElement("button");
+      backToRequisitosBtn.type = "button";
+      backToRequisitosBtn.className = "btn btn-small back-to-requisitos-btn";
+      backToRequisitosBtn.innerHTML =
+        '<i class="fas fa-arrow-up"></i> Volver a Requisitos';
+
+      // Insertar antes del botón de envío
+      const submitBtn = adminForm.querySelector(".form-submit-btn");
+      if (submitBtn) {
+        submitBtn.parentNode.insertBefore(backToRequisitosBtn, submitBtn);
+
+        // Añadir funcionalidad
+        backToRequisitosBtn.addEventListener("click", function () {
+          smoothScrollToSection("requisitos-admin");
+        });
+      }
+    }
   }
 }
 
@@ -168,11 +320,7 @@ async function sendInscriptionEmailToAdmin(data, ip) {
     }),
   };
 
-  return emailjs.send(
-    "service_sjea029", // REEMPLAZA con tu Service ID
-    "template_bso642c", // Template para recibir inscripciones
-    templateParams
-  );
+  return emailjs.send("service_sjea029", "template_bso642c", templateParams);
 }
 
 async function sendConfirmationEmailToUser(data) {
@@ -191,11 +339,7 @@ async function sendConfirmationEmailToUser(data) {
     }),
   };
 
-  return emailjs.send(
-    "service_sjea029", // Mismo Service ID
-    "template_xqur3ed", // Template de confirmación
-    templateParams
-  );
+  return emailjs.send("service_sjea029", "template_xqur3ed", templateParams);
 }
 
 // ============================================
@@ -271,11 +415,7 @@ async function sendReportEmail(data, ip) {
     date: new Date().toLocaleString("es-ES"),
   };
 
-  return emailjs.send(
-    "service_sjea029", // Mismo Service ID
-    "template_bso642c", // Mismo template, contenido diferente
-    templateParams
-  );
+  return emailjs.send("service_sjea029", "template_bso642c", templateParams);
 }
 
 // ============================================
@@ -352,11 +492,146 @@ async function sendSuggestionEmail(data, ip) {
     date: new Date().toLocaleString("es-ES"),
   };
 
-  return emailjs.send(
-    "service_sjea029", // Mismo Service ID
-    "template_bso642c", // Mismo template, contenido diferente
-    templateParams
-  );
+  return emailjs.send("service_sjea029", "template_bso642c", templateParams);
+}
+
+// ============================================
+// FORMULARIO DE ASPIRANTES A ADMINISTRADOR
+// ============================================
+function setupAdminApplicationForm() {
+  const form = document.getElementById("admin-application-form");
+  if (!form) return;
+
+  // Crear contenedor específico para mensajes debajo del botón de envío
+  const submitBtn = form.querySelector('button[type="submit"]');
+  let messageContainer = form.querySelector(".admin-message-container");
+
+  // Si no existe el contenedor, crearlo
+  if (!messageContainer) {
+    messageContainer = document.createElement("div");
+    messageContainer.className = "admin-message-container";
+    // Insertar después del botón de envío
+    submitBtn.parentNode.insertBefore(messageContainer, submitBtn.nextSibling);
+  }
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    if (!validateAdminForm()) {
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+    try {
+      const formData = {
+        robloxName: document.getElementById("admin-roblox-name").value,
+        age: document.getElementById("admin-age").value,
+        country: document.getElementById("admin-country").value,
+        timezone: document.getElementById("admin-timezone").value,
+        whatsapp: document.getElementById("admin-whatsapp").value,
+        experience:
+          document.getElementById("admin-experience").value ||
+          "No especificada",
+        whyAdmin: document.getElementById("admin-why").value,
+        availability: document.getElementById("admin-availability").value,
+        improvements: document.getElementById("admin-improvements").value,
+        terms: document.getElementById("admin-terms").checked,
+        commitment: document.getElementById("admin-commitment").checked,
+      };
+
+      const ip = await getIPAddress();
+
+      // ENVIAR EMAIL usando template_bso642c (el mismo que usas para inscripción)
+      await sendAdminApplicationEmail(formData, ip);
+
+      // Mostrar mensaje específicamente en el contenedor debajo del botón
+      showMessageInContainer(
+        "✅ Solicitud enviada con éxito. Te contactaremos por WhatsApp si avanzamos con tu proceso de selección.",
+        "success",
+        messageContainer
+      );
+      form.reset();
+    } catch (error) {
+      console.error("Error al enviar solicitud de admin:", error);
+      showMessageInContainer(
+        "❌ Error al enviar la solicitud. Inténtalo de nuevo o contacta directamente por WhatsApp.",
+        "error",
+        messageContainer
+      );
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  });
+}
+
+// Función especial para mostrar mensajes en el contenedor del formulario admin
+function showMessageInContainer(text, type, container) {
+  // Limpiar mensajes anteriores
+  container.innerHTML = "";
+
+  // Determinar clase según tipo
+  let alertClass;
+  switch (type) {
+    case "success":
+      alertClass = "alert-success";
+      break;
+    case "error":
+      alertClass = "alert-danger";
+      break;
+    case "warning":
+      alertClass = "alert-warning";
+      break;
+    default:
+      alertClass = "alert-info";
+  }
+
+  // Crear mensaje
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `alert ${alertClass}`;
+  messageDiv.textContent = text;
+
+  container.appendChild(messageDiv);
+
+  // Remover después de 5 segundos
+  setTimeout(() => {
+    if (messageDiv.parentNode) {
+      messageDiv.remove();
+    }
+  }, 5000);
+}
+
+async function sendAdminApplicationEmail(data, ip) {
+  const templateParams = {
+    roblox_name: `[ASPIRANTE ADMIN] ${data.robloxName}`,
+    age: data.age,
+    country: data.country,
+    timezone: data.timezone,
+    games: "N/A",
+    experience: data.availability,
+    play_hours: "N/A",
+    why_join: `🎯 <strong>MOTIVACIÓN PARA SER ADMIN:</strong><br>${data.whyAdmin}<br><br>
+               💼 <strong>EXPERIENCIA PREVIA:</strong><br>${data.experience}<br><br>
+               💡 <strong>MEJORAS PROPUESTAS:</strong><br>${data.improvements}<br><br>
+               ⏰ <strong>DISPONIBILIDAD:</strong> ${data.availability} horas/semana`,
+    referral: "Formulario Aspirantes a Admin",
+    whatsapp: data.whatsapp,
+    whatsapp_consent: "Sí",
+    newsletter: "N/A",
+    ip: ip,
+    date: new Date().toLocaleString("es-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+  };
+
+  return emailjs.send("service_sjea029", "template_bso642c", templateParams);
 }
 
 // ============================================
@@ -449,6 +724,69 @@ function validateSuggestionForm() {
   return true;
 }
 
+function validateAdminForm() {
+  // Validar edad mínima para admin (15 años)
+  const age = parseInt(document.getElementById("admin-age").value);
+  if (age < 15) {
+    showMessage(
+      "❌ La edad mínima para aspirar a administrador es 15 años.",
+      "error"
+    );
+    return false;
+  }
+
+  // Validar checkboxes requeridos
+  if (!document.getElementById("admin-terms").checked) {
+    showMessage(
+      "❌ Debes aceptar haber leído el reglamento y comprender las responsabilidades.",
+      "error"
+    );
+    return false;
+  }
+
+  if (!document.getElementById("admin-commitment").checked) {
+    showMessage(
+      "❌ Debes comprometerte a mantener la confidencialidad de la información.",
+      "error"
+    );
+    return false;
+  }
+
+  // Validar campos requeridos
+  const requiredFields = [
+    "admin-roblox-name",
+    "admin-age",
+    "admin-country",
+    "admin-timezone",
+    "admin-whatsapp",
+    "admin-why",
+    "admin-availability",
+    "admin-improvements",
+  ];
+
+  for (const fieldId of requiredFields) {
+    const field = document.getElementById(fieldId);
+    if (field && field.hasAttribute("required") && !field.value.trim()) {
+      const label = field.previousElementSibling?.textContent || field.name;
+      showMessage(`❌ Por favor, completa el campo: ${label}`, "error");
+      field.focus();
+      return false;
+    }
+  }
+
+  // Validar mínimo de caracteres en "por qué quieres ser admin"
+  const whyAdmin = document.getElementById("admin-why").value;
+  if (whyAdmin.length < 30) {
+    showMessage(
+      "❌ Por favor, explica con más detalle por qué quieres ser administrador (mínimo 30 caracteres).",
+      "error"
+    );
+    return false;
+  }
+
+  return true;
+}
+
 // ============================================
 // FUNCIONES AUXILIARES
 // ============================================
@@ -517,11 +855,11 @@ function showMessage(text, type, form = null) {
     if (messageDiv.parentNode) {
       messageDiv.remove();
     }
-  }, 5000);
+  }, 11000);
 }
 
 // ============================================
-// FUNCIONES PARA ACTUALIZAR ENLACE DE WHATSAPP DINÁMICAMENTE
+// FUNCIONES PARA ACTUALIZAR ENLACE DE WHATSAPP
 // ============================================
 document.addEventListener("input", function (e) {
   if (e.target.id === "roblox-name" || e.target.id === "age") {
@@ -541,9 +879,82 @@ function updateWhatsAppLink() {
     }
 
     const encodedMessage = encodeURIComponent(message);
-    // REEMPLAZA con tu número de WhatsApp
     whatsappLink.href = `https://wa.me/573116546484?text=${encodedMessage}`;
   }
-          }
+}
+
+// ============================================
+// CUESTIONARIO DE AUTOVALORACIÓN PARA ADMIN
+// ============================================
+function calculateEvaluationScore() {
+  const questions = document.querySelectorAll(".evaluation-question");
+  let totalScore = 0;
+  let maxScore = 0;
+
+  // Puntajes para cada opción (de mejor a peor)
+  const scores = {
+    q1: { yes: 10, probably: 7, difficult: 4, no: 0 },
+    q2: { calm: 10, breathe: 8, struggle: 3, avoid: 0 },
+    q3: { "15+": 10, "10-15": 8, "5-10": 5, less5: 0 },
+    q4: { warn: 10, talk: 6, consult: 7, ignore: 0 },
+  };
+
+  // Calcular puntaje
+  questions.forEach((question, index) => {
+    const questionNum = index + 1;
+    const selected = question.querySelector('input[type="radio"]:checked');
+
+    if (selected) {
+      const value = selected.value;
+      totalScore += scores[`q${questionNum}`][value];
+    }
+
+    maxScore += 10; // Máximo por pregunta
+  });
+
+  // Calcular porcentaje
+  const percentage = (totalScore / maxScore) * 100;
+
+  // Mostrar resultado
+  const resultDiv = document.getElementById("score-result");
+  resultDiv.style.display = "block";
+  resultDiv.innerHTML = "";
+
+  let resultClass = "";
+  let message = "";
+  let icon = "";
+
+  if (percentage >= 80) {
+    resultClass = "good";
+    icon = '<i class="fas fa-trophy"></i>';
+    message = `¡Excelente! Tu puntuación es ${Math.round(
+      percentage
+    )}%. Tienes buen potencial para ser administrador.`;
+  } else if (percentage >= 50) {
+    resultClass = "medium";
+    icon = '<i class="fas fa-exclamation-circle"></i>';
+    message = `Tu puntuación es ${Math.round(
+      percentage
+    )}%. Tienes áreas de mejora, pero podrías ser considerado con capacitación adicional.`;
+  } else {
+    resultClass = "low";
+    icon = '<i class="fas fa-times-circle"></i>';
+    message = `Tu puntuación es ${Math.round(
+      percentage
+    )}%. Te recomendamos ganar más experiencia en el clan antes de aplicar.`;
+  }
+
+  resultDiv.className = `score-result ${resultClass}`;
+  resultDiv.innerHTML = `
+    <h4>${icon} Resultado de Autoevaluación</h4>
+    <p>${message}</p>
+    <p><strong>Puntuación:</strong> ${totalScore}/${maxScore} puntos (${Math.round(
+    percentage
+  )}%)</p>
+  `;
+
+  // Scroll suave al resultado
+  resultDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+}
 
 
