@@ -2,6 +2,10 @@
 
 name: CI
 
+# Define permissions for GITHUB_TOKEN - minimum required for this workflow
+permissions:
+  contents: read  # Only read access to repository contents
+
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
