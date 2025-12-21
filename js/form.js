@@ -508,7 +508,7 @@ function showMessage(text, type, form = null) {
   // Crear mensaje
   const messageDiv = document.createElement("div");
   messageDiv.className = `alert ${alertClass}`;
-  messageDiv.innerHTML = text;
+  messageDiv.textContent = text;
 
   messageContainer.appendChild(messageDiv);
 
@@ -545,4 +545,5 @@ function updateWhatsAppLink() {
     whatsappLink.href = `https://wa.me/573116546484?text=${encodedMessage}`;
   }
           }
+
 
