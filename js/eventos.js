@@ -651,7 +651,24 @@ function initTodayEvent() {
   if (!todayEventElement || !todayCountdownElement) return;
 
   if (event) {
-    // Mostrar información del evento de hoy
+    // Determinar estado del evento
+    const now = new Date();
+    const eventDateTime = new Date(today);
+    const timeMatch = (event.time || "18:00").match(/(\d{1,2}):(\d{2})/);
+
+    if (timeMatch) {
+      eventDateTime.setHours(
+        parseInt(timeMatch[1]),
+        parseInt(timeMatch[2]),
+        0,
+        0
+      );
+    }
+
+    const eventEndTime = new Date(eventDateTime.getTime() + 2 * 60 * 60 * 1000);
+    const isEventLive = now >= eventDateTime && now <= eventEndTime;
+    const isEventFinished = now > eventEndTime;
+
     let typeText = "";
     let typeColor = "";
     switch (event.type) {
@@ -669,6 +686,13 @@ function initTodayEvent() {
         break;
     }
 
+    let statusBadge = "";
+    if (isEventLive) {
+      statusBadge = '<span class="live-badge">EN VIVO</span>';
+    } else if (isEventFinished) {
+      statusBadge = '<span class="finished-badge">FINALIZADO</span>';
+    }
+
     todayEventElement.innerHTML = `
       <div class="today-event-content">
         <div class="today-event-icon" style="background-color: ${typeColor}20">${
@@ -677,6 +701,7 @@ function initTodayEvent() {
         <div class="today-event-details">
           <div class="today-event-header">
             <h3>${event.title}</h3>
+            ${statusBadge}
             <span class="today-event-badge">HOY</span>
           </div>
           <p class="today-event-type" style="color: ${typeColor}">${typeText}</p>
@@ -693,7 +718,7 @@ function initTodayEvent() {
       </div>
     `;
 
-    // Configurar contador regresivo
+    // Configurar contador regresivo CORRECTAMENTE
     setupTodayCountdown("today-countdown", event.time || "18:00");
   } else {
     // Buscar próximo evento
@@ -748,55 +773,86 @@ function initTodayEvent() {
   }
 }
 
-// Encontrar el próximo evento
-function findNextEvent() {
-  if (!window.calendarEvents) return null;
-
-  const today = getLocalDate();
-
-  const upcomingEvents = Object.entries(window.calendarEvents)
-    .filter(([dateKey]) => {
-      const eventDate = getLocalDate(dateKey);
-      return eventDate >= today;
-    })
-    .sort(([dateA], [dateB]) => getLocalDate(dateA) - getLocalDate(dateB));
-
-  if (upcomingEvents.length > 0) {
-    const [nextDate, nextEvent] = upcomingEvents[0];
-    return {
-      date: nextDate,
-      title: nextEvent.title,
-      icon: nextEvent.icon,
-      type: nextEvent.type,
-      time: nextEvent.time || "18:00 GMT-5",
-    };
-  }
-
-  return null;
-}
-
+// ===== FUNCIÓN MEJORADA PARA EL CONTADOR REGRESIVO =====
 function setupTodayCountdown(elementId, eventTime) {
   const countdownElement = document.getElementById(elementId);
   if (!countdownElement) return;
 
   function updateCountdown() {
     const now = new Date();
-    const targetTime = new Date();
+    const today = getLocalDate();
+    const todayKey = formatDateForKey(today);
+    const event = window.calendarEvents
+      ? window.calendarEvents[todayKey]
+      : null;
 
-    // Parsear hora del evento (ej: "18:00 GMT-5")
+    if (!event) {
+      countdownElement.innerHTML = `
+        <div class="no-event-today">
+          <p>No hay eventos programados para hoy</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Crear la fecha/hora exacta del evento HOY
+    const eventDateTime = new Date(today);
+
+    // Parsear la hora del evento (ej: "18:00 GMT-5")
     const timeMatch = eventTime.match(/(\d{1,2}):(\d{2})/);
     if (timeMatch) {
-      targetTime.setHours(parseInt(timeMatch[1]), parseInt(timeMatch[2]), 0, 0);
+      eventDateTime.setHours(
+        parseInt(timeMatch[1]),
+        parseInt(timeMatch[2]),
+        0,
+        0
+      );
     } else {
-      targetTime.setHours(18, 0, 0, 0); // Hora por defecto
+      eventDateTime.setHours(18, 0, 0, 0);
     }
 
-    // Si ya pasó la hora de hoy, configurar para mañana
-    if (now > targetTime) {
-      targetTime.setDate(targetTime.getDate() + 1);
+    // Si ya pasó la hora de hoy, el evento ya terminó (asumimos duración de 2 horas)
+    const eventEndTime = new Date(eventDateTime.getTime() + 2 * 60 * 60 * 1000);
+    if (now > eventEndTime) {
+      countdownElement.innerHTML = `
+        <div class="event-finished">
+          <div class="event-finished-icon">
+            <i class="fas fa-flag-checkered"></i>
+          </div>
+          <p class="event-finished-title">¡Evento finalizado!</p>
+          <p class="event-finished-subtitle">Gracias por participar</p>
+          <div class="event-finished-stats">
+            <span><i class="fas fa-trophy"></i> Ganadores: no definido</span>
+          </div>
+        </div>
+      `;
+      return;
     }
 
-    const timeLeft = targetTime - now;
+    // Si el evento está en curso (ahora está entre la hora de inicio y la hora de finalización)
+    if (now >= eventDateTime && now <= eventEndTime) {
+      countdownElement.innerHTML = `
+        <div class="event-live">
+          <div class="event-live-icon">
+            <i class="fas fa-broadcast-tower"></i>
+          </div>
+          <p class="event-live-title">¡EN VIVO AHORA!</p>
+          <p class="event-live-subtitle">El evento está en progreso</p>
+          <div class="event-live-actions">
+            <button class="btn-join-now" onclick="joinEventNow()">
+              <i class="fas fa-play-circle"></i> Unirse ahora
+            </button>
+          </div>
+          <p class="event-live-note">Tiempo restante del evento: ${calculateEventRemainingTime(
+            eventDateTime
+          )}</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Calcular tiempo restante hasta el inicio del evento
+    const timeLeft = eventDateTime - now;
 
     if (timeLeft > 0) {
       const hours = Math.floor(timeLeft / (1000 * 60 * 60));
@@ -826,29 +882,11 @@ function setupTodayCountdown(elementId, eventTime) {
             <span class="today-timer-label">Segundos</span>
           </div>
         </div>
-        <p class="countdown-note">El evento comienza a las ${eventTime}</p>
+        <p class="countdown-note">El evento comienza hoy a las ${eventTime}</p>
         <div class="countdown-action">
           <button class="btn-reminder" onclick="setReminderForToday()">
             <i class="fas fa-bell"></i> Recordarme
           </button>
-        </div>
-      `;
-    } else {
-      countdownElement.innerHTML = `
-        <div class="event-started">
-          <div class="event-started-icon">
-            <i class="fas fa-play-circle"></i>
-          </div>
-          <p class="event-started-title">¡El evento ha comenzado!</p>
-          <p class="event-started-subtitle">Únete ahora para participar</p>
-          <div class="event-started-actions">
-            <button class="btn-join-discord" onclick="joinDiscord()">
-              <i class="fab fa-discord"></i> Unirse a Discord
-            </button>
-            <button class="btn-join-whatsapp" onclick="joinWhatsApp()">
-              <i class="fab fa-whatsapp"></i> Grupo de WhatsApp
-            </button>
-          </div>
         </div>
       `;
     }
@@ -857,6 +895,111 @@ function setupTodayCountdown(elementId, eventTime) {
   // Actualizar cada segundo
   updateCountdown();
   setInterval(updateCountdown, 1000);
+}
+
+// Función auxiliar para calcular tiempo restante del evento (asumiendo 2 horas de duración)
+function calculateEventRemainingTime(eventStartTime) {
+  const eventEndTime = new Date(eventStartTime.getTime() + 2 * 60 * 60 * 1000); // +2 horas
+  const now = new Date();
+  const timeLeft = eventEndTime - now;
+
+  if (timeLeft <= 0) return "Finalizado";
+
+  const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+
+  return `${hours}h ${minutes}m`;
+}
+
+// Nueva función para unirse al evento en vivo
+function joinEventNow() {
+  const today = getLocalDate();
+  const todayKey = formatDateForKey(today);
+  const event = window.calendarEvents ? window.calendarEvents[todayKey] : null;
+
+  if (event) {
+    if (confirm(`¿Unirte al evento "${event.title}" ahora?`)) {
+      // Redirigir según el tipo de evento
+      switch (event.type) {
+        case "tournament":
+          window.open(
+            "https://www.roblox.com/games/2753915549/Blox-Fruits",
+            "_blank"
+          );
+          break;
+        case "game":
+          // Redirigir a Discord o plataforma correspondiente
+          joinDiscord();
+          break;
+        case "special":
+          // Podrías tener un enlace específico para eventos especiales
+          window.open("https://discord.gg/invitacion-del-clan", "_blank");
+          break;
+      }
+    }
+  }
+}
+
+// Encontrar el próximo evento
+function findNextEvent() {
+  if (!window.calendarEvents) return null;
+
+  const today = getLocalDate();
+  const now = new Date();
+
+  // Primero verificar si hay evento hoy que aún no haya pasado
+  const todayKey = formatDateForKey(today);
+  const todayEvent = window.calendarEvents[todayKey];
+
+  if (todayEvent) {
+    // Verificar si el evento de hoy aún no ha pasado
+    const eventDateTime = new Date(today);
+    const timeMatch = (todayEvent.time || "18:00").match(/(\d{1,2}):(\d{2})/);
+
+    if (timeMatch) {
+      eventDateTime.setHours(
+        parseInt(timeMatch[1]),
+        parseInt(timeMatch[2]),
+        0,
+        0
+      );
+    }
+
+    // Si el evento de hoy es en el futuro (incluyendo ahora mismo)
+    if (
+      eventDateTime >= now ||
+      now < new Date(eventDateTime.getTime() + 2 * 60 * 60 * 1000)
+    ) {
+      return {
+        date: todayKey,
+        title: todayEvent.title,
+        icon: todayEvent.icon,
+        type: todayEvent.type,
+        time: todayEvent.time || "18:00 GMT-5",
+      };
+    }
+  }
+
+  // Buscar próximo evento futuro
+  const upcomingEvents = Object.entries(window.calendarEvents)
+    .filter(([dateKey]) => {
+      const eventDate = getLocalDate(dateKey);
+      return eventDate > today;
+    })
+    .sort(([dateA], [dateB]) => getLocalDate(dateA) - getLocalDate(dateB));
+
+  if (upcomingEvents.length > 0) {
+    const [nextDate, nextEvent] = upcomingEvents[0];
+    return {
+      date: nextDate,
+      title: nextEvent.title,
+      icon: nextEvent.icon,
+      type: nextEvent.type,
+      time: nextEvent.time || "18:00 GMT-5",
+    };
+  }
+
+  return null;
 }
 
 // ===== SISTEMA DE RECORDATORIOS =====
@@ -1177,6 +1320,9 @@ function showEventModal(event, dateKey, displayDate = null) {
             <button class="btn-share-event" id="btn-share-event">
               <i class="fas fa-share-alt"></i> Compartir
             </button>
+            <button class="btn-join-now-modal" id="btn-join-now-modal" style="display: none;">
+              <i class="fas fa-play-circle"></i> Unirse ahora
+            </button>
           </div>
         </div>
       </div>
@@ -1199,6 +1345,28 @@ function showEventModal(event, dateKey, displayDate = null) {
   // Verificar si ya tiene recordatorio
   const hasReminder = checkIfHasReminder(dateKey);
 
+  // Verificar si el evento está en vivo
+  const today = getLocalDate();
+  const now = new Date();
+  const eventDate = getLocalDate(dateKey);
+  const isToday = formatDateForKey(eventDate) === formatDateForKey(today);
+  let isEventLive = false;
+
+  if (isToday) {
+    const eventDateTime = new Date(eventDate);
+    const timeMatch = (event.time || "18:00").match(/(\d{1,2}):(\d{2})/);
+    if (timeMatch) {
+      eventDateTime.setHours(
+        parseInt(timeMatch[1]),
+        parseInt(timeMatch[2]),
+        0,
+        0
+      );
+    }
+    const eventEndTime = new Date(eventDateTime.getTime() + 2 * 60 * 60 * 1000);
+    isEventLive = now >= eventDateTime && now <= eventEndTime;
+  }
+
   // Configurar contenido
   let typeText = "";
   let typeColor = "";
@@ -1217,15 +1385,15 @@ function showEventModal(event, dateKey, displayDate = null) {
       break;
   }
 
-  const eventDate = displayDate || formatDate(getLocalDate(dateKey));
+  const eventDateDisplay = displayDate || formatDate(getLocalDate(dateKey));
 
   modal.querySelector("#event-modal-title").textContent = event.title;
   modal.querySelector(
     "#event-modal-icon"
   ).innerHTML = `<span style="font-size: 3em;">${event.icon}</span>`;
-  modal.querySelector("#event-modal-date").innerHTML = `📅 ${eventDate} - 🕕 ${
-    event.time || "18:00 GMT-5"
-  }`;
+  modal.querySelector(
+    "#event-modal-date"
+  ).innerHTML = `📅 ${eventDateDisplay} - 🕕 ${event.time || "18:00 GMT-5"}`;
   modal.querySelector(
     "#event-modal-type"
   ).innerHTML = `<span style="color: ${typeColor}">${typeText}</span>`;
@@ -1235,6 +1403,17 @@ function showEventModal(event, dateKey, displayDate = null) {
   // Configurar botones de recordatorio
   const setReminderBtn = modal.querySelector("#btn-set-reminder");
   const removeReminderBtn = modal.querySelector("#btn-remove-reminder");
+  const joinNowBtn = modal.querySelector("#btn-join-now-modal");
+
+  if (isEventLive) {
+    joinNowBtn.style.display = "inline-block";
+    joinNowBtn.onclick = function () {
+      joinEventNow();
+      modal.style.display = "none";
+    };
+  } else {
+    joinNowBtn.style.display = "none";
+  }
 
   if (hasReminder) {
     setReminderBtn.style.display = "none";
