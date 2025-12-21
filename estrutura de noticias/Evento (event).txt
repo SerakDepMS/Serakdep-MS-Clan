@@ -1,0 +1,13 @@
+{
+  "id": 4,
+  "title": "Título del evento",
+  "category": "event",
+  "content": "Contenido completo del evento. Fecha, hora, actividades, premios, etc.",
+  "excerpt": "Resumen breve del evento",
+  "date": "2025-01-01",
+  "image": "https://ejemplo.com/imagen.jpg",
+  "important": false,
+  "pinned": false,
+  "views": 0,
+  "author": "Autor"
+}

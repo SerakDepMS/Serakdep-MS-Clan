@@ -1,0 +1,13 @@
+{
+  "id": 2,
+  "title": "Título del torneo",
+  "category": "tournament",
+  "content": "Contenido completo del torneo. Incluye fechas, premios, reglas, etc.",
+  "excerpt": "Resumen breve del torneo",
+  "date": "2025-01-01",
+  "image": "https://ejemplo.com/imagen.jpg",
+  "important": false,
+  "pinned": false,
+  "views": 0,
+  "author": "Autor"
+}

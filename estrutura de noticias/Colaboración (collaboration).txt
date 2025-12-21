@@ -1,0 +1,13 @@
+{
+  "id": 3,
+  "title": "Título de la colaboración",
+  "category": "collaboration",
+  "content": "Contenido completo sobre la colaboración. Detalla con quién, por qué, beneficios, etc.",
+  "excerpt": "Resumen breve de la colaboración",
+  "date": "2025-01-01",
+  "image": "https://ejemplo.com/imagen.jpg",
+  "important": false,
+  "pinned": false,
+  "views": 0,
+  "author": "Autor"
+}

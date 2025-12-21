@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "title": "Título del anuncio",
+  "category": "announcement",
+  "content": "Contenido completo del anuncio. Puedes usar **negritas** y listas.\n\n- Punto 1\n- Punto 2",
+  "excerpt": "Resumen breve del anuncio",
+  "date": "2025-01-01",
+  "image": "https://ejemplo.com/imagen.jpg",
+  "important": false,
+  "pinned": false,
+  "views": 0,
+  "author": "Autor"
+}

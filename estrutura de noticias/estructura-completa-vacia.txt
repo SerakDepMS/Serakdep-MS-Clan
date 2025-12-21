@@ -1,0 +1,114 @@
+{
+  "news": [
+    {
+      "id": 1,
+      "title": "",
+      "category": "announcement",
+      "content": "",
+      "excerpt": "",
+      "date": "2025-01-01",
+      "image": "",
+      "important": false,
+      "pinned": false,
+      "views": 0,
+      "author": ""
+    },
+    {
+      "id": 2,
+      "title": "",
+      "category": "tournament",
+      "content": "",
+      "excerpt": "",
+      "date": "2025-01-01",
+      "image": "",
+      "important": false,
+      "pinned": false,
+      "views": 0,
+      "author": ""
+    },
+    {
+      "id": 3,
+      "title": "",
+      "category": "collaboration",
+      "content": "",
+      "excerpt": "",
+      "date": "2025-01-01",
+      "image": "",
+      "important": false,
+      "pinned": false,
+      "views": 0,
+      "author": ""
+    },
+    {
+      "id": 4,
+      "title": "",
+      "category": "event",
+      "content": "",
+      "excerpt": "",
+      "date": "2025-01-01",
+      "image": "",
+      "important": false,
+      "pinned": false,
+      "views": 0,
+      "author": ""
+    },
+    {
+      "id": 5,
+      "title": "",
+      "category": "important",
+      "content": "",
+      "excerpt": "",
+      "date": "2025-01-01",
+      "image": "",
+      "important": true,
+      "pinned": false,
+      "views": 0,
+      "author": ""
+    }
+  ],
+  "stats": {
+    "totalMembers": 0,
+    "activeEvents": 0,
+    "totalTournaments": 0,
+    "whatsappMembers": 0
+  },
+  "lastUpdate": "2025-01-01T00:00:00.000Z"
+}
+
+
+INSTRUCCIONES DE USO:
+Para npoint.io:
+
+Copia el "ARCHIVO COMPLETO VACÍO" y pégalo en tu npoint.io
+
+Llena cada noticia con tu contenido
+
+Para archivos locales:
+
+Crea archivos .txt o .json con los contenidos proporcionados
+
+Nómbralos según la categoría
+
+Llénalos con tus noticias
+
+Campos importantes a completar:
+
+id: Número único (no repetir)
+
+title: Título de la noticia
+
+category: Una de estas: "announcement", "tournament", "collaboration", "event", "important"
+
+content: Texto completo (usa \n para saltos de línea)
+
+excerpt: Resumen breve (máx. 150 caracteres)
+
+date: Formato YYYY-MM-DD
+
+image: URL de imagen (opcional)
+
+important: true/false
+
+pinned: true/false (aparece fijada arriba)
+
+author: Quién escribe la noticia

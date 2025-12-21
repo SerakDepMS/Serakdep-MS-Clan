@@ -1,0 +1,13 @@
+{
+  "id": 5,
+  "title": "Título de la noticia importante",
+  "category": "important",
+  "content": "Contenido completo de la noticia importante. Usa un tono urgente y claro.",
+  "excerpt": "Resumen breve de la noticia importante",
+  "date": "2025-01-01",
+  "image": "https://ejemplo.com/imagen.jpg",
+  "important": true,
+  "pinned": true,
+  "views": 0,
+  "author": "Autor"
+}
