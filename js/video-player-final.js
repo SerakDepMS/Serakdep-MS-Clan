@@ -5,31 +5,31 @@ class VideoPlayerFinal {
     this.video = document.getElementById("main-video");
     this.videoList = [
       {
-        src: "video1.mp4",
+        src: "videos/video1.mp4",
         title: "Trailer Oficial del Clan",
         duration: "30",
         size: "25 MB",
       },
       {
-        src: "video2.mp4",
+        src: "videos/video2.mp4",
         title: "Gameplay: Blox Fruits",
         duration: "23",
         size: "35 MB",
       },
       {
-        src: "video3.mp4",
+        src: "videos/video3.mp4",
         title: "Eventos de la Semana",
         duration: "13",
         size: "50 MB",
       },
       {
-        src: "video4.mp4",
+        src: "videos/video4.mp4",
         title: "Nuestra Comunidad",
         duration: "39",
         size: "42 MB",
       },
       {
-        src: "video5.mp4",
+        src: "videos/video5.mp4",
         title: "Tutoriales y Consejos",
         duration: "14",
         size: "65 MB",
@@ -960,4 +960,5 @@ class VideoPlayerFinal {
 document.addEventListener("DOMContentLoaded", () => {
   new VideoPlayerFinal();
 });
+
 
