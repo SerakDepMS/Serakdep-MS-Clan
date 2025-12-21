@@ -1,4 +1,4 @@
-// main.js - Corregido
+// main.js
 document.addEventListener("DOMContentLoaded", function () {
   // Activar enlace actual en el menú
   const currentPage = window.location.pathname.split("/").pop();
@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }, index * 100);
   });
 });
+
 
 
 
