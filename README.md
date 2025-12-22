@@ -48,7 +48,7 @@ Este repositorio contiene el sitio web completo del clan Serakdep MS, una comuni
 
 ### 📞 **Contacto**
 - Información de contacto principal
-- Formularios para reportes y sugerencias
+- Formularios para reportes, sugerencias, rquisitos de aspirantes a admin y formulario de aspirantes de admin.
 - Equipo administrativo completo
 
 ### ⚖️ **Sección Legal**
