@@ -1,118 +1,209 @@
-# Serakdep MS - Clan de Roblox 🎮
+# 🌐 Serakdep MS - Clan de Roblox
 
-**Sitio web oficial del clan Serakdep MS**, una comunidad de Roblox dedicada a crear un ambiente divertido, respetuoso y organizado para jugadores de todas las edades. Nuestra misión es proporcionar la mejor experiencia de gaming dentro de Roblox, fomentando la amistad, el trabajo en equipo y la diversión en un entorno seguro.
+**Sitio web oficial del clan Serakdep MS en Roblox** - Una comunidad organizada, respetuosa y divertida para jugadores de todas las edades.
 
-## 🌟 Características del Sitio Web
+![Clan Logo](images/clan-logo.png)
 
-### 🎨 **Diseño Moderno y Responsivo**
-- Interfaz intuitiva y atractiva adaptada a todos los dispositivos (móvil, tablet, escritorio)
-- Paleta de colores personalizada con animaciones suaves
-- Iconografía de Font Awesome para una mejor experiencia visual
+## 📋 Descripción
 
-### 📱 **Páginas Completas**
-1. **🏠 Inicio** - Presentación del clan y sus ventajas
-2. **📜 Reglamento** - Normas y sistema de sanciones
-3. **📝 Formulario** - Sistema de inscripción con validación
-4. **❓ FAQ** - Preguntas frecuentes con sistema de acordeón
-5. **📞 Contacto** - Múltiples canales de comunicación
+Este repositorio contiene el sitio web completo del clan Serakdep MS, una comunidad de Roblox dedicada a crear un espacio seguro y divertido para jugadores. El sitio incluye todas las funcionalidades necesarias para gestionar membresías, eventos, noticias y comunicación con los miembros.
 
-### ⚡ **Tecnologías Implementadas**
-- **HTML5** semántico y accesible
-- **CSS3** con Flexbox, Grid y animaciones
-- **JavaScript** vanilla para funcionalidades interactivas
-- **Diseño responsive** con enfoque mobile-first
-- **Accesibilidad** WCAG 2.1 (ARIA, etiquetas semánticas)
+## 🚀 Características del Sitio
 
-### 🔒 **Seguridad y Optimización**
-- ✅ Protección contra ataques (noopener, noreferrer)
-- ✅ Validación de formularios en tiempo real
-- ✅ Optimización de rendimiento (cache, preload)
-- ✅ Compatibilidad con navegadores modernos
-- ✅ Código limpio y bien estructurado
+### 🏠 **Página de Inicio**
+- Logo animado con efectos visuales
+- Reproductor de video mejorado con controles completos
+- Información esencial sobre el clan
+- Botón de solicitud de ingreso
 
-## 📂 Estructura del Proyecto
+### 📜 **Reglamento**
+- Normas generales y específicas del clan
+- Sistema de sanciones con tabla de faltas
+- Derechos de los miembros
+- Confirmación de aceptación
+
+### 📝 **Formulario de Inscripción**
+- Proceso completo de admisión
+- Campos para información personal y de juego
+- Términos y condiciones
+- Integración con EmailJS para envío automático
+
+### ❓ **Preguntas Frecuentes (FAQ)**
+- Buscador inteligente de preguntas
+- 6 categorías organizadas
+- Sistema de preguntas desplegables
+- Estadísticas de ayuda
+
+### 🎮 **Eventos y Torneos**
+- Evento del día con cuenta regresiva
+- Sistema de inscripción de equipos (30 equipos)
+- Calendario interactivo mensual
+- Sistema de rangos y premios
+
+### 📰 **Noticias del Clan**
+- Sistema de noticias en tiempo real con **npoint.io**
+- Filtros por categoría
+- Widget de WhatsApp con estadísticas
+- Paginación y noticias destacadas
+
+### 📞 **Contacto**
+- Información de contacto principal
+- Formularios para reportes, sugerencias, requisitos de aspirantes a admin y formulario de aspirantes de admin
+- Equipo administrativo completo
+
+### ⚖️ **Sección Legal**
+- Política de Privacidad
+- Términos de Servicio
+- Política de Cookies
+- Aviso DMCA
+
+## 🗂️ Estructura del Proyecto
 
 ```
-SerakdepMS-Website/
-├── index.html          # Página principal
-├── reglamento.html     # Normas del clan
-├── formulario.html     # Formulario de inscripción
-├── faq.html           # Preguntas frecuentes
-├── contacto.html      # Página de contacto
-├── css/
-│   ├── style.css      # Estilos principales
-│   ├── forms.css      # Estilos de formularios
-│   └── responsive.css # Media queries
-├── js/
-│   ├── main.js        # Funcionalidades generales
-│   ├── form.js        # Validación de formularios
-│   └── faq.js         # Funcionalidad FAQ
-└── assets/            # Imágenes y recursos
+serakdep-ms-website/
+│
+├── index.html              # Página principal
+├── reglamento.html         # Reglamento del clan
+├── formulario.html         # Formulario de inscripción
+├── faq.html               # Preguntas frecuentes
+├── eventos.html           # Eventos y torneos
+├── noticias.html          # Sistema de noticias
+├── contacto.html          # Página de contacto
+├── privacidad.html        # Política de privacidad
+├── terminos.html          # Términos de servicio
+├── cookies.html           # Política de cookies
+├── dmca.html              # Aviso DMCA
+│
+├── css/                   # Estilos CSS
+│   ├── style.css         # Estilos principales
+│   ├── responsive.css    # Estilos responsivos
+│   ├── eventos.css       # Estilos para eventos
+│   ├── noticias.css      # Estilos para noticias
+│   └── ...              # Otros estilos
+│
+├── js/                   # JavaScript
+│   ├── main.js          # Funciones principales
+│   ├── eventos.js       # Lógica de eventos
+│   ├── noticias.js      # Sistema de noticias
+│   └── ...             # Otros scripts
+│
+├── images/               # Imágenes y recursos
+├── favicon/              # Iconos del sitio
+└── README.md            # Este archivo
 ```
 
-## 🚀 Cómo Usar
+## 🛠️ Tecnologías Utilizadas
 
-1. **Para visitantes del clan:**
-   - Navega por las diferentes secciones
-   - Lee el reglamento completo
-   - Completa el formulario para unirte
+- **HTML5** - Estructura semántica
+- **CSS3** - Estilos y animaciones
+- **JavaScript (ES6+)** - Interactividad
+- **Font Awesome 6.4.0** - Iconos
+- **npoint.io** - API para noticias (solo lectura)
+- **EmailJS** - Envío de formularios
 
-2. **Para desarrolladores:**
-   ```bash
-   # Clonar el repositorio
-   git clone https://github.com/tu-usuario/serakdepms-website.git
+## 📱 Características Técnicas
+
+### ✅ Responsive Design
+- Compatible con móviles, tablets y escritorio
+- Menú hamburguesa para dispositivos móviles
+- Grid y Flexbox para layouts adaptables
+
+### ✅ Accesibilidad
+- Etiquetas ARIA para lectores de pantalla
+- Contraste de colores adecuado
+- Navegación por teclado
+
+### ✅ SEO Optimizado
+- Meta etiquetas descriptivas
+- URLs amigables
+- Estructura de encabezados semántica
+
+### ✅ Performance
+- Carga diferida de recursos
+- Optimización de imágenes
+- Minificación de CSS/JS (recomendado)
+
+## 🔧 Configuración y Uso
+
+### Para Miembros del Clan:
+1. Visita Visita https://github.com/SerakDepMS/Serakdep-MS-Clan/
+2. Sigue el recorrido recomendado en el guion tutorial
+3. Completa el formulario si deseas unirte
+
+### Para Desarrolladores:
+```bash
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/serakdep-ms-website.git
+
+# Navegar al directorio
+cd serakdep-ms-website
+
+# Abrir en tu editor preferido
+code .
+```
+
+### Personalización:
+1. **Configurar npoint.io** para noticias:
+   - Crea una cuenta en npoint.io
+   - Actualiza la URL en `noticias.html` (línea 59)
    
-   # Abrir en cualquier servidor local
-   # No requiere dependencias externas
-   ```
+2. **Configurar EmailJS** para formularios:
+   - Crea una cuenta en EmailJS
+   - Actualiza las credenciales en `js/form.js`
 
-## 🛠 Características Técnicas Avanzadas
+3. **Cambiar información del clan**:
+   - Edita los archivos HTML correspondientes
+   - Actualiza enlaces de WhatsApp y contactos
 
-### **Accesibilidad**
-- ✅ Botones con etiquetas ARIA descriptivas
-- ✅ Navegación por teclado compatible
-- ✅ Contraste de colores óptimo
-- ✅ Textos alternativos para íconos
+## 📊 Estado del Proyecto
 
-### **Rendimiento**
-- ✅ Carga optimizada de recursos
-- ✅ Caché para recursos estáticos
-- ✅ Preconexiones para CDNs externos
-- ✅ Código minificado y eficiente
+✅ **Completado** - Todas las páginas principales funcionando  
+✅ **Testeado** - Compatibilidad con navegadores modernos  
+✅ **Documentado** - Guion tutorial y README completos  
+🔄 **Mantenimiento** - Actualizaciones periódicas necesarias
 
-### **Formularios Inteligentes**
-- ✅ Validación en tiempo real
-- ✅ Contador de caracteres
-- ✅ Campos obligatorios marcados
-- ✅ Confirmación de envío
+## 🤝 Contribuciones
 
-## 🎯 Objetivos del Proyecto
+Las contribuciones son bienvenidas. Por favor:
 
-1. **Crear comunidad** - Facilitar la incorporación de nuevos miembros
-2. **Organización** - Centralizar información y reglamentos
-3. **Profesionalidad** - Presentar el clan de manera formal
-4. **Accesibilidad** - Asegurar que todos puedan usar el sitio
-5. **Escalabilidad** - Estructura lista para futuras expansiones
+1. Haz fork del proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-## 👥 Para Miembros del Clan
+## 📝 Notas Importantes
 
-Este sitio es tu puerta de entrada a una comunidad activa y divertida donde podrás:
-- Participar en eventos y torneos
-- Conocer jugadores de todo el mundo
-- Disfrutar de juegos populares como Blox Fruits, Adopt Me, Brookhaven y más
-- Crecer dentro de un sistema de rangos y logros
+### ⚠️ Requisitos Legales
+- Este sitio **NO está afiliado a Roblox Corporation**
+- Se debe mantener el aviso de no afiliación en el footer
+- Respetar las políticas de uso de marcas registradas
 
-## 📞 Contacto y Soporte
+### 🔒 Seguridad
+- No almacenar contraseñas en el sitio
+- No solicitar información personal sensible
+- Usar HTTPS en producción
 
-- **Email:** contacto@serakdepms.com
-- **WhatsApp:** +52 123 456 7890
-- **Issues GitHub:** Reportar problemas técnicos
-- **Sugerencias:** Usar el formulario de contacto
-
-## ⚠️ Aviso Legal
-
-Este proyecto no está afiliado, respaldado ni patrocinado por Roblox Corporation. Roblox es una marca registrada de Roblox Corporation. Todas las referencias a juegos dentro de Roblox son propiedad de sus respectivos creadores.
+### 📞 Contacto de Soporte
+Para problemas técnicos con el sitio:
+- **Email:** serakdepmsofficial7@gmail.com
+- **WhatsApp:** +57 311 654 6484
+- **Issues:** Usar el sistema de issues de GitHub
 
 ## 📄 Licencia
 
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🙏 Agradecimientos
+
+- **Roblox Corporation** por la plataforma
+- **Font Awesome** por los iconos
+- **npoint.io** por el servicio de API gratuito
+- **EmailJS** por el servicio de correo
+- Todos los miembros del clan Serakdep MS
+
+---
+
+**🐼 ¡Únete a nuestra comunidad y vive la mejor experiencia de gaming! 🎮**
+
+*"Unidos por la pasión del gaming"*
