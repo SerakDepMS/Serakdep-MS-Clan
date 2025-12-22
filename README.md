@@ -126,7 +126,7 @@ serakdep-ms-website/
 ## 🔧 Configuración y Uso
 
 ### Para Miembros del Clan:
-1. Visita [https://serakdepms](https://github.com/SerakDepMS/Serakdep-MS-Clan/)
+1. Visita https://github.com/SerakDepMS/Serakdep-MS-Clan/
 2. Sigue el recorrido recomendado en el guion tutorial
 3. Completa el formulario si deseas unirte
 
