@@ -1,7 +1,3 @@
-// ========================
-// SISTEMA DE NOTICIAS SOLO LECTURA CON NPONT.IO
-// ========================
-
 // Configuración del sistema
 const CONFIG = {
   ITEMS_PER_PAGE: 6,
@@ -15,18 +11,14 @@ const CONFIG = {
   },
 };
 
-// ========================
-// VERIFICACIÓN DE CONFIGURACIÓN API_DB
-// ========================
+// CONFIGURACIÓN API_DB
 
-// Asegurar que API_DB esté disponible
 if (typeof API_DB === "undefined") {
   console.error("❌ ERROR: API_DB no está definida en el HTML");
   console.log(
     '💡 Verifica que en el HTML tengas: const API_DB = "https://api.npoint.io/...";'
   );
 
-  // Usar una URL por defecto temporalmente
   window.API_DB = "https://api.npoint.io/c7935f8e8b0b09b0b07b";
   console.log("⚠️ Usando URL temporal:", window.API_DB);
 } else {
@@ -34,12 +26,10 @@ if (typeof API_DB === "undefined") {
   console.log("✅ API_DB configurada desde HTML:", window.API_DB);
 }
 
-// Variables globales
 let currentFilter = "all";
 let currentPage = 1;
 let isOfflineMode = false;
 
-// Base de datos (se cargará desde npoint.io o localStorage)
 let newsDatabase = {
   lastUpdate: new Date().toISOString(),
   totalViews: 0,
@@ -52,42 +42,32 @@ let newsDatabase = {
   news: [],
 };
 
-// ========================
 // INICIALIZACIÓN
-// ========================
 
 document.addEventListener("DOMContentLoaded", function () {
   console.log("🚀 Sistema de noticias iniciando...");
   console.log("🔗 URL npoint.io:", window.API_DB);
 
-  // Actualizar año en el footer
   document.getElementById("current-year").textContent =
     new Date().getFullYear();
 
-  // Cargar datos
   initializeData();
 
-  // Inicializar eventos
   initEventListeners();
 
-  // Inicializar WhatsApp
   setupWhatsappSystem();
 
-  // Inicializar scroll de estadísticas
   initStatsScroll();
 
   console.log("✅ Sistema de noticias listo (modo solo lectura)");
 });
 
-// ========================
-// FUNCIONES NPONT.IO - CON MEJORAS
-// ========================
+// FUNCIONES NPONT.IO
 
 async function loadFromNpoint() {
   try {
     console.log("🔄 Cargando desde npoint.io...");
 
-    // Verificar si API_DB está configurada CORRECTAMENTE
     if (!window.API_DB || window.API_DB.trim() === "") {
       console.error("❌ URL de npoint.io no configurada o vacía");
       console.log("🔍 Valor actual de window.API_DB:", window.API_DB);
@@ -96,7 +76,6 @@ async function loadFromNpoint() {
       return false;
     }
 
-    // Limpiar URL de espacios
     const cleanUrl = window.API_DB.trim();
     console.log("🔗 URL limpia:", cleanUrl);
 
@@ -106,10 +85,8 @@ async function loadFromNpoint() {
     const data = await response.json();
     console.log("✅ Datos cargados de npoint.io");
 
-    // Transformar datos
     transformNpointData(data);
 
-    // Actualizar interfaz
     updateAll();
 
     isOfflineMode = false;
@@ -126,7 +103,6 @@ async function loadFromNpoint() {
 }
 
 function transformNpointData(data) {
-  // Transformar noticias
   newsDatabase.news = (data.news || []).map((newsItem) => {
     return {
       id: newsItem.id,
@@ -149,12 +125,10 @@ function transformNpointData(data) {
     0
   );
 
-  // Actualizar stats de WhatsApp si vienen del servidor
   if (data.stats && data.stats.whatsappMembers) {
     newsDatabase.whatsappStats.members = data.stats.whatsappMembers;
   }
 
-  // Guardar copia local
   saveToLocalStorage();
 }
 
@@ -201,16 +175,13 @@ function updateSyncIndicator() {
   }
 }
 
-// ========================
-// INICIALIZACIÓN DE DATOS - CON MEJORAS
-// ========================
+// INICIALIZACIÓN DE DATOS
 
 async function initializeData() {
   console.log("🔧 Inicializando datos...");
   console.log("📡 API_DB disponible:", window.API_DB ? "Sí" : "No");
   console.log("🌐 URL completa:", window.API_DB);
 
-  // 1. Intentar cargar de npoint.io
   if (window.API_DB && window.API_DB.trim() !== "") {
     console.log("🔗 Intentando conexión con npoint.io...");
     const success = await loadFromNpoint();
@@ -224,11 +195,9 @@ async function initializeData() {
     console.log("⚠️ URL npoint.io no configurada, usando datos locales");
   }
 
-  // 2. Si falla, cargar de localStorage
   console.log("📂 Cargando desde almacenamiento local...");
   loadFromLocalStorage();
 
-  // 3. Si no hay datos locales, usar datos por defecto
   if (newsDatabase.news.length === 0) {
     console.log("📝 Usando datos por defecto...");
     newsDatabase.news = [
@@ -249,7 +218,6 @@ async function initializeData() {
     ];
   }
 
-  // Actualizar interfaz
   updateAll();
 }
 
@@ -260,12 +228,9 @@ function updateAll() {
   loadSidebar();
 }
 
-// ========================
 // EVENT LISTENERS
-// ========================
 
 function initEventListeners() {
-  // Filtros
   document.querySelectorAll(".filter-btn").forEach((btn) => {
     btn.addEventListener("click", function () {
       document
@@ -278,7 +243,6 @@ function initEventListeners() {
     });
   });
 
-  // Paginación
   document
     .getElementById("prev-page")
     .addEventListener("click", () => changePage(-1));
@@ -287,9 +251,7 @@ function initEventListeners() {
     .addEventListener("click", () => changePage(1));
 }
 
-// ========================
-// SISTEMA DE NOTICIAS (SOLO LECTURA)
-// ========================
+// SISTEMA DE NOTICIAS
 
 function renderNews() {
   const container = document.getElementById("news-container");
@@ -305,7 +267,6 @@ function renderNews() {
     }
   }
 
-  // Ordenar: primero fijadas, luego por fecha
   filteredNews.sort((a, b) => {
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
@@ -433,15 +394,12 @@ function addNewsEvents() {
   });
 }
 
-// ========================
-// MODAL DE NOTICIAS (SIN COMENTARIOS)
-// ========================
+// MODAL DE NOTICIAS
 
 async function readMoreNews(id) {
   const news = newsDatabase.news.find((n) => n.id === id);
   if (!news) return;
 
-  // Incrementar vistas localmente
   news.views++;
   newsDatabase.totalViews++;
   saveToLocalStorage();
@@ -487,7 +445,6 @@ async function readMoreNews(id) {
 
   document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-  // Añadir estilos si no existen
   if (!document.querySelector("#modal-styles")) {
     const styles = document.createElement("style");
     styles.id = "modal-styles";
@@ -579,18 +536,14 @@ async function readMoreNews(id) {
   });
 }
 
-// ========================
 // WHATSAPP SYSTEM
-// ========================
 
 function setupWhatsappSystem() {
-  // Botón para unirse a WhatsApp
   const joinBtn = document.getElementById("join-whatsapp-btn");
   if (joinBtn) {
     joinBtn.addEventListener("click", function (e) {
       newsDatabase.whatsappStats.clicks++;
 
-      // Aumentar miembros simulado (cada 3 clics)
       if (newsDatabase.whatsappStats.clicks % 3 === 0) {
         newsDatabase.whatsappStats.members++;
         showNotification(
@@ -606,13 +559,11 @@ function setupWhatsappSystem() {
     });
   }
 
-  // Botón para ver QR
   const qrBtn = document.getElementById("whatsapp-qr-btn");
   if (qrBtn) {
     qrBtn.addEventListener("click", showWhatsappQR);
   }
 
-  // Actualizar estadísticas
   updateWhatsappStats();
 }
 
@@ -714,9 +665,7 @@ function showWhatsappQR() {
   });
 }
 
-// ========================
 // FUNCIONES UTILITARIAS
-// ========================
 
 function updateStats() {
   const totalNews = newsDatabase.news.length;
@@ -738,7 +687,6 @@ function updateStats() {
 }
 
 function loadSidebar() {
-  // Noticias destacadas
   const highlighted = [...newsDatabase.news]
     .sort((a, b) => {
       if (a.important && !b.important) return -1;
@@ -770,7 +718,6 @@ function loadSidebar() {
       });
     });
 
-  // Noticias recientes en footer
   const recent = newsDatabase.news.slice(0, 3);
   const footerContainer = document.getElementById("recent-news-footer");
   footerContainer.innerHTML = recent
@@ -860,9 +807,7 @@ function isNewNews(dateString) {
   return diffDays <= 7;
 }
 
-// ========================
 // ALMACENAMIENTO
-// ========================
 
 function saveToLocalStorage() {
   try {
@@ -880,7 +825,6 @@ function loadFromLocalStorage() {
       if (parsed.news && Array.isArray(parsed.news)) {
         newsDatabase = parsed;
 
-        // Asegurar que todos los campos existan
         if (!newsDatabase.whatsappStats) {
           newsDatabase.whatsappStats = {
             members: 0,
@@ -896,9 +840,7 @@ function loadFromLocalStorage() {
   }
 }
 
-// ========================
 // NOTIFICACIONES
-// ========================
 
 function showNotification(message, type = "info") {
   const notification = document.createElement("div");
@@ -956,21 +898,17 @@ function showNotification(message, type = "info") {
   }, 3000);
 }
 
-// ========================
 // SCROLL DE ESTADÍSTICAS
-// ========================
 
 function initStatsScroll() {
   const statsContainer = document.querySelector(".news-stats");
   if (!statsContainer) return;
 
-  // Verificar si hay overflow
   function checkOverflow() {
     const hasOverflow = statsContainer.scrollWidth > statsContainer.clientWidth;
     statsContainer.classList.toggle("has-overflow", hasOverflow);
   }
 
-  // Eventos para scroll con teclado
   statsContainer.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
       statsContainer.scrollBy({ left: -100, behavior: "smooth" });
@@ -979,7 +917,6 @@ function initStatsScroll() {
     }
   });
 
-  // Hacer cada ítem focusable
   document.querySelectorAll(".stat-item").forEach((item, index) => {
     item.setAttribute("tabindex", "0");
     item.setAttribute("role", "button");
@@ -1005,9 +942,7 @@ function initStatsScroll() {
   window.addEventListener("resize", checkOverflow);
 }
 
-// ========================
 // DETECCIÓN DE CONEXIÓN
-// ========================
 
 window.addEventListener("online", () => {
   if (isOfflineMode) {
@@ -1024,17 +959,13 @@ window.addEventListener("offline", () => {
   showNotification("⚠️ Sin conexión. Modo offline activado.", "warning");
 });
 
-// Iniciar indicador después de cargar
 setTimeout(updateSyncIndicator, 1000);
 
-// ========================
-// FUNCIONES DEBUG - MEJORADAS
-// ========================
+// FUNCIONES DEBUG
 
 async function testNpointConnection() {
   console.log("🧪 Probando conexión con npoint.io...");
 
-  // Verificar si API_DB está definida
   if (!window.API_DB || window.API_DB.trim() === "") {
     console.error(
       "❌ ERROR: No hay URL configurada (window.API_DB está vacía o no definida)"
@@ -1044,7 +975,6 @@ async function testNpointConnection() {
     console.log("window.API_DB:", window.API_DB);
     console.log("window.APP_CONFIG:", window.APP_CONFIG);
 
-    // Intentar obtener de diferentes fuentes
     if (typeof API_DB !== "undefined" && API_DB.trim() !== "") {
       window.API_DB = API_DB.trim();
       console.log("✅ API_DB obtenida de variable global:", window.API_DB);
@@ -1091,12 +1021,7 @@ async function testNpointConnection() {
   }
 }
 
-// Ejecutar prueba después de cargar
 setTimeout(() => {
   console.log("🔍 Iniciando prueba de conexión...");
   testNpointConnection();
 }, 2000);
-
-
-
-
