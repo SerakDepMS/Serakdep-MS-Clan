@@ -1,14 +1,11 @@
-// animations.js - Animaciones adicionales para la página
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Animación de números contadores
   function animateCounters() {
     const counters = document.querySelectorAll(".stat-number");
 
     counters.forEach((counter) => {
       const target = parseInt(counter.getAttribute("data-count"));
-      const duration = 2000; // 2 segundos
-      const step = target / (duration / 16); // 60fps
+      const duration = 2000;
+      const step = target / (duration / 16);
 
       let current = 0;
       const timer = setInterval(() => {
@@ -22,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Mostrar contadores cuando sean visibles
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -40,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(statsContainer);
   }
 
-  // Botón para subir
   const scrollTopBtn = document.getElementById("scrollTopBtn");
 
   if (scrollTopBtn) {
@@ -60,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Efecto hover en tarjetas
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => {
     card.addEventListener("mouseenter", () => {
@@ -74,4 +68,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-

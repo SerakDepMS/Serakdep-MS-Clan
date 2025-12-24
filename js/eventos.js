@@ -1,45 +1,35 @@
-// eventos.js - Funcionalidades específicas para la página de eventos
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Actualizar el año en el copyright
   document.getElementById("current-year").textContent =
     new Date().getFullYear();
 
-  // Inicializar todas las funcionalidades
   initCalendarData();
   initTodayEvent();
   initCalendar();
   initEventListeners();
   initStatistics();
-  initReminderSystem(); // Inicializar sistema de recordatorios
+  initReminderSystem();
 
-  // Actualizar contador de eventos realizados (pero NO la tabla de resultados)
   updateEventsDoneCounter();
 
-  // Configurar actualización automática
-  setInterval(checkDateUpdate, 60000); // Verificar cada minuto
+  setInterval(checkDateUpdate, 60000);
 
   console.log("Eventos.js cargado correctamente 🐼");
 });
 
-// ===== VARIABLES GLOBALES =====
-let currentMonth = new Date().getMonth(); // Mes actual (0-11)
-let currentYear = new Date().getFullYear(); // Año actual
-let lastKnownDate = new Date(); // Para verificar cambios de fecha
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+let lastKnownDate = new Date();
 
-// ===== FUNCIÓN PARA OBTENER FECHA LOCAL CORRECTA =====
 function getLocalDate(dateString = null) {
   if (!dateString) {
     const now = new Date();
-    // Crear fecha local sin problemas de UTC
+
     return new Date(now.getFullYear(), now.getMonth(), now.getDate());
   }
 
-  // Parsear fecha YYYY-MM-DD correctamente
   const parts = dateString.split("-");
   if (parts.length !== 3) return new Date(dateString);
 
-  // Usar new Date(año, mes-1, día) para evitar problemas de UTC
   return new Date(
     parseInt(parts[0]),
     parseInt(parts[1]) - 1,
@@ -48,25 +38,21 @@ function getLocalDate(dateString = null) {
 }
 
 function formatDateForKey(date) {
-  // Formato: YYYY-MM-DD (mes 1-12, no 0-11)
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
 
-// ===== DATOS DE EVENTOS CONFIGURABLES =====
 function initCalendarData() {
   const today = getLocalDate();
   const currentYear = today.getFullYear();
   const currentMonthNum = today.getMonth();
 
-  // Inicializar eventos si no existe
   if (!window.calendarEvents) {
     window.calendarEvents = {};
   }
 
-  // Limpiar eventos pasados (más de 30 días)
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
@@ -77,7 +63,6 @@ function initCalendarData() {
     }
   });
 
-  // Definir eventos fijos por mes (día del mes: detalles del evento)
   const fixedEventsByMonth = {
     // Diciembre (11) - Navidad
     11: {
@@ -179,13 +164,11 @@ function initCalendarData() {
     },
   };
 
-  // Generar eventos para los próximos 3 meses
   for (let monthOffset = 0; monthOffset < 3; monthOffset++) {
     const targetMonthNum = (currentMonthNum + monthOffset) % 12;
     const targetYear =
       currentYear + Math.floor((currentMonthNum + monthOffset) / 12);
 
-    // Agregar eventos fijos si existen para este mes
     if (fixedEventsByMonth[targetMonthNum]) {
       Object.keys(fixedEventsByMonth[targetMonthNum]).forEach((day) => {
         const dateKey = `${targetYear}-${String(targetMonthNum + 1).padStart(
@@ -193,7 +176,6 @@ function initCalendarData() {
           "0"
         )}-${String(day).padStart(2, "0")}`;
 
-        // Solo agregar si no existe ya
         if (!window.calendarEvents[dateKey]) {
           window.calendarEvents[dateKey] =
             fixedEventsByMonth[targetMonthNum][day];
@@ -201,7 +183,6 @@ function initCalendarData() {
       });
     }
 
-    // Generar eventos recurrentes
     generateRecurrentEvents(targetYear, targetMonthNum);
   }
 
@@ -212,11 +193,9 @@ function initCalendarData() {
   );
 }
 
-// Generar eventos recurrentes
 function generateRecurrentEvents(year, month) {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  // Game Nights cada jueves
   for (let day = 1; day <= daysInMonth; day++) {
     const date = getLocalDate(
       `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(
@@ -225,7 +204,6 @@ function generateRecurrentEvents(year, month) {
       )}`
     );
 
-    // Jueves (4)
     if (date.getDay() === 4) {
       const dateKey = formatDateForKey(date);
 
@@ -243,11 +221,9 @@ function generateRecurrentEvents(year, month) {
   }
 }
 
-// ===== NUEVA FUNCIÓN: ACTUALIZAR CONTADOR DE EVENTOS REALIZADOS =====
 function updateEventsDoneCounter() {
   const today = getLocalDate();
 
-  // Contar eventos pasados
   const pastEvents = Object.entries(window.calendarEvents || {}).filter(
     ([dateKey, event]) => {
       const eventDate = getLocalDate(dateKey);
@@ -255,13 +231,11 @@ function updateEventsDoneCounter() {
     }
   ).length;
 
-  // Actualizar el contador en las estadísticas
   const eventsDoneElement = document.getElementById("events-done");
   if (eventsDoneElement) {
     eventsDoneElement.textContent = pastEvents;
   }
 
-  // También podemos actualizar las victorias totales si hay torneos pasados
   const pastTournaments = Object.entries(window.calendarEvents || {}).filter(
     ([dateKey, event]) => {
       const eventDate = getLocalDate(dateKey);
@@ -271,18 +245,16 @@ function updateEventsDoneCounter() {
 
   const totalWinsElement = document.getElementById("total-wins");
   if (totalWinsElement) {
-    totalWinsElement.textContent = pastTournaments * 5; // Ejemplo: 5 victorias por torneo
+    totalWinsElement.textContent = pastTournaments * 5;
   }
 }
 
-// ===== FUNCIONES DEL CALENDARIO =====
 function initCalendar() {
   updateCurrentDate();
   renderCalendar(currentMonth, currentYear);
   renderEventList(currentMonth, currentYear);
 }
 
-// Actualizar la fecha actual
 function updateCurrentDate() {
   const now = getLocalDate();
   currentMonth = now.getMonth();
@@ -290,7 +262,6 @@ function updateCurrentDate() {
   lastKnownDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
-// Verificar si ha cambiado el día o año
 function checkDateUpdate() {
   const now = getLocalDate();
   const currentDate = new Date(
@@ -299,24 +270,19 @@ function checkDateUpdate() {
     now.getDate()
   );
 
-  // Verificar si ha cambiado el día
   if (currentDate.getTime() !== lastKnownDate.getTime()) {
     console.log("¡Nuevo día detectado! Actualizando calendario...");
 
-    // Actualizar año en el copyright si cambió
     const currentYearElement = document.getElementById("current-year");
     if (currentYearElement) {
       currentYearElement.textContent = now.getFullYear();
     }
 
-    // Recargar datos y calendario
     initCalendarData();
     updateCurrentDate();
 
-    // Verificar recordatorios para hoy
     checkTodayReminders();
 
-    // Actualizar visualización
     if (currentMonth === now.getMonth() && currentYear === now.getFullYear()) {
       renderCalendar(currentMonth, currentYear);
       renderEventList(currentMonth, currentYear);
@@ -324,12 +290,10 @@ function checkDateUpdate() {
 
     initTodayEvent();
 
-    // Actualizar contadores de estadísticas
     updateEventsDoneCounter();
   }
 }
 
-// Navegar al mes actual
 function navigateToCurrentMonth() {
   const now = getLocalDate();
   currentMonth = now.getMonth();
@@ -340,23 +304,19 @@ function navigateToCurrentMonth() {
   showNotification("Calendario actualizado al mes actual", "info");
 }
 
-// Renderizar calendario
 function renderCalendar(month, year) {
   const calendarGrid = document.getElementById("calendar-grid");
   const monthYearElement = document.getElementById("current-month-year");
 
   if (!calendarGrid || !monthYearElement) return;
 
-  // Limpiar calendario anterior
   calendarGrid.innerHTML = "";
 
-  // Configurar fecha actual
   const today = getLocalDate();
   const todayDate = today.getDate();
   const todayMonth = today.getMonth();
   const todayYear = today.getFullYear();
 
-  // Actualizar título del mes
   const monthNames = [
     "Enero",
     "Febrero",
@@ -373,7 +333,6 @@ function renderCalendar(month, year) {
   ];
   monthYearElement.textContent = `${monthNames[month]} ${year}`;
 
-  // Crear encabezados de días
   const daysOfWeek = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
   daysOfWeek.forEach((day) => {
     const dayElement = document.createElement("div");
@@ -382,22 +341,18 @@ function renderCalendar(month, year) {
     calendarGrid.appendChild(dayElement);
   });
 
-  // Obtener primer día del mes
   const firstDay = new Date(year, month, 1);
-  const startingDay = firstDay.getDay(); // 0 = Domingo
+  const startingDay = firstDay.getDay();
 
-  // Obtener último día del mes
   const lastDay = new Date(year, month + 1, 0);
   const totalDays = lastDay.getDate();
 
-  // Días vacíos al inicio
   for (let i = 0; i < startingDay; i++) {
     const emptyDay = document.createElement("div");
     emptyDay.className = "calendar-day empty";
     calendarGrid.appendChild(emptyDay);
   }
 
-  // Crear días del mes
   for (let day = 1; day <= totalDays; day++) {
     const dayElement = document.createElement("div");
     dayElement.className = "calendar-day";
@@ -405,7 +360,6 @@ function renderCalendar(month, year) {
     dayElement.dataset.month = month;
     dayElement.dataset.year = year;
 
-    // Verificar si es hoy
     const isToday =
       year === todayYear && month === todayMonth && day === todayDate;
     if (isToday) {
@@ -413,13 +367,11 @@ function renderCalendar(month, year) {
       dayElement.title = "Hoy";
     }
 
-    // Verificar si es fin de semana
     const dayOfWeek = new Date(year, month, day).getDay();
     if (dayOfWeek === 0 || dayOfWeek === 6) {
       dayElement.classList.add("weekend");
     }
 
-    // Verificar si hay evento
     const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(
       day
     ).padStart(2, "0")}`;
@@ -430,17 +382,14 @@ function renderCalendar(month, year) {
       dayElement.dataset.eventType = event.type;
       dayElement.title = `${event.title}\n${event.description || ""}`;
 
-      // Agregar clase específica por tipo de evento
       dayElement.classList.add(`event-${event.type}`);
     }
 
-    // Agregar número del día
     const dayNumber = document.createElement("span");
     dayNumber.className = "day-number";
     dayNumber.textContent = day;
     dayElement.appendChild(dayNumber);
 
-    // Agregar iconos de eventos si hay
     if (event) {
       const eventIcons = document.createElement("div");
       eventIcons.className = "event-icons";
@@ -449,7 +398,6 @@ function renderCalendar(month, year) {
       dayElement.appendChild(eventIcons);
     }
 
-    // Agregar indicador de "hoy" si es el día actual
     if (isToday) {
       const todayIndicator = document.createElement("div");
       todayIndicator.className = "today-indicator";
@@ -461,7 +409,6 @@ function renderCalendar(month, year) {
   }
 }
 
-// Renderizar lista de eventos
 function renderEventList(month, year) {
   const eventsList = document.getElementById("calendar-events-list");
   if (!eventsList) return;
@@ -481,7 +428,6 @@ function renderEventList(month, year) {
     "Diciembre",
   ];
 
-  // Filtrar eventos del mes actual
   const currentMonthEvents = Object.entries(window.calendarEvents || {})
     .filter(([dateKey]) => {
       const eventDate = getLocalDate(dateKey);
@@ -529,7 +475,6 @@ function renderEventList(month, year) {
     const dayName = fullDayNames[eventDate.getDay()];
     const shortDayName = dayNames[eventDate.getDay()];
 
-    // Determinar tipo de evento
     let typeClass = "";
     let typeColor = "";
     switch (event.type) {
@@ -550,18 +495,15 @@ function renderEventList(month, year) {
         typeColor = "#4CAF50";
     }
 
-    // Verificar si es hoy
     const isToday =
       eventDate.getDate() === today.getDate() &&
       eventDate.getMonth() === today.getMonth() &&
       eventDate.getFullYear() === today.getFullYear();
 
-    // Verificar si es pasado
     const isPast =
       eventDate <
       new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-    // Verificar si es pronto (próximos 3 días)
     const daysUntil = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
     const isSoon = daysUntil >= 0 && daysUntil <= 3;
 
@@ -573,7 +515,6 @@ function renderEventList(month, year) {
       ? "soon-event-list"
       : "";
 
-    // Verificar si tiene recordatorio
     const hasReminder = checkIfHasReminder(dateKey);
 
     html += `
@@ -639,7 +580,6 @@ function changeMonth(direction) {
   renderEventList(currentMonth, currentYear);
 }
 
-// ===== EVENTO DE HOY =====
 function initTodayEvent() {
   const today = getLocalDate();
   const todayKey = formatDateForKey(today);
@@ -651,7 +591,6 @@ function initTodayEvent() {
   if (!todayEventElement || !todayCountdownElement) return;
 
   if (event) {
-    // Determinar estado del evento
     const now = new Date();
     const eventDateTime = new Date(today);
     const timeMatch = (event.time || "18:00").match(/(\d{1,2}):(\d{2})/);
@@ -718,10 +657,8 @@ function initTodayEvent() {
       </div>
     `;
 
-    // Configurar contador regresivo CORRECTAMENTE
     setupTodayCountdown("today-countdown", event.time || "18:00");
   } else {
-    // Buscar próximo evento
     const nextEvent = findNextEvent();
 
     if (nextEvent) {
@@ -773,7 +710,6 @@ function initTodayEvent() {
   }
 }
 
-// ===== FUNCIÓN MEJORADA PARA EL CONTADOR REGRESIVO =====
 function setupTodayCountdown(elementId, eventTime) {
   const countdownElement = document.getElementById(elementId);
   if (!countdownElement) return;
@@ -795,10 +731,8 @@ function setupTodayCountdown(elementId, eventTime) {
       return;
     }
 
-    // Crear la fecha/hora exacta del evento HOY
     const eventDateTime = new Date(today);
 
-    // Parsear la hora del evento (ej: "18:00 GMT-5")
     const timeMatch = eventTime.match(/(\d{1,2}):(\d{2})/);
     if (timeMatch) {
       eventDateTime.setHours(
@@ -811,7 +745,6 @@ function setupTodayCountdown(elementId, eventTime) {
       eventDateTime.setHours(18, 0, 0, 0);
     }
 
-    // Si ya pasó la hora de hoy, el evento ya terminó (asumimos duración de 2 horas)
     const eventEndTime = new Date(eventDateTime.getTime() + 2 * 60 * 60 * 1000);
     if (now > eventEndTime) {
       countdownElement.innerHTML = `
@@ -829,7 +762,6 @@ function setupTodayCountdown(elementId, eventTime) {
       return;
     }
 
-    // Si el evento está en curso (ahora está entre la hora de inicio y la hora de finalización)
     if (now >= eventDateTime && now <= eventEndTime) {
       countdownElement.innerHTML = `
         <div class="event-live">
@@ -851,7 +783,6 @@ function setupTodayCountdown(elementId, eventTime) {
       return;
     }
 
-    // Calcular tiempo restante hasta el inicio del evento
     const timeLeft = eventDateTime - now;
 
     if (timeLeft > 0) {
@@ -892,14 +823,12 @@ function setupTodayCountdown(elementId, eventTime) {
     }
   }
 
-  // Actualizar cada segundo
   updateCountdown();
   setInterval(updateCountdown, 1000);
 }
 
-// Función auxiliar para calcular tiempo restante del evento (asumiendo 2 horas de duración)
 function calculateEventRemainingTime(eventStartTime) {
-  const eventEndTime = new Date(eventStartTime.getTime() + 2 * 60 * 60 * 1000); // +2 horas
+  const eventEndTime = new Date(eventStartTime.getTime() + 2 * 60 * 60 * 1000);
   const now = new Date();
   const timeLeft = eventEndTime - now;
 
@@ -911,7 +840,6 @@ function calculateEventRemainingTime(eventStartTime) {
   return `${hours}h ${minutes}m`;
 }
 
-// Nueva función para unirse al evento en vivo
 function joinEventNow() {
   const today = getLocalDate();
   const todayKey = formatDateForKey(today);
@@ -919,7 +847,6 @@ function joinEventNow() {
 
   if (event) {
     if (confirm(`¿Unirte al evento "${event.title}" ahora?`)) {
-      // Redirigir según el tipo de evento
       switch (event.type) {
         case "tournament":
           window.open(
@@ -928,11 +855,9 @@ function joinEventNow() {
           );
           break;
         case "game":
-          // Redirigir a Discord o plataforma correspondiente
           joinDiscord();
           break;
         case "special":
-          // Podrías tener un enlace específico para eventos especiales
           window.open("https://discord.gg/invitacion-del-clan", "_blank");
           break;
       }
@@ -940,19 +865,16 @@ function joinEventNow() {
   }
 }
 
-// Encontrar el próximo evento
 function findNextEvent() {
   if (!window.calendarEvents) return null;
 
   const today = getLocalDate();
   const now = new Date();
 
-  // Primero verificar si hay evento hoy que aún no haya pasado
   const todayKey = formatDateForKey(today);
   const todayEvent = window.calendarEvents[todayKey];
 
   if (todayEvent) {
-    // Verificar si el evento de hoy aún no ha pasado
     const eventDateTime = new Date(today);
     const timeMatch = (todayEvent.time || "18:00").match(/(\d{1,2}):(\d{2})/);
 
@@ -965,7 +887,6 @@ function findNextEvent() {
       );
     }
 
-    // Si el evento de hoy es en el futuro (incluyendo ahora mismo)
     if (
       eventDateTime >= now ||
       now < new Date(eventDateTime.getTime() + 2 * 60 * 60 * 1000)
@@ -980,7 +901,6 @@ function findNextEvent() {
     }
   }
 
-  // Buscar próximo evento futuro
   const upcomingEvents = Object.entries(window.calendarEvents)
     .filter(([dateKey]) => {
       const eventDate = getLocalDate(dateKey);
@@ -1002,12 +922,9 @@ function findNextEvent() {
   return null;
 }
 
-// ===== SISTEMA DE RECORDATORIOS =====
 function initReminderSystem() {
-  // Verificar recordatorios pendientes
   checkTodayReminders();
 
-  // Configurar intervalo para verificar recordatorios cada minuto
   setInterval(checkReminders, 60000);
 }
 
@@ -1043,7 +960,6 @@ function checkReminders() {
         0
       );
 
-      // Notificar 15 minutos antes
       const notificationTime = new Date(
         eventDateTime.getTime() - 15 * 60 * 1000
       );
@@ -1053,7 +969,6 @@ function checkReminders() {
         now < eventDateTime &&
         !reminder.notified
       ) {
-        // Mostrar notificación del navegador si está permitido
         if ("Notification" in window && Notification.permission === "granted") {
           new Notification(`Recordatorio: ${reminder.title}`, {
             body: `Comienza en 15 minutos (${reminder.time})`,
@@ -1061,10 +976,8 @@ function checkReminders() {
           });
         }
 
-        // Mostrar notificación en la página
         showNotification(`¡En 15 minutos: ${reminder.title}!`, "warning");
 
-        // Marcar como notificado
         reminders[index].notified = true;
         saveReminders(reminders);
       }
@@ -1076,11 +989,9 @@ function setReminder(eventDate, eventTitle, eventTime = "18:00") {
   const reminders = getReminders();
   const reminderId = `${eventDate}-${eventTitle}`;
 
-  // Verificar si ya existe
   const existingIndex = reminders.findIndex((r) => r.id === reminderId);
 
   if (existingIndex >= 0) {
-    // Ya existe, preguntar si eliminar
     if (
       confirm(
         "¿Ya tienes un recordatorio para este evento. ¿Quieres eliminarlo?"
@@ -1092,7 +1003,6 @@ function setReminder(eventDate, eventTitle, eventTime = "18:00") {
       return;
     }
   } else {
-    // Agregar nuevo recordatorio
     reminders.push({
       id: reminderId,
       date: eventDate,
@@ -1105,13 +1015,11 @@ function setReminder(eventDate, eventTitle, eventTime = "18:00") {
     saveReminders(reminders);
     showNotification(`Recordatorio establecido para ${eventTitle}`, "success");
 
-    // Solicitar permisos para notificaciones si no se han pedido
     if ("Notification" in window && Notification.permission === "default") {
       Notification.requestPermission();
     }
   }
 
-  // Actualizar lista de eventos si está visible
   renderEventList(currentMonth, currentYear);
 }
 
@@ -1156,7 +1064,6 @@ function removeReminder(dateKey, eventTitle) {
   return newReminders;
 }
 
-// ===== ESTADÍSTICAS =====
 function initStatistics() {
   animateStatCounters();
 }
@@ -1196,9 +1103,7 @@ function animateStatCounters() {
   });
 }
 
-// ===== EVENT LISTENERS =====
 function initEventListeners() {
-  // Botones de navegación del calendario
   const prevBtn = document.getElementById("prev-month");
   const nextBtn = document.getElementById("next-month");
   const todayBtn = document.getElementById("today-btn");
@@ -1211,11 +1116,9 @@ function initEventListeners() {
     nextBtn.addEventListener("click", () => changeMonth("next"));
   }
 
-  // Botón para ir al día de hoy
   if (todayBtn) {
     todayBtn.addEventListener("click", navigateToCurrentMonth);
   } else {
-    // Crear botón si no existe
     const navButtons = document.querySelector(".calendar-navigation");
     if (navButtons) {
       const btn = document.createElement("button");
@@ -1227,7 +1130,6 @@ function initEventListeners() {
     }
   }
 
-  // Navegación por teclado
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
       changeMonth("prev");
@@ -1238,7 +1140,6 @@ function initEventListeners() {
     }
   });
 
-  // Click en días del calendario
   document.addEventListener("click", (e) => {
     if (e.target.closest(".calendar-day.event-day")) {
       const dayElement = e.target.closest(".calendar-day");
@@ -1256,7 +1157,6 @@ function initEventListeners() {
       }
     }
 
-    // Click en items de lista de eventos
     if (e.target.closest(".event-list-item")) {
       const eventItem = e.target.closest(".event-list-item");
       const date = eventItem.dataset.eventDate;
@@ -1270,7 +1170,6 @@ function initEventListeners() {
     }
   });
 
-  // Smooth scroll para enlaces internos
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
@@ -1288,9 +1187,7 @@ function initEventListeners() {
   });
 }
 
-// Mostrar modal de evento
 function showEventModal(event, dateKey, displayDate = null) {
-  // Crear modal si no existe
   let modal = document.getElementById("event-modal");
 
   if (!modal) {
@@ -1329,12 +1226,10 @@ function showEventModal(event, dateKey, displayDate = null) {
     `;
     document.body.appendChild(modal);
 
-    // Cerrar modal
     modal.querySelector(".event-modal-close").addEventListener("click", () => {
       modal.style.display = "none";
     });
 
-    // Cerrar al hacer click fuera
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         modal.style.display = "none";
@@ -1342,10 +1237,8 @@ function showEventModal(event, dateKey, displayDate = null) {
     });
   }
 
-  // Verificar si ya tiene recordatorio
   const hasReminder = checkIfHasReminder(dateKey);
 
-  // Verificar si el evento está en vivo
   const today = getLocalDate();
   const now = new Date();
   const eventDate = getLocalDate(dateKey);
@@ -1367,7 +1260,6 @@ function showEventModal(event, dateKey, displayDate = null) {
     isEventLive = now >= eventDateTime && now <= eventEndTime;
   }
 
-  // Configurar contenido
   let typeText = "";
   let typeColor = "";
   switch (event.type) {
@@ -1400,7 +1292,6 @@ function showEventModal(event, dateKey, displayDate = null) {
   modal.querySelector("#event-modal-description").textContent =
     event.description || "¡No te pierdas este evento increíble!";
 
-  // Configurar botones de recordatorio
   const setReminderBtn = modal.querySelector("#btn-set-reminder");
   const removeReminderBtn = modal.querySelector("#btn-remove-reminder");
   const joinNowBtn = modal.querySelector("#btn-join-now-modal");
@@ -1433,16 +1324,13 @@ function showEventModal(event, dateKey, displayDate = null) {
     };
   }
 
-  // Configurar botón compartir
   modal.querySelector("#btn-share-event").onclick = function () {
     shareEvent(event, dateKey);
   };
 
-  // Mostrar modal
   modal.style.display = "flex";
 }
 
-// Compartir evento
 function shareEvent(event, dateKey) {
   const eventDate = getLocalDate(dateKey);
   const formattedDate = formatDate(eventDate);
@@ -1461,14 +1349,12 @@ function shareEvent(event, dateKey) {
       })
       .catch(console.error);
   } else {
-    // Copiar al portapapeles
     navigator.clipboard
       .writeText(text)
       .then(() => {
         showNotification("Evento copiado al portapapeles", "success");
       })
       .catch(() => {
-        // Fallback para navegadores antiguos
         const textArea = document.createElement("textarea");
         textArea.value = text;
         document.body.appendChild(textArea);
@@ -1480,7 +1366,6 @@ function shareEvent(event, dateKey) {
   }
 }
 
-// ===== FUNCIONES UTILITARIAS =====
 function formatDate(date) {
   const options = {
     weekday: "long",
@@ -1496,7 +1381,6 @@ function getRandomInt(min, max) {
 }
 
 function showNotification(message, type = "info") {
-  // Crear elemento de notificación si no existe
   let notification = document.getElementById("calendar-notification");
 
   if (!notification) {
@@ -1518,7 +1402,6 @@ function showNotification(message, type = "info") {
     document.body.appendChild(notification);
   }
 
-  // Configurar color según tipo
   const colors = {
     info: "#2196F3",
     success: "#4CAF50",
@@ -1530,7 +1413,6 @@ function showNotification(message, type = "info") {
   notification.textContent = message;
   notification.style.display = "block";
 
-  // Auto-ocultar después de 3 segundos
   setTimeout(() => {
     notification.style.display = "none";
   }, 3000);
@@ -1547,7 +1429,6 @@ function joinWhatsApp() {
   // window.open("https://chat.whatsapp.com/JuAiTl1OInpAvqtAK5PyqJ", "_blank");
 }
 
-// Inicializar valores de estadísticas con animación
 document.addEventListener("DOMContentLoaded", function () {
   const statValues = [
     { id: "total-prizes", target: getRandomInt(5, 20) },
@@ -1568,7 +1449,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// Función para animar números
 function animateValue(element, start, end, duration, suffix = "") {
   let startTimestamp = null;
   const step = (timestamp) => {
@@ -1582,4 +1462,3 @@ function animateValue(element, start, end, duration, suffix = "") {
   };
   window.requestAnimationFrame(step);
 }
-

@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- METADATOS SEO -->
     <title>Noticias del Clan - Serakdep MS</title>
     <meta
       name="description"
@@ -15,7 +14,6 @@
       content="Roblox, clan, noticias, actualizaciones, anuncios, eventos, torneos"
     />
 
-    <!-- FAVICON -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -37,32 +35,25 @@
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- ESTILOS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/noticias.css" />
     <link rel="stylesheet" href="css/responsive.css" />
 
-    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
-    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- CONFIGURACIÓN NPONT.IO -->
     <script>
-      // ========================
       // CONFIGURACIÓN NPONT.IO
-      // ========================
 
       const API_DB = "https://api.npoint.io/c7935f8e8b0b09b0b07b";
 
-      // Variable de debug para verificar
       window.APP_CONFIG = {
         API_DB: API_DB,
         VERSION: "2.0.0",
@@ -76,7 +67,6 @@
     </script>
   </head>
   <body>
-    <!-- Header -->
     <header>
       <div class="container header-container">
         <div class="logo">
@@ -101,7 +91,6 @@
 
     <main>
       <div class="container">
-        <!-- Título principal -->
         <div class="page-header">
           <h1 class="page-title">
             <i class="fas fa-newspaper"></i> Noticias del Clan
@@ -120,7 +109,6 @@
           </div>
         </div>
 
-        <!-- Filtros de Noticias -->
         <div class="news-filters" id="news-filters">
           <button class="filter-btn active" data-filter="all">
             <i class="fas fa-layer-group"></i> Todas
@@ -142,7 +130,6 @@
           </button>
         </div>
 
-        <!-- Estadísticas Rápidas -->
         <div class="news-stats">
           <div class="stat-item">
             <div class="stat-icon">
@@ -185,7 +172,6 @@
           </div>
         </div>
 
-        <!-- Lista de Noticias -->
         <div class="news-container" id="news-container">
           <div class="loading-news">
             <i class="fas fa-spinner fa-spin"></i>
@@ -193,7 +179,6 @@
           </div>
         </div>
 
-        <!-- Panel lateral -->
         <aside class="sidebar">
           <div class="sidebar-widget">
             <h3><i class="fas fa-fire"></i> Noticias Destacadas</h3>
@@ -205,7 +190,6 @@
             </div>
           </div>
 
-          <!-- WIDGET DE WHATSAPP -->
           <div class="sidebar-widget">
             <h3><i class="fab fa-whatsapp"></i> Canal de WhatsApp</h3>
             <p>
@@ -262,14 +246,11 @@
                 </ul>
               </div>
 
-              <div class="whatsapp-clicks" id="whatsapp-clicks">
-                <!-- Se actualizará dinámicamente -->
-              </div>
+              <div class="whatsapp-clicks" id="whatsapp-clicks"></div>
             </div>
           </div>
         </aside>
 
-        <!-- Paginación -->
         <div class="pagination" id="pagination">
           <button class="page-btn prev" id="prev-page">
             <i class="fas fa-chevron-left"></i> Anterior
@@ -378,7 +359,6 @@
             </ul>
           </div>
 
-          <!-- NUEVA SECCIÓN LEGAL -->
           <div class="footer-section">
             <h3 class="footer-title">Información Legal</h3>
             <ul class="footer-links">
@@ -430,15 +410,12 @@
       </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="js/main.js"></script>
 
-    <!-- Mensaje de carga simplificado -->
     <script>
       console.log("🚀 Sistema de Noticias - Modo Solo Lectura");
       console.log("📡 Conectando con npoint.io...");
 
-      // Ocultar mensaje de carga después de 3 segundos
       setTimeout(() => {
         const loading = document.querySelector(".loading-news");
         if (
@@ -453,6 +430,3 @@
     <script src="js/noticias.js"></script>
   </body>
 </html>
-
-
-
