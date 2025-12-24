@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- METADATOS SEO -->
     <title>Serakdep MS - Clan de Roblox</title>
     <meta
       name="description"
@@ -15,7 +14,6 @@
       content="Roblox, clan, gaming, comunidad, Serakdep, MS, panda"
     />
 
-    <!-- FAVICON COMPLETO CON TUS ARCHIVOS -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -48,16 +46,13 @@
     />
     <link rel="shortcut icon" href="favicon/favicon.ico" />
 
-    <!-- COLOR DE TEMA -->
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- TUS ESTILOS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <link rel="stylesheet" href="css/video-player-final.css" />
     <link rel="stylesheet" href="css/logo.css" />
 
-    <!-- Font Awesome optimizado -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -66,7 +61,6 @@
       referrerpolicy="no-referrer"
     />
 
-    <!-- Preconexiones para mejor rendimiento -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
   </head>
@@ -103,7 +97,6 @@
           <i class="fas fa-home"></i> Bienvenido a Serakdep MS
         </h1>
 
-        <!-- LOGO DEL CLAN -->
         <div class="clan-logo-section">
           <div class="clan-logo-container">
             <img
@@ -130,9 +123,7 @@
           </div>
         </div>
 
-        <!-- REPRODUCTOR DE VIDEO MEJORADO -->
         <div class="video-player-final">
-          <!-- Área del video -->
           <div class="video-display-area">
             <div class="video-container">
               <video
@@ -144,11 +135,9 @@
                 playsinline
                 preload="metadata"
               >
-                <!-- Las fuentes se asignarán dinámicamente con JavaScript -->
                 <p>Tu navegador no soporta videos HTML5.</p>
               </video>
 
-              <!-- Overlay de carga -->
               <div class="video-loading-overlay" id="video-loading">
                 <div class="loading-animation">
                   <i class="fas fa-spinner fa-spin"></i>
@@ -156,7 +145,6 @@
                 </div>
               </div>
 
-              <!-- Botón de reproducción grande -->
               <button
                 class="video-center-play-btn"
                 id="center-play-btn"
@@ -165,7 +153,6 @@
                 <i class="fas fa-play"></i>
               </button>
 
-              <!-- Indicadores flotantes - SOLO SONIDO (se eliminó el de aleatorio) -->
               <div class="video-floating-indicators">
                 <div
                   class="floating-indicator sound-indicator"
@@ -177,9 +164,7 @@
             </div>
           </div>
 
-          <!-- Panel de controles (FUERA DEL VIDEO) -->
           <div class="video-controls-panel">
-            <!-- Información del video -->
             <div class="video-meta-info">
               <h3 class="video-current-title" id="video-title">
                 Presentación del Clan
@@ -190,7 +175,6 @@
               </p>
             </div>
 
-            <!-- Barra de progreso -->
             <div class="video-progress-section">
               <div class="progress-track" id="progress-track">
                 <div class="progress-slider" id="progress-slider">
@@ -204,9 +188,7 @@
               </div>
             </div>
 
-            <!-- Controles principales -->
             <div class="main-controls-section">
-              <!-- Grupo izquierdo: Navegación -->
               <div class="controls-group nav-group">
                 <button
                   class="control-button nav-button prev-button"
@@ -231,14 +213,13 @@
                 </button>
               </div>
 
-              <!-- Grupo central: Información y funciones -->
               <div class="controls-group center-group">
                 <div class="video-counter-display">
                   <span class="counter-current" id="counter-current">1</span>
                   <span class="counter-separator">de</span>
                   <span class="counter-total" id="counter-total">5</span>
                 </div>
-                <!-- SE ELIMINÓ EL BOTÓN DE ALEATORIO -->
+
                 <button
                   class="control-button function-button volume-toggle"
                   id="volume-toggle"
@@ -248,7 +229,6 @@
                 </button>
               </div>
 
-              <!-- Grupo derecho: Acciones -->
               <div class="controls-group action-group">
                 <button
                   class="control-button action-button fullscreen-toggle"
@@ -267,7 +247,6 @@
               </div>
             </div>
 
-            <!-- Controles táctiles para móviles (ordenados y grandes) -->
             <div class="mobile-touch-controls">
               <div class="touch-controls-row">
                 <button
@@ -304,7 +283,7 @@
                   <i class="fas fa-volume-up"></i>
                   <span class="touch-label">Volumen</span>
                 </button>
-                <!-- SE ELIMINÓ EL BOTÓN DE ALEATORIO -->
+
                 <button
                   class="touch-control-button"
                   id="mobile-fullscreen-btn"
@@ -324,7 +303,6 @@
               </div>
             </div>
 
-            <!-- Slider de volumen desplegable -->
             <div class="volume-slider-container" id="volume-slider-container">
               <div class="volume-slider-wrapper">
                 <i class="fas fa-volume-down volume-icon-low"></i>
@@ -343,7 +321,6 @@
             </div>
           </div>
 
-          <!-- Menú de configuración -->
           <div class="settings-menu-overlay" id="settings-overlay">
             <div class="settings-menu-container">
               <div class="settings-menu-header">
@@ -354,7 +331,6 @@
               </div>
 
               <div class="settings-menu-content">
-                <!-- Velocidad de reproducción -->
                 <div class="settings-group">
                   <h4>
                     <i class="fas fa-tachometer-alt"></i> Velocidad de
@@ -370,7 +346,6 @@
                   </div>
                 </div>
 
-                <!-- Calidad (simulado) -->
                 <div class="settings-group">
                   <h4><i class="fas fa-hd"></i> Calidad del Video</h4>
                   <div class="quality-buttons">
@@ -386,7 +361,6 @@
                   </div>
                 </div>
 
-                <!-- Opciones adicionales -->
                 <div class="settings-group">
                   <h4><i class="fas fa-sliders-h"></i> Opciones</h4>
                   <div class="settings-options">
@@ -405,7 +379,6 @@
                   </div>
                 </div>
 
-                <!-- Acciones -->
                 <div class="settings-group">
                   <h4><i class="fas fa-tools"></i> Acciones</h4>
                   <div class="action-buttons">
@@ -421,7 +394,6 @@
                   </div>
                 </div>
 
-                <!-- Información del video -->
                 <div class="settings-group">
                   <h4><i class="fas fa-info-circle"></i> Información</h4>
                   <div class="video-info-display">
@@ -444,7 +416,6 @@
           </div>
         </div>
 
-        <!-- Resto del contenido... -->
         <div class="card fade-in">
           <h2 class="card-title">¿Qué es Serakdep MS?</h2>
           <p>
@@ -624,7 +595,6 @@
             </ul>
           </div>
 
-          <!-- NUEVA SECCIÓN LEGAL -->
           <div class="footer-section">
             <h3 class="footer-title">Información Legal</h3>
             <ul class="footer-links">
@@ -672,4 +642,3 @@
     <script src="js/logo-animations.js"></script>
   </body>
 </html>
-
