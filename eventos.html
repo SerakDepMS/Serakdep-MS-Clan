@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- METADATOS SEO -->
     <title>Eventos y Torneos - Serakdep MS - Clan de Roblox</title>
     <meta
       name="description"
@@ -15,7 +14,6 @@
       content="Roblox, clan, eventos, torneos, competencias, calendario, Serakdep MS, premios"
     />
 
-    <!-- FAVICON COMPLETO - APUNTANDO A LA CARPETA FAVICON -->
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -49,12 +47,10 @@
     <link rel="shortcut icon" href="favicon/favicon.ico" />
     <meta name="theme-color" content="#ffffff" />
 
-    <!-- TUS ESTILOS -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/eventos.css" />
     <link rel="stylesheet" href="css/responsive.css" />
 
-    <!-- Font Awesome optimizado -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -63,7 +59,6 @@
       referrerpolicy="no-referrer"
     />
 
-    <!-- Preconexiones para mejor rendimiento -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
   </head>
@@ -106,24 +101,18 @@
           encontrarás toda la información sobre nuestros torneos y actividades.
         </div>
 
-        <!-- Evento de Hoy -->
         <div class="card fade-in">
           <h2 class="card-title">
             <i class="fas fa-calendar-day"></i> Evento de Hoy
           </h2>
 
           <div class="today-event-container">
-            <div class="today-event-card" id="today-event">
-              <!-- Se llenará dinámicamente con JavaScript -->
-            </div>
+            <div class="today-event-card" id="today-event"></div>
 
-            <div class="today-countdown-container" id="today-countdown">
-              <!-- Contador regresivo para el evento de hoy -->
-            </div>
+            <div class="today-countdown-container" id="today-countdown"></div>
           </div>
         </div>
 
-        <!-- Inscripción de Equipos -->
         <div class="card fade-in">
           <h2 class="card-title">
             <i class="fas fa-users"></i> Inscripción de Equipos
@@ -562,14 +551,12 @@
           </div>
         </div>
 
-        <!-- Calendario Mensual -->
         <div class="card fade-in">
           <h2 class="card-title">
             <i class="fas fa-calendar"></i> Calendario de Eventos
           </h2>
 
           <div class="event-calendar" id="event-calendar">
-            <!-- Contenedor con clase calendar-navigation -->
             <div class="calendar-header calendar-navigation">
               <button
                 id="prev-month"
@@ -579,7 +566,7 @@
                 <i class="fas fa-chevron-left"></i>
               </button>
               <h3 id="current-month-year">Diciembre 2026</h3>
-              <!-- Botón "Hoy"-->
+
               <button
                 id="today-btn"
                 class="today-button"
@@ -596,9 +583,7 @@
               </button>
             </div>
 
-            <div class="calendar-grid" id="calendar-grid">
-              <!-- Se llenará dinámicamente con JavaScript -->
-            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
 
             <div class="calendar-legend">
               <p><span class="legend-event">🎮</span> Game Night</p>
@@ -608,12 +593,9 @@
             </div>
           </div>
 
-          <div class="calendar-events-list" id="calendar-events-list">
-            <!-- Lista de eventos del mes - se llenará dinámicamente -->
-          </div>
+          <div class="calendar-events-list" id="calendar-events-list"></div>
         </div>
 
-        <!-- Resultados Anteriores -->
         <div class="card fade-in" id="tabla-posiciones">
           <h2 class="card-title">
             <i class="fas fa-medal"></i> Resultados Recientes
@@ -661,7 +643,6 @@
           </div>
         </div>
 
-        <!-- Sistema de Rangos Simplificado -->
         <div class="card fade-in">
           <h2 class="card-title">
             <i class="fas fa-chess-queen"></i> Sistema de Rangos
@@ -715,7 +696,6 @@
           </div>
         </div>
 
-        <!-- Información de Premios -->
         <div class="card fade-in">
           <h2 class="card-title">
             <i class="fas fa-gift"></i> Sistema de Premios
@@ -745,7 +725,6 @@
           </div>
         </div>
 
-        <!-- Recordatorios -->
         <div class="card fade-in text-center">
           <h2 class="card-title">¡No te pierdas nada!</h2>
           <p>
@@ -873,7 +852,6 @@
             </ul>
           </div>
 
-          <!-- NUEVA SECCIÓN LEGAL -->
           <div class="footer-section">
             <h3 class="footer-title">Información Legal</h3>
             <ul class="footer-links">
@@ -920,6 +898,3 @@
     <script src="js/eventos.js"></script>
   </body>
 </html>
-
-
-
