@@ -11,47 +11,55 @@ Este repositorio contiene el sitio web completo del clan Serakdep MS, una comuni
 ## 🚀 Características del Sitio
 
 ### 🏠 **Página de Inicio**
+
 - Logo animado con efectos visuales
 - Reproductor de video mejorado con controles completos
 - Información esencial sobre el clan
 - Botón de solicitud de ingreso
 
 ### 📜 **Reglamento**
+
 - Normas generales y específicas del clan
 - Sistema de sanciones con tabla de faltas
 - Derechos de los miembros
 - Confirmación de aceptación
 
 ### 📝 **Formulario de Inscripción**
+
 - Proceso completo de admisión
 - Campos para información personal y de juego
 - Términos y condiciones
 - Integración con EmailJS para envío automático
 
 ### ❓ **Preguntas Frecuentes (FAQ)**
+
 - Buscador inteligente de preguntas
 - 6 categorías organizadas
 - Sistema de preguntas desplegables
 - Estadísticas de ayuda
 
 ### 🎮 **Eventos y Torneos**
+
 - Evento del día con cuenta regresiva
 - Sistema de inscripción de equipos (30 equipos)
 - Calendario interactivo mensual
 - Sistema de rangos y premios
 
 ### 📰 **Noticias del Clan**
+
 - Sistema de noticias en tiempo real con **npoint.io**
 - Filtros por categoría
 - Widget de WhatsApp con estadísticas
 - Paginación y noticias destacadas
 
 ### 📞 **Contacto**
+
 - Información de contacto principal
 - Formularios para reportes, sugerencias, requisitos de aspirantes a admin y formulario de aspirantes de admin
 - Equipo administrativo completo
 
 ### ⚖️ **Sección Legal**
+
 - Política de Privacidad
 - Términos de Servicio
 - Política de Cookies
@@ -104,21 +112,25 @@ serakdep-ms-website/
 ## 📱 Características Técnicas
 
 ### ✅ Responsive Design
+
 - Compatible con móviles, tablets y escritorio
 - Menú hamburguesa para dispositivos móviles
 - Grid y Flexbox para layouts adaptables
 
 ### ✅ Accesibilidad
+
 - Etiquetas ARIA para lectores de pantalla
 - Contraste de colores adecuado
 - Navegación por teclado
 
 ### ✅ SEO Optimizado
+
 - Meta etiquetas descriptivas
 - URLs amigables
 - Estructura de encabezados semántica
 
 ### ✅ Performance
+
 - Carga diferida de recursos
 - Optimización de imágenes
 - Minificación de CSS/JS (recomendado)
@@ -126,11 +138,13 @@ serakdep-ms-website/
 ## 🔧 Configuración y Uso
 
 ### Para Miembros del Clan:
+
 1. Visita Visita https://serakdepms.github.io/Serakdep-MS-Clan/
 2. Sigue el recorrido recomendado en el guion tutorial
 3. Completa el formulario si deseas unirte
 
 ### Para Desarrolladores:
+
 ```bash
 # Clonar el repositorio
 git clone https://github.com/tu-usuario/serakdep-ms-website.git
@@ -143,11 +157,12 @@ code .
 ```
 
 ### Personalización:
+
 1. **Configurar npoint.io** para noticias:
    - Crea una cuenta en npoint.io
    - Actualiza la URL en `noticias.html` (línea 59)
-   
 2. **Configurar EmailJS** para formularios:
+
    - Crea una cuenta en EmailJS
    - Actualiza las credenciales en `js/form.js`
 
@@ -175,17 +190,21 @@ Las contribuciones son bienvenidas. Por favor:
 ## 📝 Notas Importantes
 
 ### ⚠️ Requisitos Legales
+
 - Este sitio **NO está afiliado a Roblox Corporation**
 - Se debe mantener el aviso de no afiliación en el footer
 - Respetar las políticas de uso de marcas registradas
 
 ### 🔒 Seguridad
+
 - No almacenar contraseñas en el sitio
 - No solicitar información personal sensible
 - Usar HTTPS en producción
 
 ### 📞 Contacto de Soporte
+
 Para problemas técnicos con el sitio:
+
 - **Email:** serakdepmsofficial7@gmail.com
 - **WhatsApp:** +57 311 654 6484
 - **Issues:** Usar el sistema de issues de GitHub
@@ -206,4 +225,4 @@ Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) par
 
 **🐼 ¡Únete a nuestra comunidad y vive la mejor experiencia de gaming! 🎮**
 
-*"Unidos por la pasión del gaming"*
+_"Unidos por la pasión del gaming"_
