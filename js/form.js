@@ -219,12 +219,14 @@ function setupAdminNavigation() {
 }
 
 // ============================================
-// FORMULARIO DE INSCRIPCIÓN
+// FORMULARIO DE INSCRIPCIÓN - VERSIÓN FUNCIONAL
 // ============================================
 function setupInscriptionForm() {
   const form = document.getElementById("inscription-form");
   const submitBtn = document.getElementById("submit-btn");
   const successMessage = document.getElementById("success-message");
+
+  if (!form || !submitBtn || !successMessage) return;
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -279,9 +281,38 @@ function setupInscriptionForm() {
         }
       }
 
-      // Mostrar mensaje de éxito
+      // 1. Ocultar formulario
       form.style.display = "none";
+
+      // 2. Mostrar mensaje de éxito
       successMessage.style.display = "block";
+      successMessage.classList.add("success-highlight");
+
+      // 3. ESPERAR un poco y hacer scroll
+      setTimeout(() => {
+        // Método 1: scrollIntoView con opciones
+        successMessage.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
+
+        // Método 2: Scroll manual como respaldo
+        setTimeout(() => {
+          const rect = successMessage.getBoundingClientRect();
+          const isVisible =
+            rect.top >= 0 &&
+            rect.bottom <=
+              (window.innerHeight || document.documentElement.clientHeight);
+
+          if (!isVisible) {
+            window.scrollBy({
+              top: rect.top - 150,
+              behavior: "smooth",
+            });
+          }
+        }, 200);
+      }, 150);
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       showMessage(
@@ -298,19 +329,19 @@ function setupInscriptionForm() {
 
 async function sendInscriptionEmailToAdmin(data, ip) {
   const templateParams = {
-    roblox_name: data.robloxName,
-    age: data.age,
-    country: data.country,
-    timezone: data.timezone,
-    games: data.games,
-    experience: data.experience,
-    play_hours: data.playHours,
-    why_join: data.whyJoin,
-    referral: data.referral,
-    whatsapp: data.whatsapp,
+    roblox_name: data.robloxName || "No proporcionado",
+    age: data.age || "No proporcionado",
+    country: data.country || "No proporcionado",
+    timezone: data.timezone || "No proporcionado",
+    games: data.games || "No proporcionado",
+    experience: data.experience || "No proporcionado",
+    play_hours: data.playHours || "No proporcionado",
+    why_join: data.whyJoin || "No proporcionado",
+    referral: data.referral || "No proporcionado",
+    whatsapp: data.whatsapp || "No proporcionado",
     whatsapp_consent: data.whatsappConsent ? "Sí" : "No",
     newsletter: data.newsletter ? "Sí" : "No",
-    ip: ip,
+    ip: ip || "No se pudo obtener",
     date: new Date().toLocaleString("es-ES", {
       day: "2-digit",
       month: "2-digit",
@@ -790,15 +821,145 @@ function validateAdminForm() {
 // ============================================
 // FUNCIONES AUXILIARES
 // ============================================
+// ============================================
+// OBTENER IP DEL USUARIO - VERSIÓN MEJORADA
+// ============================================
 async function getIPAddress() {
-  try {
-    const response = await fetch("https://api.ipify.org?format=json");
-    const data = await response.json();
-    return data.ip;
-  } catch (error) {
-    console.warn("No se pudo obtener la IP:", error);
-    return "No disponible";
+  // Lista de servicios de IP (varios como respaldo)
+  const ipServices = [
+    "https://api.ipify.org?format=json",
+    "https://api64.ipify.org?format=json",
+    "https://api.myip.com",
+    "https://ipapi.co/json/",
+    "https://ipinfo.io/json",
+    "https://api.ip.sb/jsonip",
+  ];
+
+  // Intentar con cada servicio hasta que uno funcione
+  for (let i = 0; i < ipServices.length; i++) {
+    try {
+      const response = await fetch(ipServices[i], {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+        },
+        timeout: 3000, // timeout de 3 segundos
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Extraer IP según el formato de cada API
+      let ip = "";
+      if (ipServices[i].includes("ipify")) {
+        ip = data.ip;
+      } else if (ipServices[i].includes("myip.com")) {
+        ip = data.ip;
+      } else if (ipServices[i].includes("ipapi.co")) {
+        ip = data.ip;
+      } else if (ipServices[i].includes("ipinfo.io")) {
+        ip = data.ip;
+      } else if (ipServices[i].includes("ip.sb")) {
+        ip = data.ip;
+      }
+
+      if (ip && ip !== "undefined") {
+        console.log(`IP obtenida desde: ${ipServices[i]}`, ip);
+        return ip;
+      }
+    } catch (error) {
+      console.warn(`Servicio ${i + 1} falló:`, ipServices[i], error);
+      // Continuar con el siguiente servicio
+      continue;
+    }
   }
+
+  // Si todos los servicios fallan, usar un servicio simple como último recurso
+  try {
+    const response = await fetch("https://icanhazip.com/");
+    if (response.ok) {
+      const ip = await response.text();
+      return ip.trim();
+    }
+  } catch (error) {
+    console.warn("Servicio simple también falló:", error);
+  }
+
+  // Último recurso: usar un WebRTC (solo para depuración local)
+  try {
+    const rtcIp = await getIPFromWebRTC();
+    if (rtcIp) {
+      return rtcIp + " (WebRTC)";
+    }
+  } catch (error) {
+    console.warn("WebRTC también falló:", error);
+  }
+
+  return "No disponible - Error al obtener IP";
+}
+
+// Función auxiliar para obtener IP via WebRTC (último recurso)
+function getIPFromWebRTC() {
+  return new Promise((resolve) => {
+    // Solo funciona en algunos navegadores
+    const RTCPeerConnection =
+      window.RTCPeerConnection ||
+      window.mozRTCPeerConnection ||
+      window.webkitRTCPeerConnection;
+
+    if (!RTCPeerConnection) {
+      resolve(null);
+      return;
+    }
+
+    const pc = new RTCPeerConnection({ iceServers: [] });
+    const ips = [];
+
+    pc.createDataChannel("");
+
+    pc.createOffer()
+      .then((offer) => pc.setLocalDescription(offer))
+      .catch((err) => {
+        console.warn("Error en WebRTC:", err);
+        resolve(null);
+      });
+
+    pc.onicecandidate = (event) => {
+      if (!event || !event.candidate) {
+        if (ips.length > 0) {
+          resolve(ips[0]);
+        } else {
+          resolve(null);
+        }
+        return;
+      }
+
+      const candidate = event.candidate.candidate;
+      const regex =
+        /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
+      const match = candidate.match(regex);
+
+      if (match) {
+        const ip = match[1];
+        if (ips.indexOf(ip) === -1) {
+          ips.push(ip);
+        }
+      }
+    };
+
+    // Timeout después de 2 segundos
+    setTimeout(() => {
+      if (ips.length > 0) {
+        resolve(ips[0]);
+      } else {
+        resolve(null);
+      }
+    }, 2000);
+  });
 }
 
 function showMessage(text, type, form = null) {
@@ -957,4 +1118,34 @@ function calculateEvaluationScore() {
   resultDiv.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
+// Función especial para el scroll del formulario de inscripción
+function scrollToElement(elementId) {
+  const element = document.getElementById(elementId);
+  if (!element) return;
 
+  // Calcular posición considerando header fijo
+  const header = document.querySelector("header");
+  const headerHeight = header ? header.offsetHeight : 0;
+
+  // Calcular posición del elemento
+  const elementTop = element.offsetTop;
+  const targetPosition = elementTop - headerHeight - 50;
+
+  // Hacer scroll
+  window.scrollTo({
+    top: targetPosition,
+    behavior: "smooth",
+  });
+
+  // Agregar efecto visual
+  element.style.transition = "all 0.5s ease";
+  element.style.boxShadow = "0 0 0 5px rgba(46, 204, 113, 0.3)";
+
+  setTimeout(() => {
+    element.style.boxShadow = "0 10px 30px rgba(46, 204, 113, 0.3)";
+  }, 500);
+
+  setTimeout(() => {
+    element.style.boxShadow = "";
+  }, 1500);
+}

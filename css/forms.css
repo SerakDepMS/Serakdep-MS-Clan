@@ -720,4 +720,164 @@ textarea.form-control {
   color: #2980b9;
 }
 
+/* ============================================
+   ESTILOS PARA EL MENSAJE DE ÉXITO DEL FORMULARIO
+   ============================================ */
 
+/* Contenedor del formulario */
+.form-container {
+  position: relative;
+  min-height: 500px; /* Altura mínima para evitar saltos */
+}
+
+/* Mensaje de éxito */
+#success-message {
+  display: none;
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: white;
+  border-radius: 15px;
+  padding: 40px 30px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+  animation: slideInUp 0.8s ease-out;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid white;
+  outline: 2px solid #2ecc71;
+  scroll-margin-top: 120px; /* IMPORTANTE: compensa el header fijo */
+}
+
+/* Asegurarse que el mensaje tenga un buen z-index */
+#success-message::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+#success-message > * {
+  position: relative;
+  z-index: 2;
+}
+
+.success-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: bounce 1s ease infinite alternate;
+}
+
+#success-message h3 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+#success-message p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.95;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  min-width: 250px;
+}
+
+.btn-whatsapp:hover {
+  background: #128c7e;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Animaciones */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+/* Para asegurar que se vea en móviles */
+@media (max-width: 768px) {
+  #success-message {
+    padding: 30px 20px;
+    margin: 15px 10px;
+    scroll-margin-top: 100px;
+  }
+
+  .success-icon {
+    font-size: 60px;
+  }
+
+  #success-message h3 {
+    font-size: 24px;
+  }
+
+  #success-message p {
+    font-size: 16px;
+  }
+
+  .btn-whatsapp {
+    padding: 12px 20px;
+    font-size: 16px;
+    min-width: 200px;
+  }
+}
+
+/* Clase temporal para resaltar el mensaje */
+.success-highlight {
+  animation: pulseHighlight 2s ease-in-out !important;
+}
+
+@keyframes pulseHighlight {
+  0% {
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+  }
+  50% {
+    box-shadow: 0 15px 40px rgba(46, 204, 113, 0.6);
+  }
+  100% {
+    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+  }
+}
