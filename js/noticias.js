@@ -1,4 +1,3 @@
-// Configuración del sistema
 const CONFIG = {
   ITEMS_PER_PAGE: 6,
   CATEGORIES: {
@@ -119,7 +118,6 @@ function transformNpointData(data) {
     };
   });
 
-  // Calcular vistas totales
   newsDatabase.totalViews = newsDatabase.news.reduce(
     (sum, news) => sum + (news.views || 0),
     0

@@ -1,48 +1,36 @@
-// form.js - Configurado con EmailJS
 document.addEventListener("DOMContentLoaded", function () {
-  // INICIALIZAR EMAILJS - REEMPLAZA CON TU PUBLIC KEY
   emailjs.init("KZquan0PhqC35uDYw");
 
-  // Formulario de inscripción
   const inscriptionForm = document.getElementById("inscription-form");
   if (inscriptionForm) {
     setupInscriptionForm();
   }
 
-  // Formulario de reporte
   const reportForm = document.getElementById("report-form");
   if (reportForm) {
     setupReportForm();
   }
 
-  // Formulario de sugerencias
   const suggestionForm = document.getElementById("suggestion-form");
   if (suggestionForm) {
     setupSuggestionForm();
   }
 
-  // Formulario de aspirantes a administrador
   const adminForm = document.getElementById("admin-application-form");
   if (adminForm) {
     setupAdminApplicationForm();
   }
 
-  // Configurar contador de caracteres
   setupCharacterCounter();
 
-  // Configurar validación de edad
   setupAgeValidation();
 
-  // Configurar navegación para aspirantes a admin
   setupAdminNavigation();
 
-  // Configurar cuestionario de autoevaluación
   setupEvaluationQuiz();
 });
 
-// ============================================
 // FUNCIONES DE CONFIGURACIÓN INICIAL
-// ============================================
 
 function setupCharacterCounter() {
   const whyJoinTextarea = document.getElementById("why-join");
@@ -92,36 +80,28 @@ function setupEvaluationQuiz() {
   }
 }
 
-// ============================================
 // NAVEGACIÓN PARA ASPIRANTES A ADMINISTRADOR
-// ============================================
 
 function setupAdminNavigation() {
-  // Función para scroll suave a cualquier sección
   function smoothScrollToSection(sectionId, focusFirstInput = false) {
     const section = document.getElementById(sectionId);
     if (!section) return;
 
-    // Offset para header fijo
     const header = document.querySelector("header");
     const headerHeight = header ? header.offsetHeight : 0;
 
-    // Calcular posición
     const sectionTop = section.offsetTop - headerHeight - 20;
 
-    // Hacer scroll suave
     window.scrollTo({
       top: sectionTop,
       behavior: "smooth",
     });
 
-    // Efecto visual de destacado
     section.classList.add("section-highlight");
     setTimeout(() => {
       section.classList.remove("section-highlight");
     }, 2000);
 
-    // Enfocar el primer campo si es un formulario
     if (focusFirstInput && sectionId === "aspirantes-admin") {
       setTimeout(() => {
         const firstInput = section.querySelector("input, textarea, select");
@@ -132,28 +112,22 @@ function setupAdminNavigation() {
     }
   }
 
-  // 1. Manejar clic en el botón "Continuar al Formulario" (de requisitos a formulario)
   const continueBtn = document.querySelector(".requirements-continue-btn");
   if (continueBtn) {
-    // Si es un enlace <a>
     if (continueBtn.tagName === "A") {
       continueBtn.addEventListener("click", function (e) {
         e.preventDefault();
         smoothScrollToSection("aspirantes-admin", true);
       });
-    }
-    // Si es un botón <button>
-    else if (continueBtn.tagName === "BUTTON") {
+    } else if (continueBtn.tagName === "BUTTON") {
       continueBtn.addEventListener("click", function () {
         smoothScrollToSection("aspirantes-admin", true);
       });
     }
   }
 
-  // 2. Manejar clic en enlaces del footer "Aspirar a Admin"
   document.querySelectorAll('a[href*="#requisitos-admin"]').forEach((link) => {
     link.addEventListener("click", function (e) {
-      // Solo si estamos en contacto.html
       if (window.location.pathname.includes("contacto.html")) {
         e.preventDefault();
         smoothScrollToSection("requisitos-admin");
@@ -161,7 +135,6 @@ function setupAdminNavigation() {
     });
   });
 
-  // 3. Manejar clic en enlaces directos al formulario
   document.querySelectorAll('a[href*="#aspirantes-admin"]').forEach((link) => {
     link.addEventListener("click", function (e) {
       if (window.location.pathname.includes("contacto.html")) {
@@ -171,12 +144,10 @@ function setupAdminNavigation() {
     });
   });
 
-  // 4. Manejar carga de página con hash en URL
   function handleHashOnLoad() {
     if (window.location.hash) {
-      const hash = window.location.hash.substring(1); // Eliminar el #
+      const hash = window.location.hash.substring(1);
 
-      // Pequeño delay para asegurar que el DOM esté completamente cargado
       setTimeout(() => {
         if (hash === "requisitos-admin" || hash === "aspirantes-admin") {
           smoothScrollToSection(hash, hash === "aspirantes-admin");
@@ -185,31 +156,24 @@ function setupAdminNavigation() {
     }
   }
 
-  // Ejecutar al cargar
   handleHashOnLoad();
 
-  // También ejecutar si el hash cambia dinámicamente
   window.addEventListener("hashchange", handleHashOnLoad);
 
-  // 5. Crear botón "Volver a Requisitos" en el formulario
   const adminForm = document.getElementById("aspirantes-admin");
   if (adminForm) {
-    // Verificar si ya existe el botón
     const existingBackBtn = adminForm.querySelector(".back-to-requisitos-btn");
     if (!existingBackBtn) {
-      // Crear botón "Volver a Requisitos"
       const backToRequisitosBtn = document.createElement("button");
       backToRequisitosBtn.type = "button";
       backToRequisitosBtn.className = "btn btn-small back-to-requisitos-btn";
       backToRequisitosBtn.innerHTML =
         '<i class="fas fa-arrow-up"></i> Volver a Requisitos';
 
-      // Insertar antes del botón de envío
       const submitBtn = adminForm.querySelector(".form-submit-btn");
       if (submitBtn) {
         submitBtn.parentNode.insertBefore(backToRequisitosBtn, submitBtn);
 
-        // Añadir funcionalidad
         backToRequisitosBtn.addEventListener("click", function () {
           smoothScrollToSection("requisitos-admin");
         });
@@ -218,9 +182,8 @@ function setupAdminNavigation() {
   }
 }
 
-// ============================================
 // FORMULARIO DE INSCRIPCIÓN - VERSIÓN FUNCIONAL
-// ============================================
+
 function setupInscriptionForm() {
   const form = document.getElementById("inscription-form");
   const submitBtn = document.getElementById("submit-btn");
@@ -231,18 +194,15 @@ function setupInscriptionForm() {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    // Validar formulario
     if (!validateInscriptionForm()) {
       return;
     }
 
-    // Deshabilitar botón y mostrar loading
     submitBtn.disabled = true;
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
     try {
-      // Obtener datos del formulario
       const formData = {
         robloxName: document.getElementById("roblox-name").value,
         age: document.getElementById("age").value,
@@ -260,13 +220,10 @@ function setupInscriptionForm() {
         terms: document.getElementById("terms").checked,
       };
 
-      // Obtener IP del usuario
       const ip = await getIPAddress();
 
-      // ENVIAR EMAIL A TI (ADMIN) usando template_bso642c
       await sendInscriptionEmailToAdmin(formData, ip);
 
-      // ENVIAR CONFIRMACIÓN AL USUARIO (OPCIONAL) usando template_xqur3ed
       if (
         formData.whatsappConsent &&
         formData.whatsapp !== "No proporcionado"
@@ -281,23 +238,18 @@ function setupInscriptionForm() {
         }
       }
 
-      // 1. Ocultar formulario
       form.style.display = "none";
 
-      // 2. Mostrar mensaje de éxito
       successMessage.style.display = "block";
       successMessage.classList.add("success-highlight");
 
-      // 3. ESPERAR un poco y hacer scroll
       setTimeout(() => {
-        // Método 1: scrollIntoView con opciones
         successMessage.scrollIntoView({
           behavior: "smooth",
           block: "center",
           inline: "center",
         });
 
-        // Método 2: Scroll manual como respaldo
         setTimeout(() => {
           const rect = successMessage.getBoundingClientRect();
           const isVisible =
@@ -320,7 +272,6 @@ function setupInscriptionForm() {
         "error"
       );
 
-      // Restaurar botón
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
     }
@@ -355,7 +306,6 @@ async function sendInscriptionEmailToAdmin(data, ip) {
 }
 
 async function sendConfirmationEmailToUser(data) {
-  // Solo si el usuario proporcionó WhatsApp (lo usamos como email de contacto)
   if (!data.whatsapp || data.whatsapp === "No proporcionado") return;
 
   const templateParams = {
@@ -373,9 +323,8 @@ async function sendConfirmationEmailToUser(data) {
   return emailjs.send("service_sjea029", "template_xqur3ed", templateParams);
 }
 
-// ============================================
 // FORMULARIO DE REPORTE
-// ============================================
+
 function setupReportForm() {
   const form = document.getElementById("report-form");
   if (!form) return;
@@ -449,9 +398,8 @@ async function sendReportEmail(data, ip) {
   return emailjs.send("service_sjea029", "template_bso642c", templateParams);
 }
 
-// ============================================
 // FORMULARIO DE SUGERENCIAS
-// ============================================
+
 function setupSuggestionForm() {
   const form = document.getElementById("suggestion-form");
   if (!form) return;
@@ -526,22 +474,19 @@ async function sendSuggestionEmail(data, ip) {
   return emailjs.send("service_sjea029", "template_bso642c", templateParams);
 }
 
-// ============================================
 // FORMULARIO DE ASPIRANTES A ADMINISTRADOR
-// ============================================
+
 function setupAdminApplicationForm() {
   const form = document.getElementById("admin-application-form");
   if (!form) return;
 
-  // Crear contenedor específico para mensajes debajo del botón de envío
   const submitBtn = form.querySelector('button[type="submit"]');
   let messageContainer = form.querySelector(".admin-message-container");
 
-  // Si no existe el contenedor, crearlo
   if (!messageContainer) {
     messageContainer = document.createElement("div");
     messageContainer.className = "admin-message-container";
-    // Insertar después del botón de envío
+
     submitBtn.parentNode.insertBefore(messageContainer, submitBtn.nextSibling);
   }
 
@@ -575,10 +520,8 @@ function setupAdminApplicationForm() {
 
       const ip = await getIPAddress();
 
-      // ENVIAR EMAIL usando template_bso642c (el mismo que usas para inscripción)
       await sendAdminApplicationEmail(formData, ip);
 
-      // Mostrar mensaje específicamente en el contenedor debajo del botón
       showMessageInContainer(
         "✅ Solicitud enviada con éxito. Te contactaremos por WhatsApp si avanzamos con tu proceso de selección.",
         "success",
@@ -599,12 +542,9 @@ function setupAdminApplicationForm() {
   });
 }
 
-// Función especial para mostrar mensajes en el contenedor del formulario admin
 function showMessageInContainer(text, type, container) {
-  // Limpiar mensajes anteriores
   container.innerHTML = "";
 
-  // Determinar clase según tipo
   let alertClass;
   switch (type) {
     case "success":
@@ -620,14 +560,12 @@ function showMessageInContainer(text, type, container) {
       alertClass = "alert-info";
   }
 
-  // Crear mensaje
   const messageDiv = document.createElement("div");
   messageDiv.className = `alert ${alertClass}`;
   messageDiv.textContent = text;
 
   container.appendChild(messageDiv);
 
-  // Remover después de 5 segundos
   setTimeout(() => {
     if (messageDiv.parentNode) {
       messageDiv.remove();
@@ -665,18 +603,15 @@ async function sendAdminApplicationEmail(data, ip) {
   return emailjs.send("service_sjea029", "template_bso642c", templateParams);
 }
 
-// ============================================
 // FUNCIONES DE VALIDACIÓN
-// ============================================
+
 function validateInscriptionForm() {
-  // Validar edad
   const age = parseInt(document.getElementById("age").value);
   if (age < 13) {
     showMessage("❌ La edad mínima para ingresar al clan es 13 años.", "error");
     return false;
   }
 
-  // Validar términos
   if (!document.getElementById("terms").checked) {
     showMessage(
       "❌ Debes aceptar el reglamento del clan para continuar.",
@@ -685,7 +620,6 @@ function validateInscriptionForm() {
     return false;
   }
 
-  // Validar campo "Por qué quieres unirte"
   const whyJoin = document.getElementById("why-join").value;
   if (whyJoin.length < 20) {
     showMessage(
@@ -695,7 +629,6 @@ function validateInscriptionForm() {
     return false;
   }
 
-  // Validar campos requeridos
   const requiredFields = [
     "roblox-name",
     "age",
@@ -722,7 +655,6 @@ function validateInscriptionForm() {
 }
 
 function validateReportForm() {
-  // Validar checkbox de confidencialidad
   if (!document.getElementById("report-confidential").checked) {
     showMessage(
       "❌ Debes confirmar que entiendes cómo se manejará tu reporte.",
@@ -731,7 +663,6 @@ function validateReportForm() {
     return false;
   }
 
-  // Validar campo de descripción
   const details = document.getElementById("report-details").value;
   if (details.length < 10) {
     showMessage("❌ Por favor, describe el problema con más detalle.", "error");
@@ -742,7 +673,6 @@ function validateReportForm() {
 }
 
 function validateSuggestionForm() {
-  // Validar campo de sugerencia
   const details = document.getElementById("suggestion-details").value;
   if (details.length < 10) {
     showMessage(
@@ -756,7 +686,6 @@ function validateSuggestionForm() {
 }
 
 function validateAdminForm() {
-  // Validar edad mínima para admin (15 años)
   const age = parseInt(document.getElementById("admin-age").value);
   if (age < 15) {
     showMessage(
@@ -783,7 +712,6 @@ function validateAdminForm() {
     return false;
   }
 
-  // Validar campos requeridos
   const requiredFields = [
     "admin-roblox-name",
     "admin-age",
@@ -805,7 +733,6 @@ function validateAdminForm() {
     }
   }
 
-  // Validar mínimo de caracteres en "por qué quieres ser admin"
   const whyAdmin = document.getElementById("admin-why").value;
   if (whyAdmin.length < 30) {
     showMessage(
@@ -818,14 +745,11 @@ function validateAdminForm() {
   return true;
 }
 
-// ============================================
 // FUNCIONES AUXILIARES
-// ============================================
-// ============================================
+
 // OBTENER IP DEL USUARIO - VERSIÓN MEJORADA
-// ============================================
+
 async function getIPAddress() {
-  // Lista de servicios de IP (varios como respaldo)
   const ipServices = [
     "https://api.ipify.org?format=json",
     "https://api64.ipify.org?format=json",
@@ -835,7 +759,6 @@ async function getIPAddress() {
     "https://api.ip.sb/jsonip",
   ];
 
-  // Intentar con cada servicio hasta que uno funcione
   for (let i = 0; i < ipServices.length; i++) {
     try {
       const response = await fetch(ipServices[i], {
@@ -844,7 +767,7 @@ async function getIPAddress() {
         headers: {
           Accept: "application/json",
         },
-        timeout: 3000, // timeout de 3 segundos
+        timeout: 3000,
       });
 
       if (!response.ok) {
@@ -853,7 +776,6 @@ async function getIPAddress() {
 
       const data = await response.json();
 
-      // Extraer IP según el formato de cada API
       let ip = "";
       if (ipServices[i].includes("ipify")) {
         ip = data.ip;
@@ -873,12 +795,11 @@ async function getIPAddress() {
       }
     } catch (error) {
       console.warn(`Servicio ${i + 1} falló:`, ipServices[i], error);
-      // Continuar con el siguiente servicio
+
       continue;
     }
   }
 
-  // Si todos los servicios fallan, usar un servicio simple como último recurso
   try {
     const response = await fetch("https://icanhazip.com/");
     if (response.ok) {
@@ -889,7 +810,6 @@ async function getIPAddress() {
     console.warn("Servicio simple también falló:", error);
   }
 
-  // Último recurso: usar un WebRTC (solo para depuración local)
   try {
     const rtcIp = await getIPFromWebRTC();
     if (rtcIp) {
@@ -902,10 +822,8 @@ async function getIPAddress() {
   return "No disponible - Error al obtener IP";
 }
 
-// Función auxiliar para obtener IP via WebRTC (último recurso)
 function getIPFromWebRTC() {
   return new Promise((resolve) => {
-    // Solo funciona en algunos navegadores
     const RTCPeerConnection =
       window.RTCPeerConnection ||
       window.mozRTCPeerConnection ||
@@ -951,7 +869,6 @@ function getIPFromWebRTC() {
       }
     };
 
-    // Timeout después de 2 segundos
     setTimeout(() => {
       if (ips.length > 0) {
         resolve(ips[0]);
@@ -963,7 +880,6 @@ function getIPFromWebRTC() {
 }
 
 function showMessage(text, type, form = null) {
-  // Crear o encontrar contenedor de mensajes
   let messageContainer;
 
   if (form) {
@@ -985,10 +901,8 @@ function showMessage(text, type, form = null) {
     }
   }
 
-  // Limpiar mensajes anteriores
   messageContainer.innerHTML = "";
 
-  // Determinar clase según tipo
   let alertClass;
   switch (type) {
     case "success":
@@ -1004,14 +918,12 @@ function showMessage(text, type, form = null) {
       alertClass = "alert-info";
   }
 
-  // Crear mensaje
   const messageDiv = document.createElement("div");
   messageDiv.className = `alert ${alertClass}`;
   messageDiv.textContent = text;
 
   messageContainer.appendChild(messageDiv);
 
-  // Remover después de 5 segundos
   setTimeout(() => {
     if (messageDiv.parentNode) {
       messageDiv.remove();
@@ -1019,9 +931,8 @@ function showMessage(text, type, form = null) {
   }, 11000);
 }
 
-// ============================================
 // FUNCIONES PARA ACTUALIZAR ENLACE DE WHATSAPP
-// ============================================
+
 document.addEventListener("input", function (e) {
   if (e.target.id === "roblox-name" || e.target.id === "age") {
     updateWhatsAppLink();
@@ -1044,15 +955,13 @@ function updateWhatsAppLink() {
   }
 }
 
-// ============================================
 // CUESTIONARIO DE AUTOVALORACIÓN PARA ADMIN
-// ============================================
+
 function calculateEvaluationScore() {
   const questions = document.querySelectorAll(".evaluation-question");
   let totalScore = 0;
   let maxScore = 0;
 
-  // Puntajes para cada opción (de mejor a peor)
   const scores = {
     q1: { yes: 10, probably: 7, difficult: 4, no: 0 },
     q2: { calm: 10, breathe: 8, struggle: 3, avoid: 0 },
@@ -1070,13 +979,11 @@ function calculateEvaluationScore() {
       totalScore += scores[`q${questionNum}`][value];
     }
 
-    maxScore += 10; // Máximo por pregunta
+    maxScore += 10;
   });
 
-  // Calcular porcentaje
   const percentage = (totalScore / maxScore) * 100;
 
-  // Mostrar resultado
   const resultDiv = document.getElementById("score-result");
   resultDiv.style.display = "block";
   resultDiv.innerHTML = "";
@@ -1114,30 +1021,24 @@ function calculateEvaluationScore() {
   )}%)</p>
   `;
 
-  // Scroll suave al resultado
   resultDiv.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
-// Función especial para el scroll del formulario de inscripción
 function scrollToElement(elementId) {
   const element = document.getElementById(elementId);
   if (!element) return;
 
-  // Calcular posición considerando header fijo
   const header = document.querySelector("header");
   const headerHeight = header ? header.offsetHeight : 0;
 
-  // Calcular posición del elemento
   const elementTop = element.offsetTop;
   const targetPosition = elementTop - headerHeight - 50;
 
-  // Hacer scroll
   window.scrollTo({
     top: targetPosition,
     behavior: "smooth",
   });
 
-  // Agregar efecto visual
   element.style.transition = "all 0.5s ease";
   element.style.boxShadow = "0 0 0 5px rgba(46, 204, 113, 0.3)";
 

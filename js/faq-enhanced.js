@@ -1,5 +1,3 @@
-// faq-enhanced.js - Funcionalidades avanzadas para FAQ
-
 class EnhancedFAQ {
   constructor() {
     this.faqItems = document.querySelectorAll(".faq-item");
@@ -19,7 +17,6 @@ class EnhancedFAQ {
   }
 
   setupEventListeners() {
-    // Búsqueda en tiempo real
     if (this.searchInput) {
       this.searchInput.addEventListener("input", (e) => {
         this.searchQuery = e.target.value.toLowerCase().trim();
@@ -27,14 +24,12 @@ class EnhancedFAQ {
       });
     }
 
-    // Filtro por categorías
     this.categoryButtons.forEach((button) => {
       button.addEventListener("click", () => {
         this.setActiveCategory(button);
       });
     });
 
-    // Limpiar búsqueda con Escape
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && this.searchInput) {
         this.searchInput.value = "";
@@ -53,15 +48,12 @@ class EnhancedFAQ {
       question.addEventListener("click", () => {
         const isActive = item.classList.contains("active");
 
-        // Cerrar todos los demás
         if (!isActive) {
           this.closeAllFAQs();
         }
 
-        // Alternar estado
         item.classList.toggle("active");
 
-        // Animar altura
         if (item.classList.contains("active")) {
           answer.style.maxHeight = answer.scrollHeight + "px";
         } else {
@@ -80,18 +72,14 @@ class EnhancedFAQ {
   }
 
   setActiveCategory(button) {
-    // Remover clase active de todos los botones
     this.categoryButtons.forEach((btn) => {
       btn.classList.remove("active");
     });
 
-    // Agregar clase active al botón clickeado
     button.classList.add("active");
 
-    // Actualizar categoría actual
     this.currentCategory = button.dataset.category;
 
-    // Filtrar FAQs
     this.filterFAQs();
   }
 
@@ -108,22 +96,18 @@ class EnhancedFAQ {
         .textContent.toLowerCase();
       const itemCategory = item.dataset.category;
 
-      // Verificar si coincide con la búsqueda
       const matchesSearch =
         !searchTerm ||
         questionText.includes(searchTerm) ||
         answerText.includes(searchTerm);
 
-      // Verificar si coincide con la categoría
       const matchesCategory =
         this.currentCategory === "all" || itemCategory === this.currentCategory;
 
-      // Mostrar u ocultar elemento
       if (matchesSearch && matchesCategory) {
         item.style.display = "block";
         visibleCount++;
 
-        // Resaltar término de búsqueda
         if (searchTerm) {
           this.highlightText(item, searchTerm);
         } else {
@@ -137,10 +121,8 @@ class EnhancedFAQ {
       }
     });
 
-    // Mostrar/Ocultar secciones de categoría
     this.toggleCategorySections();
 
-    // Actualizar contador de resultados
     this.updateSearchResultsCount(visibleCount);
   }
 
@@ -165,31 +147,22 @@ class EnhancedFAQ {
     const questionSpan = item.querySelector(".faq-question span");
     const answerDiv = item.querySelector(".faq-answer");
 
-    // 1. Remover resaltados anteriores (esta función ya es segura)
     this.removeHighlights(item);
 
-    // 2. Salir si el término de búsqueda está vacío
     if (!term.trim()) return;
 
-    // 3. Crear un regex seguro a partir del término, escapando metacaracteres
-    // Esto previene ataques de ReDoS y evita que el término se interprete como parte de la expresión
     const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const searchRegex = new RegExp(escapedTerm, "gi");
 
-    // 4. Resaltar de forma segura en la pregunta
     this.highlightTextInNode(questionSpan, searchRegex);
 
-    // 5. Resaltar de forma segura en los elementos de la respuesta
     const answerElements = answerDiv.querySelectorAll("p, li, strong");
     answerElements.forEach((el) => this.highlightTextInNode(el, searchRegex));
   }
 
-  // 6. NUEVA FUNCIÓN AUXILIAR: Realiza el resaltado seguro en un nodo del DOM
   highlightTextInNode(element, regex) {
-    // Usa TreeWalker para recorrer SOLO los nodos de texto dentro del elemento
     const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
       acceptNode: function (node) {
-        // Ignorar nodos que ya están dentro de un resaltado
         return node.parentNode.classList?.contains("highlight")
           ? NodeFilter.FILTER_REJECT
           : NodeFilter.FILTER_ACCEPT;
@@ -202,7 +175,6 @@ class EnhancedFAQ {
       textNodes.push(currentNode);
     }
 
-    // Procesar cada nodo de texto encontrado
     textNodes.forEach((textNode) => {
       const textContent = textNode.textContent;
       const matches = [...textContent.matchAll(regex)];
@@ -213,11 +185,9 @@ class EnhancedFAQ {
       const fragment = document.createDocumentFragment();
       let lastIndex = 0;
 
-      // Construir un fragmento del DOM con las coincidencias envueltas en <span>
       matches.forEach((match) => {
         const matchedIndex = match.index;
 
-        // Añadir texto antes de la coincidencia
         if (matchedIndex > lastIndex) {
           fragment.appendChild(
             document.createTextNode(
@@ -226,23 +196,20 @@ class EnhancedFAQ {
           );
         }
 
-        // Crear y añadir el elemento <span> para resaltar
         const highlightSpan = document.createElement("span");
         highlightSpan.className = "highlight";
-        highlightSpan.textContent = match[0]; // Usar .textContent, no .innerHTML
+        highlightSpan.textContent = match[0];
         fragment.appendChild(highlightSpan);
 
         lastIndex = matchedIndex + match[0].length;
       });
 
-      // Añadir el texto restante después de la última coincidencia
       if (lastIndex < textContent.length) {
         fragment.appendChild(
           document.createTextNode(textContent.substring(lastIndex))
         );
       }
 
-      // Reemplazar el nodo de texto original por la nueva estructura segura
       parentNode.replaceChild(fragment, textNode);
     });
   }
@@ -282,11 +249,9 @@ class EnhancedFAQ {
   }
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   new EnhancedFAQ();
 
-  // Añadir estilos para resaltado
   const style = document.createElement("style");
   style.textContent = `
         .highlight {
@@ -303,5 +268,3 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   document.head.appendChild(style);
 });
-
-

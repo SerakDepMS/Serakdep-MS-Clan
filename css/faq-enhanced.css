@@ -1,5 +1,3 @@
-/* faq-enhanced.css - Estilos mejorados para FAQ */
-
 /* Barra de búsqueda */
 .faq-search-container {
   margin: 20px 0 30px;
@@ -394,4 +392,4 @@
     padding: 8px 15px;
     font-size: 0.85rem;
   }
-  }
+}

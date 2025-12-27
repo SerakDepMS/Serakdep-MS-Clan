@@ -1,5 +1,3 @@
-// video-player-final.js - VERSIÓN ACTUALIZADA SIN FUNCIÓN ALEATORIO
-
 class VideoPlayerFinal {
   constructor() {
     this.video = document.getElementById("main-video");
@@ -53,35 +51,29 @@ class VideoPlayerFinal {
     this.loadVideo(this.currentVideoIndex);
     this.updateCounter();
 
-    // Configurar video inicial
     setTimeout(() => {
       this.loadVideo(this.currentVideoIndex);
     }, 100);
   }
 
   setupElements() {
-    // Elementos del video
     this.centerPlayBtn = document.getElementById("center-play-btn");
     this.mainPlayBtn = document.getElementById("main-play-button");
     this.mobilePlayBtn = document.getElementById("mobile-play-btn");
 
-    // Botones de navegación
     this.prevBtn = document.getElementById("prev-button");
     this.nextBtn = document.getElementById("next-button");
     this.mobilePrevBtn = document.getElementById("mobile-prev-btn");
     this.mobileNextBtn = document.getElementById("mobile-next-btn");
 
-    // Botones de función
     this.volumeToggle = document.getElementById("volume-toggle");
     this.fullscreenToggle = document.getElementById("fullscreen-toggle");
     this.settingsToggle = document.getElementById("settings-toggle");
 
-    // Botones móviles
     this.mobileVolumeBtn = document.getElementById("mobile-volume-btn");
     this.mobileFullscreenBtn = document.getElementById("mobile-fullscreen-btn");
     this.mobileSettingsBtn = document.getElementById("mobile-settings-btn");
 
-    // Elementos de información
     this.videoTitle = document.getElementById("video-title");
     this.videoDescription = document.getElementById("video-description");
     this.counterCurrent = document.getElementById("counter-current");
@@ -89,63 +81,48 @@ class VideoPlayerFinal {
     this.currentTime = document.getElementById("current-time");
     this.totalTime = document.getElementById("total-time");
 
-    // Elementos de progreso
     this.progressTrack = document.getElementById("progress-track");
     this.progressSlider = document.getElementById("progress-slider");
 
-    // Slider de volumen
     this.volumeSlider = document.getElementById("volume-slider");
     this.volumeSliderContainer = document.getElementById(
       "volume-slider-container"
     );
     this.volumePercentage = document.getElementById("volume-percentage");
 
-    // Indicadores (solo sonido, random eliminado)
     this.soundIndicator = document.getElementById("floating-sound");
 
-    // Overlay de carga
     this.videoLoading = document.getElementById("video-loading");
 
-    // Menú de configuración
     this.settingsOverlay = document.getElementById("settings-overlay");
     this.settingsCloseBtn = document.getElementById("settings-close-btn");
 
-    // Opciones de velocidad
     this.speedOptions = document.querySelectorAll(".speed-option");
 
-    // Opciones de calidad
     this.qualityOptions = document.querySelectorAll(".quality-option");
 
-    // Toggles del menú
     this.autoplayToggle = document.getElementById("autoplay-toggle");
     this.loopToggle = document.getElementById("loop-toggle");
     this.subtitlesToggle = document.getElementById("subtitles-toggle");
 
-    // Botones de acción
     this.restartVideoBtn = document.getElementById("restart-video");
     this.downloadVideoBtn = document.getElementById("download-video");
     this.shareVideoBtn = document.getElementById("share-video");
 
-    // Información del video
     this.infoFormat = document.getElementById("info-format");
     this.infoDuration = document.getElementById("info-duration");
     this.infoSize = document.getElementById("info-size");
 
-    // Contenedor principal
     this.playerContainer = document.querySelector(".video-player-final");
 
-    // Crear botón de cerrar pantalla completa
     this.createFullscreenCloseBtn();
 
-    // Configurar volumen inicial
     this.video.volume = this.volume;
     this.volumeSlider.value = this.volume;
     this.updateVolumePercentage();
 
-    // Mostrar total de videos
     this.counterTotal.textContent = this.videoList.length;
 
-    // Detectar orientación
     this.detectOrientation();
   }
 
@@ -162,7 +139,6 @@ class VideoPlayerFinal {
   }
 
   detectOrientation() {
-    // Detectar cambios de orientación
     window.addEventListener("resize", () => {
       if (this.isFullscreen) {
         this.adjustVideoForOrientation();
@@ -177,7 +153,6 @@ class VideoPlayerFinal {
   }
 
   adjustVideoForOrientation() {
-    // Ajustar el video según la orientación
     const isPortrait = window.innerHeight > window.innerWidth;
 
     if (isPortrait) {
@@ -188,7 +163,6 @@ class VideoPlayerFinal {
       this.video.style.height = "100%";
     }
 
-    // Forzar redibujado
     this.video.style.display = "none";
     setTimeout(() => {
       this.video.style.display = "block";
@@ -196,18 +170,15 @@ class VideoPlayerFinal {
   }
 
   setupEventListeners() {
-    // Botones de reproducción
     this.centerPlayBtn.addEventListener("click", () => this.togglePlay());
     this.mainPlayBtn.addEventListener("click", () => this.togglePlay());
     this.mobilePlayBtn.addEventListener("click", () => this.togglePlay());
 
-    // Navegación
     this.prevBtn.addEventListener("click", () => this.previousVideo());
     this.nextBtn.addEventListener("click", () => this.nextVideo());
     this.mobilePrevBtn.addEventListener("click", () => this.previousVideo());
     this.mobileNextBtn.addEventListener("click", () => this.nextVideo());
 
-    // Volumen
     this.volumeToggle.addEventListener("click", (e) => {
       e.stopPropagation();
       this.toggleVolumeSlider();
@@ -220,7 +191,6 @@ class VideoPlayerFinal {
       this.changeVolume(e.target.value)
     );
 
-    // Pantalla completa
     this.fullscreenToggle.addEventListener("click", () =>
       this.toggleFullscreen()
     );
@@ -231,7 +201,6 @@ class VideoPlayerFinal {
       this.toggleFullscreen()
     );
 
-    // Menú de configuración
     this.settingsToggle.addEventListener("click", () => this.openSettings());
     this.mobileSettingsBtn.addEventListener("click", () => this.openSettings());
     this.settingsCloseBtn.addEventListener("click", () => this.closeSettings());
@@ -241,13 +210,11 @@ class VideoPlayerFinal {
       }
     });
 
-    // Barra de progreso
     this.progressTrack.addEventListener("click", (e) => this.seekVideo(e));
     this.progressTrack.addEventListener("touchstart", (e) =>
       this.handleTouchProgress(e)
     );
 
-    // Eventos del video
     this.video.addEventListener("click", () => this.togglePlay());
     this.video.addEventListener("play", () => this.onVideoPlay());
     this.video.addEventListener("pause", () => this.onVideoPause());
@@ -260,32 +227,26 @@ class VideoPlayerFinal {
     );
     this.video.addEventListener("timeupdate", () => this.updateProgress());
 
-    // Velocidad de reproducción
     this.speedOptions.forEach((option) => {
       option.addEventListener("click", () => this.changePlaybackSpeed(option));
     });
 
-    // Calidad (simulada)
     this.qualityOptions.forEach((option) => {
       option.addEventListener("click", () => this.changeQuality(option));
     });
 
-    // Toggles del menú
     this.autoplayToggle.addEventListener("change", () => this.toggleAutoplay());
     this.loopToggle.addEventListener("change", () => this.toggleLoop());
     this.subtitlesToggle.addEventListener("change", () =>
       this.toggleSubtitles()
     );
 
-    // Botones de acción
     this.restartVideoBtn.addEventListener("click", () => this.restartVideo());
     this.downloadVideoBtn.addEventListener("click", () => this.downloadVideo());
     this.shareVideoBtn.addEventListener("click", () => this.shareVideo());
 
-    // Teclas de acceso rápido
     document.addEventListener("keydown", (e) => this.handleKeyboard(e));
 
-    // Cerrar slider de volumen al hacer clic fuera
     document.addEventListener("click", (e) => {
       if (
         !this.volumeSliderContainer.contains(e.target) &&
@@ -296,7 +257,6 @@ class VideoPlayerFinal {
       }
     });
 
-    // Pantalla completa
     document.addEventListener("fullscreenchange", () =>
       this.onFullscreenChange()
     );
@@ -304,10 +264,8 @@ class VideoPlayerFinal {
       this.onFullscreenChange()
     );
 
-    // Gestos táctiles
     this.setupTouchGestures();
 
-    // Doble tap para pantalla completa
     this.setupDoubleTap();
   }
 
@@ -318,7 +276,6 @@ class VideoPlayerFinal {
       const tapLength = currentTime - lastTap;
 
       if (tapLength < 300 && tapLength > 0) {
-        // Doble tap detectado
         e.preventDefault();
         this.toggleFullscreen();
       }
@@ -329,7 +286,6 @@ class VideoPlayerFinal {
 
   toggleFullscreen() {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      // Entrar en pantalla completa
       if (this.playerContainer.requestFullscreen) {
         this.playerContainer.requestFullscreen();
       } else if (this.playerContainer.webkitRequestFullscreen) {
@@ -347,15 +303,12 @@ class VideoPlayerFinal {
       this.mobileFullscreenBtn.title = "Salir de pantalla completa";
       this.isFullscreen = true;
 
-      // Ajustar video para pantalla completa
       this.adjustVideoForFullscreen();
 
-      // Ocultar otros elementos
       this.hidePageElements(true);
 
       this.showNotification("🖥️ Pantalla completa activada");
     } else {
-      // Salir de pantalla completa
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) {
@@ -373,10 +326,8 @@ class VideoPlayerFinal {
       this.mobileFullscreenBtn.title = "Pantalla completa";
       this.isFullscreen = false;
 
-      // Restaurar video
       this.restoreVideoFromFullscreen();
 
-      // Mostrar elementos nuevamente
       this.hidePageElements(false);
 
       this.showNotification("🖥️ Pantalla completa desactivada");
@@ -384,25 +335,21 @@ class VideoPlayerFinal {
   }
 
   adjustVideoForFullscreen() {
-    // Asegurar que el video use object-fit: contain
     this.video.style.objectFit = "contain";
     this.video.style.maxWidth = "100%";
     this.video.style.maxHeight = "100%";
     this.video.style.width = "auto";
     this.video.style.height = "auto";
 
-    // Centrar el video
     this.video.style.position = "absolute";
     this.video.style.top = "50%";
     this.video.style.left = "50%";
     this.video.style.transform = "translate(-50%, -50%)";
 
-    // Ajustar según orientación
     this.adjustVideoForOrientation();
   }
 
   restoreVideoFromFullscreen() {
-    // Restaurar estilos normales
     this.video.style.objectFit = "contain";
     this.video.style.maxWidth = "";
     this.video.style.maxHeight = "";
@@ -443,7 +390,6 @@ class VideoPlayerFinal {
       !document.mozFullScreenElement &&
       !document.msFullscreenElement
     ) {
-      // Salimos de pantalla completa
       this.playerContainer.classList.remove("fullscreen");
       this.fullscreenToggle.innerHTML = '<i class="fas fa-expand"></i>';
       this.fullscreenToggle.title = "Pantalla completa";
@@ -451,10 +397,8 @@ class VideoPlayerFinal {
       this.mobileFullscreenBtn.title = "Pantalla completa";
       this.isFullscreen = false;
 
-      // Restaurar video
       this.restoreVideoFromFullscreen();
 
-      // Mostrar elementos nuevamente
       this.hidePageElements(false);
     }
   }
@@ -465,25 +409,19 @@ class VideoPlayerFinal {
     this.currentVideoIndex = index;
     const videoData = this.videoList[index];
 
-    // Mostrar loading
     this.showLoading();
 
-    // Cambiar fuente del video
     this.video.src = videoData.src;
 
-    // Actualizar información
     this.videoTitle.textContent = videoData.title;
     this.videoDescription.textContent = videoData.description;
     this.infoDuration.textContent = videoData.duration + " seg";
     this.infoSize.textContent = videoData.size;
 
-    // Actualizar contador
     this.updateCounter();
 
-    // Mostrar notificación
     this.showNotification(`🎬 ${videoData.title}`);
 
-    // Intentar reproducción automática
     if (this.autoplayToggle.checked) {
       const playPromise = this.video.play();
       if (playPromise !== undefined) {
@@ -541,11 +479,9 @@ class VideoPlayerFinal {
     this.video.volume = this.volume;
     this.video.muted = this.volume === 0;
 
-    // Actualizar icono
     this.updateVolumeIcon();
     this.updateVolumePercentage();
 
-    // Mostrar indicador de sonido
     if (this.volume > 0) {
       this.soundIndicator.classList.add("active");
       setTimeout(() => this.soundIndicator.classList.remove("active"), 2000);
@@ -581,13 +517,10 @@ class VideoPlayerFinal {
   }
 
   changePlaybackSpeed(button) {
-    // Remover clase active de todos
     this.speedOptions.forEach((opt) => opt.classList.remove("active"));
 
-    // Agregar clase active al seleccionado
     button.classList.add("active");
 
-    // Cambiar velocidad
     this.playbackSpeed = parseFloat(button.dataset.speed);
     this.video.playbackRate = this.playbackSpeed;
 
@@ -595,10 +528,8 @@ class VideoPlayerFinal {
   }
 
   changeQuality(button) {
-    // Remover clase active de todos
     this.qualityOptions.forEach((opt) => opt.classList.remove("active"));
 
-    // Agregar clase active al seleccionado
     button.classList.add("active");
 
     const quality = button.dataset.quality;
@@ -665,7 +596,6 @@ class VideoPlayerFinal {
         url: shareUrl,
       });
     } else {
-      // Copiar al portapapeles como fallback
       navigator.clipboard.writeText(`${shareText} - ${shareUrl}`);
       this.showNotification("📋 Enlace copiado al portapapeles");
     }
@@ -744,25 +674,18 @@ class VideoPlayerFinal {
     const diffX = endX - startX;
     const diffY = endY - startY;
 
-    // Swipe horizontal
     if (Math.abs(diffX) > Math.abs(diffY)) {
       if (diffX < -50) {
-        // Swipe izquierda
         this.nextVideo();
       } else if (diffX > 50) {
-        // Swipe derecha
         this.previousVideo();
       }
-    }
-    // Swipe vertical para volumen
-    else if (Math.abs(diffY) > 50) {
+    } else if (Math.abs(diffY) > 50) {
       if (diffY < 0) {
-        // Swipe arriba (subir volumen)
         const newVolume = Math.min(1, this.volume + 0.1);
         this.changeVolume(newVolume);
         this.volumeSlider.value = newVolume;
       } else {
-        // Swipe abajo (bajar volumen)
         const newVolume = Math.max(0, this.volume - 0.1);
         this.changeVolume(newVolume);
         this.volumeSlider.value = newVolume;
@@ -787,7 +710,6 @@ class VideoPlayerFinal {
   }
 
   showNotification(text) {
-    // Crear notificación
     let notification = document.querySelector(".video-notification");
 
     if (!notification) {
@@ -815,7 +737,6 @@ class VideoPlayerFinal {
     notification.textContent = text;
     notification.style.animation = "slideInRight 0.3s ease";
 
-    // Agregar animación si no existe
     if (!document.querySelector("#notification-animation")) {
       const style = document.createElement("style");
       style.id = "notification-animation";
@@ -832,7 +753,6 @@ class VideoPlayerFinal {
       document.head.appendChild(style);
     }
 
-    // Remover después de 3 segundos
     setTimeout(() => {
       notification.style.animation = "slideOutRight 0.3s ease";
       setTimeout(() => {
@@ -875,7 +795,6 @@ class VideoPlayerFinal {
     this.hideLoading();
     this.showNotification("❌ Error cargando el video");
 
-    // Intentar con otro video
     setTimeout(() => this.nextVideo(), 2000);
   }
 
@@ -956,10 +875,6 @@ class VideoPlayerFinal {
   }
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   new VideoPlayerFinal();
 });
-
-
-

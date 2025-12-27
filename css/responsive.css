@@ -1,4 +1,4 @@
-/* responsive.css - SOLUCIÓN COMPLETA PARA NOTICIAS RESPONSIVE */
+/* responsive.css */
 
 /* ===== LAYOUT PRINCIPAL PARA NOTICIAS ===== */
 .noticias-layout {
@@ -376,7 +376,7 @@
 }
 
 /* ===== AJUSTES PARA LOS ELEMENTOS QUE YA TENÍAS ===== */
-/* (Estos son tus estilos originales que se mantienen) */
+
 .games-tags {
   display: flex;
   flex-wrap: wrap;
@@ -415,8 +415,6 @@
   text-align: center;
 }
 
-/* ... y todos los otros estilos que ya tenías ... */
-/* responsive.css - Actualizado */
 /* Estilos para dispositivos móviles */
 
 @media (max-width: 1024px) {
@@ -787,9 +785,8 @@
   }
 }
 
-/* Eliminar scroll indicators ya que no necesitamos scroll horizontal */
+/* scroll horizontal */
 .scroll-indicator,
 .news-stats-container {
   display: none;
 }
-

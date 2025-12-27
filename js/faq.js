@@ -1,4 +1,3 @@
-// faq.js - Corregido
 document.addEventListener("DOMContentLoaded", function () {
   const faqItems = document.querySelectorAll(".faq-item");
 
@@ -7,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const answer = item.querySelector(".faq-answer");
 
     if (question && answer) {
-      // Añadir flecha si no existe
       let arrow = question.querySelector(".faq-arrow");
       if (!arrow) {
         arrow = document.createElement("i");
@@ -15,9 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         question.appendChild(arrow);
       }
 
-      // Configurar evento de clic
       question.addEventListener("click", function () {
-        // Cerrar otros items
         faqItems.forEach((otherItem) => {
           if (otherItem !== item && otherItem.classList.contains("active")) {
             otherItem.classList.remove("active");
@@ -28,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Alternar estado actual
         item.classList.toggle("active");
 
         if (item.classList.contains("active")) {
@@ -40,12 +35,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
 
-      // Ocultar respuestas inicialmente
       answer.style.display = "none";
     }
   });
 
-  // Abrir FAQ específico desde URL hash
   const hash = window.location.hash;
   if (hash) {
     const targetItem = document.querySelector(hash);
@@ -56,5 +49,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
-
-
