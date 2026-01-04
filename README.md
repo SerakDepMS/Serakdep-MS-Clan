@@ -29,7 +29,7 @@ Este sitio web está diseñado para facilitar tu integración y participación e
 
 - [Formulario de inscripción](https://serakdepms.github.io/Serakdep-MS-Clan/formulario.html)
 - [WhatsApp del clan](https://wa.me/573116546484)
-- [Discord oficial](https://discord.gg/serakdepms)
+- [Discord oficial](https://discord.gg/cJEbpyJ3)
 - Correo oficial: `serakdepmsofficial7@gmail.com`
 
 ## 🛠️ Tecnologías utilizadas
