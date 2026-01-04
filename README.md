@@ -1,23 +1,54 @@
-# 🌐 Serakdep MS - Clan de Roblox
-
-**Sitio web oficial del clan Serakdep MS en Roblox** - Una comunidad organizada, respetuosa y divertida para jugadores de todas las edades.
+# 🎮 Serakdep MS Clan – Sitio Web Oficial
 
 ![Clan Logo](images/clan-logo.png)
 
-## 📋 Descripción
+Bienvenido al sitio web oficial del clan **Serakdep MS**, una comunidad de Roblox dedicada al gaming organizado, respetuoso y divertido.
 
-Este repositorio contiene el sitio web completo del clan Serakdep MS, una comunidad de Roblox dedicada a crear un espacio seguro y divertido para jugadores. El sitio incluye todas las funcionalidades necesarias para gestionar membresías, eventos, noticias y comunicación con los miembros.
+## 🌐 ¿Qué encontrarás aquí?
 
-## 🙏 Agradecimientos
+Este sitio web está diseñado para facilitar tu integración y participación en el clan. Incluye:
 
-- **Roblox Corporation** por la plataforma
-- **Font Awesome** por los iconos
-- **npoint.io** por el servicio de API gratuito
-- **EmailJS** por el servicio de correo
-- Todos los miembros del clan Serakdep MS
+- 🏠 **Página de inicio** – Presentación del clan, video y llamado a la acción.
+- 📜 **Reglamento** – Normas de convivencia y sistema de sanciones.
+- 📝 **Formulario de inscripción** – Solicitud oficial de ingreso.
+- ❓ **FAQ** – Respuestas a las dudas más frecuentes.
+- 🎮 **Eventos y torneos** – Calendario, equipos y premios.
+- 📰 **Noticias del clan** – Anuncios oficiales y actualizaciones.
+- 📞 **Contacto** – Canales directos con el staff y formularios de soporte.
+- ⚖️ **Sección legal** – Políticas de privacidad, términos y condiciones.
 
+## 🚀 Cómo unirse al clan
 
+1. **Lee el reglamento** – Aceptación obligatoria.
+2. **Completa el formulario** – Con honestidad y datos reales.
+3. **Espera contacto vía WhatsApp** – Para entrevista y validación.
+4. **Únete a los grupos oficiales** – WhatsApp y Discord.
+5. **Participa en eventos** – ¡Gana premios y sube de rango!
 
-**🐼 ¡Únete a nuestra comunidad y vive la mejor experiencia de gaming! 🎮**
+## 🔗 Enlaces importantes
 
-_"Unidos por la pasión del gaming"_
+- [Formulario de inscripción](https://serakdepms.github.io/Serakdep-MS-Clan/formulario.html)
+- [WhatsApp del clan](https://wa.me/573116546484)
+- [Discord oficial](https://discord.gg/serakdepms)
+- Correo oficial: `serakdepmsofficial7@gmail.com`
+
+## 🛠️ Tecnologías utilizadas
+
+- HTML5, CSS3, JavaScript
+- GitHub Pages para hosting
+- Npoint.io para carga dinámica de noticias
+- Diseño responsivo y accesible
+
+## 👥 Equipo administrativo
+
+- **Fundadores:** Db_artworkLIDERSMS, YoosungLIDERSMS
+- **Administradores:** JoelMS_14, AlexisPro456, maicol_7w7, SoyCarlosxd69, justin_bp22
+- **Moderadores:** Lista actualizada en [Contacto](contacto.html)
+
+## 📄 Licencia
+
+Este proyecto es de uso interno del clan Serakdep MS.  
+No está autorizada su reproducción total o parcial sin permiso del equipo administrativo.
+
+---
+*“Unidos por la pasión del gaming” – Serakdep MS*
