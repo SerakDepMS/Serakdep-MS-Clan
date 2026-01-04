@@ -1,22 +1,59 @@
-# Security Policy
+# Política de Seguridad y Protección de Datos
 
-## Supported Versions
+## 🛡️ Compromiso de seguridad
 
-Use this section to tell people about which versions of your project are currently being supported with security updates.
+El clan Serakdep MS se compromete a proteger la información personal de sus miembros y visitantes. Esta política describe cómo manejamos los datos, reportamos vulnerabilidades y mantenemos un entorno seguro.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## 📝 Datos que recopilamos
 
-## Reporting a Vulnerability
+- **Nombre de usuario de Roblox** – Para identificación en el juego.
+- **Edad y país** – Para verificar requisitos de edad y coordinar eventos.
+- **Correo electrónico y WhatsApp** – Para comunicación oficial.
+- **Preferencias de juego** – Para organizar actividades.
 
-The security of this project is a priority. If you discover a security vulnerability, we appreciate you letting us know responsibly.
+## 🔐 Cómo usamos tus datos
 
-**Please report any vulnerability via:** **serakdepmsofficial7@gmail.com**.
+- Validar tu identidad en Roblox.
+- Coordinar eventos según tu zona horaria.
+- Enviar anuncios importantes vía WhatsApp o correo.
+- Gestionar ascensos de rango y premios.
+- **No compartimos** tus datos con terceros sin tu consentimiento.
 
-We will respond as soon as possible (usually within 48 hours) to confirm receipt of your report. We will keep you informed about the progress of the investigation and the actions we take. We thank you for your patience and collaboration in keeping this project secure.
+## 🚨 Reporte de vulnerabilidades
 
-Please, **do not use the public issue tracker** to report security problems, as this could expose the vulnerability before we have a chance to address it.
+Si descubres una vulnerabilidad de seguridad en el sitio web o en los sistemas del clan, por favor:
+
+1. **No explotes la vulnerabilidad**.
+2. **Reporta de inmediato** a:
+   - WhatsApp del clan: [+57 311 6546484](https://wa.me/573116546484)
+   - Correo oficial: `serakdepmsofficial7@gmail.com`
+3. Proporciona detalles claros y, si es posible, pasos para reproducir el problema.
+
+## 🧑‍💻 Medidas de seguridad implementadas
+
+- **Formularios seguros** – Validación de entrada y protección básica contra inyección.
+- **Hosting en GitHub Pages** – Servicios con buenas prácticas de seguridad.
+- **Comunicación cifrada** – Uso de WhatsApp y correo electrónico con autenticación.
+- **Registro de actividad** – Seguimiento de accesos y envíos de formularios.
+
+## 👁️ Vigilancia y moderación
+
+- Los administradores y moderadores supervisan los grupos de WhatsApp y Discord.
+- Se toman acciones inmediatas ante comportamientos maliciosos, acoso o phishing.
+- Cualquier intento de suplantación de identidad será reportado a Roblox y autoridades si es necesario.
+
+## 📞 Contacto para asuntos de seguridad
+
+Para consultas relacionadas con seguridad, privacidad o reporte de incidentes:
+
+- **Responsable de seguridad:** Equipo administrativo del clan
+- **WhatsApp:** [+57 311 6546484](https://wa.me/573116546484)
+- **Correo:** `serakdepmsofficial7@gmail.com`
+- **Discord:** Canal `#soporte-técnico`
+
+## 📅 Actualizaciones de esta política
+
+Esta política puede actualizarse periódicamente. La versión vigente siempre estará disponible en el pie de página del sitio web.
+
+---
+*Última actualización: Enero 2026*
