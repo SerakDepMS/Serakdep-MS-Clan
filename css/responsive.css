@@ -2033,7 +2033,6 @@ nav ul li a:hover {
   transition: all 0.3s ease;
 }
 
-/* Destacar la última fila (Expulsión permanente) */
 .sanciones-table tbody tr:last-child {
   background: linear-gradient(
     135deg,
