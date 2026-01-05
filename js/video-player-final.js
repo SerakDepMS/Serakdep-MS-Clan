@@ -41,6 +41,12 @@ class VideoPlayerFinal {
     this.isFullscreen = false;
     this.settingsOpen = false;
     this.volumeSliderVisible = false;
+    this.fullscreenState = {
+      isActive: false,
+      scrollPosition: 0,
+      containerStyles: null,
+    };
+    this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
     this.init();
   }
@@ -114,8 +120,11 @@ class VideoPlayerFinal {
     this.infoSize = document.getElementById("info-size");
 
     this.playerContainer = document.querySelector(".video-player-final");
+    this.videoContainer = document.querySelector(".video-container");
+    this.videoDisplayArea = document.querySelector(".video-display-area");
+    this.videoControls = document.querySelector(".video-controls-panel");
 
-    this.createFullscreenCloseBtn();
+    this.createFullscreenElements();
 
     this.video.volume = this.volume;
     this.volumeSlider.value = this.volume;
@@ -126,16 +135,29 @@ class VideoPlayerFinal {
     this.detectOrientation();
   }
 
-  createFullscreenCloseBtn() {
+  createFullscreenElements() {
+    // Botón de cerrar pantalla completa
     this.fullscreenCloseBtn = document.createElement("button");
     this.fullscreenCloseBtn.className = "fullscreen-close-btn";
     this.fullscreenCloseBtn.innerHTML = '<i class="fas fa-times"></i>';
     this.fullscreenCloseBtn.title = "Salir de pantalla completa";
+    this.fullscreenCloseBtn.style.display = "none";
     this.playerContainer.appendChild(this.fullscreenCloseBtn);
 
-    this.fullscreenCloseBtn.addEventListener("click", () =>
-      this.toggleFullscreen()
-    );
+    // Overlay para pantalla completa (móviles)
+    this.fullscreenOverlay = document.createElement("div");
+    this.fullscreenOverlay.className = "fullscreen-overlay";
+    this.fullscreenOverlay.style.display = "none";
+    this.fullscreenOverlay.innerHTML = `
+      <div class="fullscreen-header">
+        <button class="back-btn">
+          <i class="fas fa-arrow-left"></i>
+          <span>Volver</span>
+        </button>
+        <h3 class="video-title-fullscreen"></h3>
+      </div>
+    `;
+    document.body.appendChild(this.fullscreenOverlay);
   }
 
   detectOrientation() {
@@ -153,20 +175,34 @@ class VideoPlayerFinal {
   }
 
   adjustVideoForOrientation() {
+    if (!this.isFullscreen) return;
+
     const isPortrait = window.innerHeight > window.innerWidth;
+    const videoRatio = this.video.videoWidth / this.video.videoHeight;
+    const containerRatio = window.innerWidth / window.innerHeight;
 
     if (isPortrait) {
-      this.video.style.width = "100%";
-      this.video.style.height = "auto";
+      if (videoRatio > containerRatio) {
+        this.video.style.width = "100%";
+        this.video.style.height = "auto";
+      } else {
+        this.video.style.width = "auto";
+        this.video.style.height = "100%";
+      }
     } else {
-      this.video.style.width = "auto";
-      this.video.style.height = "100%";
+      if (videoRatio > containerRatio) {
+        this.video.style.width = "100%";
+        this.video.style.height = "auto";
+      } else {
+        this.video.style.width = "auto";
+        this.video.style.height = "100%";
+      }
     }
 
-    this.video.style.display = "none";
-    setTimeout(() => {
-      this.video.style.display = "block";
-    }, 50);
+    this.video.style.position = "absolute";
+    this.video.style.top = "50%";
+    this.video.style.left = "50%";
+    this.video.style.transform = "translate(-50%, -50%)";
   }
 
   setupEventListeners() {
@@ -200,6 +236,13 @@ class VideoPlayerFinal {
     this.fullscreenCloseBtn.addEventListener("click", () =>
       this.toggleFullscreen()
     );
+
+    // Overlay de pantalla completa
+    this.fullscreenOverlay
+      .querySelector(".back-btn")
+      .addEventListener("click", () => {
+        this.toggleFullscreen();
+      });
 
     this.settingsToggle.addEventListener("click", () => this.openSettings());
     this.mobileSettingsBtn.addEventListener("click", () => this.openSettings());
@@ -257,15 +300,35 @@ class VideoPlayerFinal {
       }
     });
 
-    document.addEventListener("fullscreenchange", () =>
-      this.onFullscreenChange()
-    );
-    document.addEventListener("webkitfullscreenchange", () =>
-      this.onFullscreenChange()
-    );
+    // Eventos de pantalla completa mejorados
+    const fullscreenEvents = [
+      "fullscreenchange",
+      "webkitfullscreenchange",
+      "mozfullscreenchange",
+      "MSFullscreenChange",
+    ];
+
+    fullscreenEvents.forEach((event) => {
+      document.addEventListener(event, () => this.onFullscreenChange());
+    });
+
+    // Detectar cambios de orientación
+    window.addEventListener("orientationchange", () => {
+      if (this.isFullscreen) {
+        setTimeout(() => {
+          this.adjustVideoForOrientation();
+        }, 300);
+      }
+    });
+
+    // Cerrar pantalla completa al hacer clic fuera en móviles
+    this.fullscreenOverlay.addEventListener("click", (e) => {
+      if (e.target === this.fullscreenOverlay) {
+        this.toggleFullscreen();
+      }
+    });
 
     this.setupTouchGestures();
-
     this.setupDoubleTap();
   }
 
@@ -285,87 +348,231 @@ class VideoPlayerFinal {
   }
 
   toggleFullscreen() {
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      if (this.playerContainer.requestFullscreen) {
-        this.playerContainer.requestFullscreen();
-      } else if (this.playerContainer.webkitRequestFullscreen) {
-        this.playerContainer.webkitRequestFullscreen();
-      } else if (this.playerContainer.mozRequestFullScreen) {
-        this.playerContainer.mozRequestFullScreen();
-      } else if (this.playerContainer.msRequestFullscreen) {
-        this.playerContainer.msRequestFullscreen();
-      }
+    if (!document.fullscreenElement) {
+      // Guardar estado actual
+      this.fullscreenState.scrollPosition = window.pageYOffset;
+      this.fullscreenState.containerStyles = {
+        position: this.playerContainer.style.position,
+        top: this.playerContainer.style.top,
+        left: this.playerContainer.style.left,
+        width: this.playerContainer.style.width,
+        height: this.playerContainer.style.height,
+        zIndex: this.playerContainer.style.zIndex,
+        margin: this.playerContainer.style.margin,
+        borderRadius: this.playerContainer.style.borderRadius,
+        overflow: this.playerContainer.style.overflow,
+      };
 
-      this.playerContainer.classList.add("fullscreen");
-      this.fullscreenToggle.innerHTML = '<i class="fas fa-compress"></i>';
-      this.fullscreenToggle.title = "Salir de pantalla completa";
-      this.mobileFullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
-      this.mobileFullscreenBtn.title = "Salir de pantalla completa";
-      this.isFullscreen = true;
+      // Entrar en pantalla completa
+      const container = this.playerContainer;
 
-      this.adjustVideoForFullscreen();
+      const enterFullscreen = () => {
+        if (container.requestFullscreen) {
+          return container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) {
+          return container.webkitRequestFullscreen();
+        } else if (container.mozRequestFullScreen) {
+          return container.mozRequestFullScreen();
+        } else if (container.msRequestFullscreen) {
+          return container.msRequestFullscreen();
+        }
+        return Promise.reject(new Error("Fullscreen API not supported"));
+      };
 
-      this.hidePageElements(true);
+      enterFullscreen()
+        .then(() => {
+          this.applyFullscreenStyles();
 
-      this.showNotification("🖥️ Pantalla completa activada");
+          if (this.isMobile) {
+            this.fullscreenOverlay.style.display = "block";
+            this.fullscreenOverlay.querySelector(
+              ".video-title-fullscreen"
+            ).textContent = this.videoList[this.currentVideoIndex].title;
+          }
+
+          this.showNotification("🖥️ Pantalla completa activada");
+
+          window.dispatchEvent(new Event("resize"));
+        })
+        .catch((err) => {
+          console.error("Error entering fullscreen:", err);
+          this.applyFullscreenStyles();
+        });
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-
-      this.playerContainer.classList.remove("fullscreen");
-      this.fullscreenToggle.innerHTML = '<i class="fas fa-expand"></i>';
-      this.fullscreenToggle.title = "Pantalla completa";
-      this.mobileFullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-      this.mobileFullscreenBtn.title = "Pantalla completa";
-      this.isFullscreen = false;
-
-      this.restoreVideoFromFullscreen();
-
-      this.hidePageElements(false);
-
-      this.showNotification("🖥️ Pantalla completa desactivada");
+      this.restoreNormalMode();
     }
   }
 
-  adjustVideoForFullscreen() {
+  applyFullscreenStyles() {
+    const container = this.playerContainer;
+
+    container.classList.add("fullscreen-active");
+    container.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 999999 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      background: #000 !important;
+      overflow: hidden !important;
+    `;
+
+    // Ajustar área de video
+    if (this.videoDisplayArea) {
+      this.videoDisplayArea.style.height = "100vh";
+      this.videoDisplayArea.style.paddingTop = "0";
+      this.videoDisplayArea.style.borderRadius = "0";
+    }
+
+    // Ajustar video
     this.video.style.objectFit = "contain";
     this.video.style.maxWidth = "100%";
     this.video.style.maxHeight = "100%";
-    this.video.style.width = "auto";
-    this.video.style.height = "auto";
+    this.video.style.background = "#000";
 
-    this.video.style.position = "absolute";
-    this.video.style.top = "50%";
-    this.video.style.left = "50%";
-    this.video.style.transform = "translate(-50%, -50%)";
+    // Ajustar controles
+    if (this.videoControls) {
+      this.videoControls.style.background =
+        "linear-gradient(transparent, rgba(0,0,0,0.7))";
+      this.videoControls.style.padding = "20px";
+      this.videoControls.style.backdropFilter = "blur(10px)";
+    }
 
+    // Actualizar botones
+    this.fullscreenToggle.innerHTML = '<i class="fas fa-compress"></i>';
+    this.fullscreenToggle.title = "Salir de pantalla completa";
+    this.mobileFullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+    this.mobileFullscreenBtn.title = "Salir de pantalla completa";
+    this.fullscreenCloseBtn.style.display = "flex";
+
+    // Ocultar elementos de la página
+    this.hidePageElements(true);
+
+    // Actualizar estado
+    this.isFullscreen = true;
+    this.fullscreenState.isActive = true;
+
+    // Ajustar orientación
     this.adjustVideoForOrientation();
   }
 
-  restoreVideoFromFullscreen() {
-    this.video.style.objectFit = "contain";
-    this.video.style.maxWidth = "";
-    this.video.style.maxHeight = "";
+  restoreNormalMode() {
+    const container = this.playerContainer;
+
+    // Restaurar scroll
+    window.scrollTo(0, this.fullscreenState.scrollPosition);
+
+    // Salir de pantalla completa nativa
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+
+    // Restaurar estilos del contenedor
+    container.classList.remove("fullscreen-active");
+
+    if (this.fullscreenState.containerStyles) {
+      container.style.position =
+        this.fullscreenState.containerStyles.position || "relative";
+      container.style.top = this.fullscreenState.containerStyles.top || "";
+      container.style.left = this.fullscreenState.containerStyles.left || "";
+      container.style.width =
+        this.fullscreenState.containerStyles.width || "100%";
+      container.style.height =
+        this.fullscreenState.containerStyles.height || "";
+      container.style.zIndex =
+        this.fullscreenState.containerStyles.zIndex || "";
+      container.style.margin =
+        this.fullscreenState.containerStyles.margin || "25px auto";
+      container.style.borderRadius =
+        this.fullscreenState.containerStyles.borderRadius || "15px";
+      container.style.overflow =
+        this.fullscreenState.containerStyles.overflow || "";
+    } else {
+      // Valores por defecto
+      container.style.cssText = "";
+      container.style.position = "relative";
+      container.style.width = "100%";
+      container.style.maxWidth = "900px";
+      container.style.margin = "25px auto";
+      container.style.borderRadius = "15px";
+      container.style.overflow = "visible";
+      container.style.background = "";
+    }
+
+    // Restaurar área de video
+    if (this.videoDisplayArea) {
+      this.videoDisplayArea.style.height = "";
+      this.videoDisplayArea.style.paddingTop = "56.25%";
+      this.videoDisplayArea.style.borderRadius = "12px 12px 0 0";
+    }
+
+    // Restaurar video
+    this.video.style.cssText = "";
     this.video.style.width = "100%";
     this.video.style.height = "100%";
-    this.video.style.position = "";
-    this.video.style.top = "";
-    this.video.style.left = "";
-    this.video.style.transform = "";
+    this.video.style.objectFit = "contain";
+    this.video.style.position = "absolute";
+    this.video.style.top = "0";
+    this.video.style.left = "0";
+
+    // Restaurar controles
+    if (this.videoControls) {
+      this.videoControls.style.cssText = "";
+    }
+
+    // Restaurar botones
+    this.fullscreenToggle.innerHTML = '<i class="fas fa-expand"></i>';
+    this.fullscreenToggle.title = "Pantalla completa";
+    this.mobileFullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+    this.mobileFullscreenBtn.title = "Pantalla completa";
+    this.fullscreenCloseBtn.style.display = "none";
+
+    // Ocultar overlay
+    this.fullscreenOverlay.style.display = "none";
+
+    // Mostrar elementos de la página
+    this.hidePageElements(false);
+
+    // Forzar reflow
+    container.offsetHeight;
+
+    // Actualizar estado
+    this.isFullscreen = false;
+    this.fullscreenState.isActive = false;
+
+    this.showNotification("🖥️ Pantalla completa desactivada");
+  }
+
+  onFullscreenChange() {
+    const isFullscreen = !!(
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement
+    );
+
+    if (!isFullscreen && this.fullscreenState.isActive) {
+      // El usuario salió de pantalla completa (ESC, botón nativo, etc.)
+      setTimeout(() => {
+        this.restoreNormalMode();
+      }, 50);
+    }
   }
 
   hidePageElements(hide) {
     const header = document.querySelector("header");
     const footer = document.querySelector("footer");
     const mainContent = document.querySelectorAll(
-      ".card, .panda-decorative, .clan-logo-section"
+      ".card, .panda-decorative, .clan-logo-section, .gallery-card, h1.page-title"
     );
 
     if (hide) {
@@ -383,26 +590,6 @@ class VideoPlayerFinal {
     }
   }
 
-  onFullscreenChange() {
-    if (
-      !document.fullscreenElement &&
-      !document.webkitFullscreenElement &&
-      !document.mozFullScreenElement &&
-      !document.msFullscreenElement
-    ) {
-      this.playerContainer.classList.remove("fullscreen");
-      this.fullscreenToggle.innerHTML = '<i class="fas fa-expand"></i>';
-      this.fullscreenToggle.title = "Pantalla completa";
-      this.mobileFullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-      this.mobileFullscreenBtn.title = "Pantalla completa";
-      this.isFullscreen = false;
-
-      this.restoreVideoFromFullscreen();
-
-      this.hidePageElements(false);
-    }
-  }
-
   loadVideo(index) {
     if (index < 0 || index >= this.videoList.length) return;
 
@@ -414,9 +601,17 @@ class VideoPlayerFinal {
     this.video.src = videoData.src;
 
     this.videoTitle.textContent = videoData.title;
-    this.videoDescription.textContent = videoData.description;
+    this.videoDescription.textContent = videoData.description || "";
     this.infoDuration.textContent = videoData.duration + " seg";
     this.infoSize.textContent = videoData.size;
+
+    // Actualizar título en overlay de pantalla completa
+    const fullscreenTitle = this.fullscreenOverlay.querySelector(
+      ".video-title-fullscreen"
+    );
+    if (fullscreenTitle) {
+      fullscreenTitle.textContent = videoData.title;
+    }
 
     this.updateCounter();
 

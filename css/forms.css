@@ -883,3 +883,286 @@ textarea.form-control {
     box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
   }
 }
+
+/* ============================================
+   ESTILOS PARA LOS BOTONES DE COMUNIDAD
+   ============================================ */
+
+/* Contenedor de botones de éxito */
+#success-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Botón de WhatsApp */
+.btn-whatsapp {
+  background: #25d366;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  min-width: 250px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.btn-whatsapp:hover {
+  background: #128c7e;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+}
+
+/* Botón de Discord */
+.btn-discord {
+  background: #5865f2;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid white;
+  min-width: 250px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.btn-discord:hover {
+  background: #4752c4;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(88, 101, 242, 0.4);
+}
+
+/* Estilos para los iconos de los botones */
+.btn-whatsapp i,
+.btn-discord i {
+  font-size: 1.3rem;
+}
+
+/* ============================================
+   ESTILOS PARA LA SECCIÓN DE COMUNIDADES
+   ============================================ */
+
+/* Contenedor de la sección de comunidades */
+.form-group:has(#join-whatsapp) {
+  background-color: #f8fafc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-left: 4px solid #2ecc71;
+}
+
+/* Título de la sección de comunidades */
+.form-group:has(#join-whatsapp) .form-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  display: block;
+}
+
+/* Estilos para los checkboxes de comunidades */
+.form-group:has(#join-whatsapp) .form-checkbox {
+  margin-bottom: 12px;
+  padding: 10px 15px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e0e6ed;
+  transition: all 0.2s ease;
+}
+
+.form-group:has(#join-whatsapp) .form-checkbox:hover {
+  border-color: #3498db;
+  background-color: #f1f8ff;
+}
+
+/* Checkbox específico para WhatsApp */
+#join-whatsapp:checked + label {
+  color: #25d366;
+  font-weight: 600;
+}
+
+#join-whatsapp:checked + label::before {
+  content: "✓ ";
+  color: #25d366;
+}
+
+/* Checkbox específico para Discord */
+#join-discord:checked + label {
+  color: #5865f2;
+  font-weight: 600;
+}
+
+#join-discord:checked + label::before {
+  content: "✓ ";
+  color: #5865f2;
+}
+
+/* ============================================
+   RESPONSIVE PARA LOS BOTONES DE COMUNIDAD
+   ============================================ */
+
+@media (max-width: 768px) {
+  #success-buttons {
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .btn-whatsapp,
+  .btn-discord {
+    padding: 12px 20px;
+    font-size: 16px;
+    min-width: 200px;
+    max-width: 250px;
+  }
+
+  /* Ajustes para la sección de comunidades en móvil */
+  .form-group:has(#join-whatsapp) {
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .form-group:has(#join-whatsapp) .form-checkbox {
+    padding: 8px 12px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  #success-buttons {
+    gap: 8px;
+  }
+
+  .btn-whatsapp,
+  .btn-discord {
+    padding: 10px 15px;
+    font-size: 15px;
+    min-width: 180px;
+    max-width: 220px;
+  }
+
+  .btn-whatsapp i,
+  .btn-discord i {
+    font-size: 1.1rem;
+  }
+}
+
+/* ============================================
+   ANIMACIONES PARA LOS BOTONES
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-whatsapp,
+.btn-discord {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Retraso para el segundo botón si hay dos */
+.btn-discord {
+  animation-delay: 0.1s;
+}
+
+/* ============================================
+   ESTILOS PARA EL MENSAJE DE ÉXITO
+   ============================================ */
+
+#success-message {
+  scroll-margin-top: 120px; /* Para compensar el header fijo al hacer scroll */
+}
+
+/* Estilo para cuando solo hay un botón */
+#success-buttons:has(:only-child) {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo para cuando hay dos botones */
+#success-buttons:has(:nth-child(2)) {
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ============================================
+   ESTILOS PARA LOS CHECKBOX DE COMUNIDADES
+   ============================================ */
+
+.form-group:has(#join-whatsapp) input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: #2ecc71; /* Color verde para WhatsApp */
+}
+
+#join-discord {
+  accent-color: #5865f2; /* Color morado para Discord */
+}
+
+/* Estilo visual cuando se selecciona un checkbox */
+.form-group:has(#join-whatsapp) .form-checkbox input[type="checkbox"]:checked {
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+}
+
+#join-discord:checked {
+  box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
+}
+
+/* ============================================
+   ESTILOS PARA EL TEXTO DE LOS LABELS
+   ============================================ */
+
+.form-group:has(#join-whatsapp) .form-checkbox label {
+  font-size: 1rem;
+  line-height: 1.4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.form-group:has(#join-whatsapp) .form-checkbox label::before {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+/* ============================================
+   EFECTOS HOVER
+   ============================================ */
+
+.form-group:has(#join-whatsapp) .form-checkbox:hover label {
+  color: #2c3e50;
+}
+
+#join-whatsapp:focus + label,
+#join-discord:focus + label {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

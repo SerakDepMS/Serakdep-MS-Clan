@@ -29,7 +29,7 @@ Este sitio web está diseñado para facilitar tu integración y participación e
 
 - [Formulario de inscripción](https://serakdepms.github.io/Serakdep-MS-Clan/formulario.html)
 - [WhatsApp del clan](https://wa.me/573116546484)
-- [Discord oficial](https://discord.gg/cJEbpyJ3)
+- [Discord oficial](https://discord.gg/a4UR88zP)
 - Correo oficial: `serakdepmsofficial7@gmail.com`
 
 ## 🛠️ Tecnologías utilizadas
@@ -51,4 +51,5 @@ Este proyecto es de uso interno del clan Serakdep MS.
 No está autorizada su reproducción total o parcial sin permiso del equipo administrativo.
 
 ---
-*“Unidos por la pasión del gaming” – Serakdep MS*
+
+_“Unidos por la pasión del gaming” – Serakdep MS_

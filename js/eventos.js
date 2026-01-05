@@ -858,7 +858,7 @@ function joinEventNow() {
           joinDiscord();
           break;
         case "special":
-          window.open("https://discord.gg/invitacion-del-clan", "_blank");
+          window.open("https://discord.gg/a4UR88zP", "_blank");
           break;
       }
     }

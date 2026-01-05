@@ -1,0 +1,220 @@
+# Sistema de Cálculo de Puntos para Clasificación - Serakdep MS
+
+## 📊 **SISTEMA DE PUNTUACIÓN PARA EQUIPOS**
+
+### **1. VICTORIAS EN EVENTOS (40%)**
+```
+- Victoria en torneo oficial: +150 puntos
+- Segundo lugar en torneo: +100 puntos
+- Tercer lugar en torneo: +75 puntos
+- Participación en torneo: +25 puntos
+- Victoria en evento semanal: +50 puntos
+- Victoria en evento casual: +20 puntos
+```
+
+### **2. PARTICIPACIÓN Y ASISTENCIA (25%)**
+```
+- Todos los miembros presentes en evento: +30 puntos
+- 80-99% de miembros presentes: +20 puntos
+- 60-79% de miembros presentes: +10 puntos
+- Puntualidad completa (sin retrasos): +15 puntos
+- Participación en entrenamiento grupal: +10 puntos
+```
+
+### **3. DESEMPEÑO EN JUEGOS (25%)**
+```
+- Ganar partida en Blox Fruits: +10 puntos
+- Ganar partida en Arsenal: +8 puntos
+- Ganar partida en Brookhaven: +6 puntos
+- Victoria en juego cooperativo: +12 puntos
+- Racha de victorias (3+ seguidas): +15 puntos extra
+- Objetivos especiales completados: +5-20 puntos
+```
+
+### **4. COLABORACIÓN Y ESPÍRITU DE EQUIPO (10%)**
+```
+- Ayudar a otro equipo del clan: +10 puntos
+- Organizar evento interno: +20 puntos
+- Participación en actividades sociales: +15 puntos
+- Buen comportamiento verificado: +10 puntos
+- Contribución a estrategias del clan: +5-15 puntos
+```
+
+## 🎮 **SISTEMA DE PUNTUACIÓN PARA JUGADORES**
+
+### **1. HABILIDAD EN JUEGOS (35%)**
+```
+- K/D Ratio > 3.0: +25 puntos
+- K/D Ratio 2.0-3.0: +15 puntos
+- K/D Ratio 1.0-2.0: +8 puntos
+- MVP del partido: +15 puntos
+- Mayor daño en partida: +10 puntos
+- Mayor asistencias en partida: +8 puntos
+- Objetivos completados: +5 puntos c/u
+```
+
+### **2. PARTICIPACIÓN EN EVENTOS (30%)**
+```
+- Asistencia a torneo oficial: +30 puntos
+- Asistencia a evento semanal: +20 puntos
+- Asistencia a evento casual: +10 puntos
+- Participación en todos los eventos mensuales: +50 puntos extra
+- Llegar puntual a evento: +5 puntos
+- Permanecer hasta el final: +10 puntos
+```
+
+### **3. CONTRIBUCIÓN AL CLAN (20%)**
+```
+- Invitar nuevo miembro (que se una): +25 puntos
+- Ayudar a nuevo miembro (tutoría): +15 puntos
+- Reportar bug/problema: +10 puntos
+- Sugerencia implementada: +20 puntos
+- Crear contenido para el clan: +15-30 puntos
+- Ayudar en organización de eventos: +20 puntos
+- Participar en reuniones del clan: +10 puntos
+```
+
+### **4. COMPORTAMIENTO Y ACTITUD (15%)**
+```
+- Comportamiento ejemplar verificado: +20 puntos/mes
+- Resolución de conflictos: +15 puntos
+- Ayudar a compañeros: +10 puntos
+- Actitud positiva en partidas: +5 puntos/sesión
+- Cumplir reglas del clan: +15 puntos/mes
+- Reporte positivo de administrador: +10 puntos
+```
+
+## ⚖️ **FÓRMULAS DE CÁLCULO**
+
+### **Para Equipos:**
+```
+PUNTOS_TOTALES = 
+  (Victorias × 150) + (Segundos × 100) + (Terceros × 75) + 
+  (Participaciones × 25) + (Asistencia_promedio × 30) + 
+  (Victorias_juegos × 10) + (Colaboraciones × 10) + 
+  (Bono_racha × 15) - (Penalizaciones)
+```
+
+### **Para Jugadores:**
+```
+PUNTOS_TOTALES = 
+  (Habilidad × 0.35) + (Participación × 0.30) + 
+  (Contribución × 0.20) + (Comportamiento × 0.15) + 
+  (Bonos_especiales) - (Penalizaciones)
+```
+
+## 📉 **SISTEMA DE PENALIZACIONES**
+
+### **Para Equipos:**
+```
+- Abandonar torneo: -100 puntos
+- Comportamiento tóxico verificado: -75 puntos
+- Ausencia sin aviso en evento: -50 puntos
+- Retraso significativo: -25 puntos
+- No seguir estrategias acordadas: -30 puntos
+```
+
+### **Para Jugadores:**
+```
+- Comportamiento tóxico: -50 puntos
+- Abandonar partida: -30 puntos
+- Ausencia sin justificación: -25 puntos
+- Retraso a evento: -10 puntos
+- Uso de lenguaje inapropiado: -15 puntos
+- Incumplir reglas del clan: -20 puntos
+```
+
+## 📈 **BONOS ESPECIALES**
+
+### **Bonos de Temporada:**
+```
+- Jugador/Equipo del mes: +100 puntos
+- Mejor mejora mensual: +75 puntos
+- Participación perfecta (30 días): +50 puntos
+- Invitación más efectiva: +40 puntos
+- Contenido más popular: +60 puntos
+```
+
+### **Bonos por Logros:**
+```
+- Nivel máximo en juego del clan: +30 puntos
+- Conquista difícil completada: +25 puntos
+- Ayudar a 5+ miembros nuevos: +35 puntos
+- Organizar 3+ eventos exitosos: +45 puntos
+```
+
+## 🔄 **SISTEMA DE ACTUALIZACIÓN**
+
+### **Frecuencia:**
+```
+- Puntos por partidas: Actualización inmediata
+- Puntos por eventos: 24 horas después del evento
+- Puntos por comportamiento: Semanal
+- Clasificación general: Actualizada cada domingo 20:00 GMT-5
+```
+
+### **Degradación de Puntos:**
+```
+- Los puntos tienen validez por 30 días
+- Después de 30 días, reducción del 10% mensual
+- Reinicio parcial cada 3 meses (se mantiene el 50%)
+- Reinicio anual completo para nueva temporada
+```
+
+## 📱 **IMPLEMENTACIÓN PRÁCTICA**
+
+### **Hoja de Cálculo/Base de Datos:**
+```
+1. Tabla "Eventos" con:
+   - Fecha, Tipo, Participantes, Resultados
+   
+2. Tabla "Jugadores" con:
+   - ID, Nombre, Puntos_actuales, Historial
+   
+3. Tabla "Equipos" con:
+   - ID, Nombre, Miembros, Puntos_actuales
+   
+4. Tabla "Registros" con:
+   - Fecha, Jugador/Equipo, Actividad, Puntos_ganados/perdidos
+```
+
+### **Método de Registro:**
+```
+1. Los administradores registran eventos en formulario
+2. Los jugadores pueden reportar logros con evidencia
+3. Sistema de verificación por 2 administradores
+4. Panel de control para ver puntos en tiempo real
+```
+
+## 🎯 **EJEMPLO DE CÁLCULO**
+
+### **Jugador "ShadowBlade" en una semana:**
+```
+- 3 victorias en torneos (3 × 150) = 450
+- 2 segundos lugares (2 × 100) = 200
+- K/D ratio promedio 2.5 = 15
+- 5 MVPs (5 × 15) = 75
+- Asistencia perfecta a eventos = 30
+- Ayudó a 2 nuevos miembros (2 × 15) = 30
+- Comportamiento ejemplar = 20
+- TOTAL SEMANAL = 820 puntos
+```
+
+### **Equipo "Dragones Legendarios" en una semana:**
+```
+- Victoria en torneo principal = 150
+- Participación en 3 eventos (3 × 25) = 75
+- 80% de asistencia = 20
+- 10 victorias en juegos (10 × 10) = 100
+- Racha de 4 victorias = 15
+- Ayuda a otro equipo = 10
+- TOTAL SEMANAL = 370 puntos
+```
+
+## 💡 **RECOMENDACIONES**
+
+1. **Transparencia total:** Publicar las reglas y fórmulas
+2. **Sistema de apelación:** Para disputas sobre puntos
+3. **Revisión mensual:** Ajustar sistema según necesidades
+4. **Premios tangibles:** Recompensas por buen desempeño
+5. **Balance constante:** Asegurar que el sistema sea justo

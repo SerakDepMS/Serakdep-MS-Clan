@@ -182,7 +182,7 @@ function setupAdminNavigation() {
   }
 }
 
-// FORMULARIO DE INSCRIPCIÓN - VERSIÓN FUNCIONAL
+// FORMULARIO DE INSCRIPCIÓN - VERSIÓN CORREGIDA Y UNIFICADA
 
 function setupInscriptionForm() {
   const form = document.getElementById("inscription-form");
@@ -215,62 +215,104 @@ function setupInscriptionForm() {
         referral: document.getElementById("referral").value,
         whatsapp:
           document.getElementById("whatsapp").value || "No proporcionado",
+        userEmail: document.getElementById("user-email").value,
         whatsappConsent: document.getElementById("whatsapp-consent").checked,
         newsletter: document.getElementById("newsletter").checked,
         terms: document.getElementById("terms").checked,
+        joinWhatsapp: document.getElementById("join-whatsapp").checked,
+        joinDiscord: document.getElementById("join-discord").checked,
       };
 
-      const ip = await getIPAddress();
+      console.log("📝 Datos del formulario capturados");
 
-      await sendInscriptionEmailToAdmin(formData, ip);
-
-      if (
-        formData.whatsappConsent &&
-        formData.whatsapp !== "No proporcionado"
-      ) {
-        try {
-          await sendConfirmationEmailToUser(formData);
-        } catch (confirmationError) {
-          console.warn(
-            "No se pudo enviar email de confirmación:",
-            confirmationError
-          );
-        }
+      // ========== OBTENER IP CON LA FUNCIÓN UNIFICADA ==========
+      let ip = "No disponible";
+      try {
+        console.log("🌐 Intentando obtener IP...");
+        ip = await getIPAddress();
+        console.log(`✅ IP obtenida: ${ip}`);
+      } catch (ipError) {
+        console.warn(
+          "⚠️ Error obteniendo IP, usando valor por defecto:",
+          ipError
+        );
       }
 
-      form.style.display = "none";
+      // ========== 1. ENVIAR EMAIL AL ADMINISTRADOR ==========
+      console.log("📤 Enviando email al administrador...");
+      try {
+        await sendInscriptionEmailToAdmin(formData, ip);
+        console.log("✅ Email enviado exitosamente al admin");
+      } catch (adminEmailError) {
+        console.error(
+          "❌ ERROR CRÍTICO enviando email al admin:",
+          adminEmailError
+        );
+        throw adminEmailError;
+      }
 
+      // ========== 2. ENVIAR EMAIL DE CONFIRMACIÓN AL USUARIO ==========
+      try {
+        if (formData.userEmail && formData.userEmail.trim() !== "") {
+          console.log("📧 Enviando confirmación al usuario...");
+          await sendConfirmationEmailToUser(formData);
+          console.log("✅ Email de confirmación enviado al usuario");
+        } else {
+          console.log(
+            "ℹ️ Usuario no proporcionó email, no se envía confirmación"
+          );
+        }
+      } catch (confirmationError) {
+        console.warn(
+          "⚠️ No se pudo enviar email de confirmación:",
+          confirmationError
+        );
+        // NO detenemos el proceso si falla la confirmación
+      }
+
+      // ========== 3. MOSTRAR ÉXITO AL USUARIO ==========
+      form.style.display = "none";
       successMessage.style.display = "block";
       successMessage.classList.add("success-highlight");
 
+      // Mostrar botones según selección
+      const whatsappBtn = document.getElementById("whatsapp-success-btn");
+      const discordBtn = document.getElementById("discord-success-btn");
+      const successButtonsContainer =
+        document.getElementById("success-buttons");
+
+      if (formData.joinWhatsapp) {
+        whatsappBtn.style.display = "flex";
+      }
+      if (formData.joinDiscord) {
+        discordBtn.href = "https://discord.gg/a4UR88zP";
+        discordBtn.style.display = "flex";
+      }
+
+      if (!formData.joinWhatsapp && !formData.joinDiscord) {
+        successButtonsContainer.style.display = "none";
+      } else {
+        successButtonsContainer.style.display = "flex";
+      }
+
+      // Scroll al mensaje de éxito
       setTimeout(() => {
         successMessage.scrollIntoView({
           behavior: "smooth",
           block: "center",
-          inline: "center",
         });
-
-        setTimeout(() => {
-          const rect = successMessage.getBoundingClientRect();
-          const isVisible =
-            rect.top >= 0 &&
-            rect.bottom <=
-              (window.innerHeight || document.documentElement.clientHeight);
-
-          if (!isVisible) {
-            window.scrollBy({
-              top: rect.top - 150,
-              behavior: "smooth",
-            });
-          }
-        }, 200);
       }, 150);
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
-      showMessage(
-        "❌ Error al enviar la solicitud. Por favor, inténtalo de nuevo o contáctanos por WhatsApp directamente.",
-        "error"
-      );
+      console.error("❌ Error general al enviar el formulario:", error);
+
+      let errorMessage = "❌ Error al enviar la solicitud. ";
+      if (error.status === 422) {
+        errorMessage += "Error de configuración del email. ";
+      }
+      errorMessage +=
+        "Por favor, inténtalo de nuevo o contáctanos por WhatsApp directamente.";
+
+      showMessage(errorMessage, "error");
 
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
@@ -279,7 +321,104 @@ function setupInscriptionForm() {
 }
 
 async function sendInscriptionEmailToAdmin(data, ip) {
+  console.log("🚀 INICIANDO sendInscriptionEmailToAdmin");
+  console.log("📊 Datos recibidos para email:", data);
+
+  // Verificar que los datos críticos existen
+  if (!data.robloxName || !data.userEmail) {
+    console.error("❌ DATOS CRÍTICOS FALTANTES:", {
+      robloxName: data.robloxName,
+      userEmail: data.userEmail,
+    });
+    throw new Error("Datos críticos faltantes para enviar email");
+  }
+
+  // ========== GENERAR TODAS LAS VARIABLES CONDICIONALES ==========
+
+  // 1. WhatsApp display
+  const whatsappDisplay =
+    data.whatsapp === "No proporcionado"
+      ? '<span style="color: #e74c3c;">No proporcionado</span>'
+      : `<a href="https://wa.me/${data.whatsapp}" style="color: #25D366; text-decoration: none; font-weight: bold;">${data.whatsapp}</a>`;
+
+  // 2. WhatsApp consent
+  const whatsappConsentDisplay = data.whatsappConsent
+    ? '<span style="color: #27ae60; font-weight: bold;">✓ Aceptado</span>'
+    : '<span style="color: #e74c3c;">✗ No aceptado</span>';
+
+  // 3. Newsletter
+  const newsletterDisplay = data.newsletter
+    ? '<span style="color: #27ae60; font-weight: bold;">✓ Suscrito</span>'
+    : '<span style="color: #e74c3c;">✗ No suscrito</span>';
+
+  // 4. WhatsApp check
+  const joinWhatsappCheck = data.joinWhatsapp
+    ? '<span style="color: #25D366; font-weight: bold; margin-left: 10px;">✓ Quiere unirse al grupo</span>'
+    : "";
+
+  // 5. Discord check
+  const joinDiscordCheck = data.joinDiscord
+    ? '<span style="color: #5865F2; font-weight: bold; margin-left: 10px;">✓ Quiere unirse al servidor</span>'
+    : "";
+
+  // 6. Join both note
+  const joinBothNote =
+    data.joinWhatsapp && data.joinDiscord
+      ? '<div style="background: #fff3cd; padding: 12px; border-radius: 5px; margin-top: 15px; border-left: 4px solid #ffc107;">' +
+        "<strong>📝 NOTA:</strong> El jugador quiere unirse a <strong>AMBAS</strong> comunidades. Enviar invitaciones a WhatsApp y Discord." +
+        "</div>"
+      : "";
+
+  // 7. WhatsApp action
+  const whatsappAction = data.joinWhatsapp
+    ? '<div style="background: white; padding: 12px; border-radius: 5px; margin-bottom: 10px; border-left: 4px solid #25D366;">' +
+      '<strong style="color: #25D366;">📱 WHATSAPP:</strong> Invitar al número <strong>' +
+      data.whatsapp +
+      "</strong> al grupo de nuevos miembros." +
+      "</div>"
+    : "";
+
+  // 8. Discord action
+  const discordAction = data.joinDiscord
+    ? '<div style="background: white; padding: 12px; border-radius: 5px; margin-bottom: 10px; border-left: 4px solid #5865F2;">' +
+      '<strong style="color: #5865F2;">🎮 DISCORD:</strong> Enviar invitación al servidor de Discord (Usuario: <strong>' +
+      data.robloxName +
+      "</strong>)." +
+      "</div>"
+    : "";
+
+  // 9. Contact note
+  const contactNote =
+    !data.joinWhatsapp && !data.joinDiscord
+      ? '<div style="background: white; padding: 12px; border-radius: 5px; margin-bottom: 10px; border-left: 4px solid #f39c12;">' +
+        '<strong style="color: #f39c12;">ℹ️ CONTACTO:</strong> El jugador no seleccionó comunidades. Contactar por Roblox: <strong>' +
+        data.robloxName +
+        "</strong>" +
+        "</div>"
+      : "";
+
+  // 10. Priority
+  const priority = data.joinWhatsapp
+    ? '<span style="color: #e74c3c; font-weight: bold;">ALTA - Contactar inmediatamente</span>'
+    : '<span style="color: #f39c12; font-weight: bold;">MEDIA - Contactar en 48 horas</span>';
+
+  // 11. Priority background
+  const priorityBackground = data.joinWhatsapp
+    ? "background: #e74c3c; color: white;"
+    : "background: #f39c12; color: white;";
+
+  // 12. Priority explanation
+  const priorityExplanation = data.joinWhatsapp
+    ? "<strong>Contactar de inmediato</strong> vía WhatsApp para invitación al grupo."
+    : "<strong>Contactar en 48 horas</strong> vía Roblox o email.";
+
+  // 13. Classification
+  const classification = data.joinWhatsapp ? "Nueva Alta" : "Regular";
+
+  // ========== PREPARAR PARÁMETROS ==========
+
   const templateParams = {
+    // Información básica
     roblox_name: data.robloxName || "No proporcionado",
     age: data.age || "No proporcionado",
     country: data.country || "No proporcionado",
@@ -289,9 +428,33 @@ async function sendInscriptionEmailToAdmin(data, ip) {
     play_hours: data.playHours || "No proporcionado",
     why_join: data.whyJoin || "No proporcionado",
     referral: data.referral || "No proporcionado",
+
+    // Contacto
     whatsapp: data.whatsapp || "No proporcionado",
+    user_email: data.userEmail || "No proporcionado",
+
+    // Variables de estado (sí/no)
     whatsapp_consent: data.whatsappConsent ? "Sí" : "No",
     newsletter: data.newsletter ? "Sí" : "No",
+    join_whatsapp: data.joinWhatsapp ? "Sí" : "No",
+    join_discord: data.joinDiscord ? "Sí" : "No",
+
+    // Variables HTML generadas
+    whatsapp_display: whatsappDisplay,
+    whatsapp_consent_display: whatsappConsentDisplay,
+    newsletter_display: newsletterDisplay,
+    join_whatsapp_check: joinWhatsappCheck,
+    join_discord_check: joinDiscordCheck,
+    join_both_note: joinBothNote,
+    whatsapp_action: whatsappAction,
+    discord_action: discordAction,
+    contact_note: contactNote,
+    priority: priority,
+    priority_background: priorityBackground,
+    priority_explanation: priorityExplanation,
+    classification: classification,
+
+    // Datos técnicos
     ip: ip || "No se pudo obtener",
     date: new Date().toLocaleString("es-ES", {
       day: "2-digit",
@@ -300,27 +463,116 @@ async function sendInscriptionEmailToAdmin(data, ip) {
       hour: "2-digit",
       minute: "2-digit",
     }),
+    timestamp: Date.now().toString(),
   };
 
-  return emailjs.send("service_sjea029", "template_bso642c", templateParams);
+  console.log("✅ Email preparado, enviando a EmailJS...");
+
+  try {
+    const result = await emailjs.send(
+      "service_sjea029",
+      "template_bso642c",
+      templateParams
+    );
+    console.log("✅ Email enviado exitosamente a través de EmailJS");
+    return result;
+  } catch (emailJSError) {
+    console.error("❌ Error de EmailJS:", emailJSError);
+    throw emailJSError;
+  }
 }
 
 async function sendConfirmationEmailToUser(data) {
-  if (!data.whatsapp || data.whatsapp === "No proporcionado") return;
+  // Verificar que el usuario proporcionó un email
+  if (!data.userEmail || data.userEmail.trim() === "") {
+    console.log("Usuario no proporcionó email, no se envía confirmación");
+    return null;
+  }
+
+  // Generar secciones condicionales para WhatsApp
+  const whatsappSection = data.joinWhatsapp
+    ? `<div style="background: #dcf8c6; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #25D366;">
+         <h3 style="color: #075e54; margin-top: 0; margin-bottom: 15px;">📲 GRUPO DE WHATSAPP</h3>
+         <p>Puedes unirte ahora mismo a nuestro grupo temporal de nuevos miembros:</p>
+         <div style="text-align: center; margin: 20px 0;">
+           <a href="https://chat.whatsapp.com/KMM8RYx429z9i25YINcKfG" 
+              style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; padding: 14px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+             <span style="font-size: 18px; margin-right: 8px;">📱</span> Unirse al WhatsApp
+           </a>
+         </div>
+         <div style="font-size: 14px; color: #666; text-align: center; margin-top: 15px; background: white; padding: 10px; border-radius: 3px; border: 1px solid #ddd; word-break: break-all;">
+           <strong>Enlace:</strong><br>
+           https://chat.whatsapp.com/KMM8RYx429z9i25YINcKfG
+         </div>
+       </div>`
+    : "";
+
+  // Generar secciones condicionales para Discord
+  const discordSection = data.joinDiscord
+    ? `<div style="background: #e6e6ff; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #5865F2;">
+         <h3 style="color: #36393f; margin-top: 0; margin-bottom: 15px;">🎮 SERVIDOR DE DISCORD</h3>
+         <p>Únete a nuestro servidor de Discord para conectar con la comunidad:</p>
+         <div style="text-align: center; margin: 20px 0;">
+           <a href="https://discord.gg/a4UR88zP"
+              style="background: linear-gradient(135deg, #5865F2 0%, #3b45b5 100%); color: white; padding: 14px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);">
+             <span style="font-size: 18px; margin-right: 8px;">🎮</span> Unirse al Discord
+           </a>
+         </div>
+         <div style="font-size: 14px; color: #666; text-align: center; margin-top: 15px; background: white; padding: 10px; border-radius: 3px; border: 1px solid #ddd; word-break: break-all;">
+           <strong>Enlace:</strong><br>
+           https://discord.gg/a4UR88zP
+         </div>
+       </div>`
+    : "";
+
+  // Generar sección de notas si no seleccionó ninguna comunidad
+  const notesSection =
+    !data.joinWhatsapp && !data.joinDiscord
+      ? `<div style="background: #fff3cd; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #ffc107;">
+         <h3 style="color: #856404; margin-top: 0; margin-bottom: 10px;">ℹ️ NOTA SOBRE LAS COMUNIDADES</h3>
+         <p style="margin: 0;">
+           No seleccionaste unirte a ninguna comunidad. Si cambias de opinión, puedes contactarnos respondiendo a este correo o a través de Roblox.
+         </p>
+       </div>`
+      : "";
 
   const templateParams = {
+    // Para configuración del email (ENCABEZADOS) - USAR NOMBRES EXACTOS DE EMAILJS
+    to_email: data.userEmail,
+    from_name: "Serakdep MS",
+    user_email: data.userEmail,
+
+    // Para contenido del email (CUERPO HTML)
     roblox_name: data.robloxName,
     age: data.age,
     country: data.country,
     games: data.games,
+    join_whatsapp: data.joinWhatsapp ? "Sí" : "No",
+    join_discord: data.joinDiscord ? "Sí" : "No",
     date: new Date().toLocaleDateString("es-ES", {
       day: "2-digit",
-      month: "2-digit",
+      month: "long",
       year: "numeric",
     }),
+    timestamp: Date.now(),
+
+    // Secciones condicionales generadas en JS
+    whatsapp_section: whatsappSection,
+    discord_section: discordSection,
+    notes_section: notesSection,
   };
 
-  return emailjs.send("service_sjea029", "template_xqur3ed", templateParams);
+  try {
+    console.log("📧 Enviando auto-reply al usuario...");
+    return await emailjs.send(
+      "service_sjea029",
+      "template_xqur3ed",
+      templateParams
+    );
+  } catch (error) {
+    console.warn("⚠️ Error enviando email de confirmación:", error);
+    throw error;
+  }
 }
 
 // FORMULARIO DE REPORTE
@@ -351,7 +603,12 @@ function setupReportForm() {
         confidential: document.getElementById("report-confidential").checked,
       };
 
-      const ip = await getIPAddress();
+      let ip = "No disponible";
+      try {
+        ip = await getIPAddress();
+      } catch (error) {
+        console.log("No se pudo obtener IP para reporte:", error);
+      }
 
       await sendReportEmail(formData, ip);
 
@@ -423,7 +680,12 @@ function setupSuggestionForm() {
         anonymous: document.getElementById("suggestion-anonymous").checked,
       };
 
-      const ip = await getIPAddress();
+      let ip = "No disponible";
+      try {
+        ip = await getIPAddress();
+      } catch (error) {
+        console.log("No se pudo obtener IP para sugerencia:", error);
+      }
 
       await sendSuggestionEmail(formData, ip);
 
@@ -518,7 +780,12 @@ function setupAdminApplicationForm() {
         commitment: document.getElementById("admin-commitment").checked,
       };
 
-      const ip = await getIPAddress();
+      let ip = "No disponible";
+      try {
+        ip = await getIPAddress();
+      } catch (error) {
+        console.log("No se pudo obtener IP para admin:", error);
+      }
 
       await sendAdminApplicationEmail(formData, ip);
 
@@ -629,6 +896,21 @@ function validateInscriptionForm() {
     return false;
   }
 
+  const userEmail = document.getElementById("user-email").value;
+  if (!userEmail || userEmail.trim() === "") {
+    showMessage("❌ Por favor, introduce tu correo electrónico.", "error");
+    return false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(userEmail)) {
+    showMessage(
+      "❌ Por favor, introduce un correo electrónico válido.",
+      "error"
+    );
+    return false;
+  }
+
   const requiredFields = [
     "roblox-name",
     "age",
@@ -639,6 +921,7 @@ function validateInscriptionForm() {
     "play-hours",
     "why-join",
     "referral",
+    "user-email",
   ];
 
   for (const fieldId of requiredFields) {
@@ -695,7 +978,6 @@ function validateAdminForm() {
     return false;
   }
 
-  // Validar checkboxes requeridos
   if (!document.getElementById("admin-terms").checked) {
     showMessage(
       "❌ Debes aceptar haber leído el reglamento y comprender las responsabilidades.",
@@ -747,136 +1029,55 @@ function validateAdminForm() {
 
 // FUNCIONES AUXILIARES
 
-// OBTENER IP DEL USUARIO - VERSIÓN MEJORADA
-
+// 🎯 FUNCIÓN ÚNICA Y MEJORADA PARA OBTENER IP
 async function getIPAddress() {
-  const ipServices = [
-    "https://api.ipify.org?format=json",
-    "https://api64.ipify.org?format=json",
-    "https://api.myip.com",
-    "https://ipapi.co/json/",
-    "https://ipinfo.io/json",
-    "https://api.ip.sb/jsonip",
+  console.log("🔍 Obteniendo IP del usuario...");
+
+  const services = [
+    { url: "https://checkip.amazonaws.com/", type: "text", name: "Amazon AWS" },
+    { url: "https://icanhazip.com/", type: "text", name: "icanhazip" },
+    {
+      url: "https://api64.ipify.org?format=json",
+      type: "json",
+      name: "ipify64",
+    },
   ];
 
-  for (let i = 0; i < ipServices.length; i++) {
+  for (const service of services) {
     try {
-      const response = await fetch(ipServices[i], {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          Accept: "application/json",
-        },
-        timeout: 3000,
+      console.log(`🔄 Probando: ${service.name}`);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+
+      const response = await fetch(service.url, {
+        signal: controller.signal,
+        headers: { Accept: "text/plain, application/json, */*" },
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      clearTimeout(timeoutId);
 
-      const data = await response.json();
-
-      let ip = "";
-      if (ipServices[i].includes("ipify")) {
-        ip = data.ip;
-      } else if (ipServices[i].includes("myip.com")) {
-        ip = data.ip;
-      } else if (ipServices[i].includes("ipapi.co")) {
-        ip = data.ip;
-      } else if (ipServices[i].includes("ipinfo.io")) {
-        ip = data.ip;
-      } else if (ipServices[i].includes("ip.sb")) {
-        ip = data.ip;
-      }
-
-      if (ip && ip !== "undefined") {
-        console.log(`IP obtenida desde: ${ipServices[i]}`, ip);
-        return ip;
+      if (response.ok) {
+        if (service.type === "json") {
+          const data = await response.json();
+          const ip = data.ip;
+          console.log(`✅ IP obtenida: ${ip}`);
+          return ip;
+        } else {
+          const text = await response.text();
+          const ip = text.trim();
+          console.log(`✅ IP obtenida: ${ip}`);
+          return ip;
+        }
       }
     } catch (error) {
-      console.warn(`Servicio ${i + 1} falló:`, ipServices[i], error);
-
+      console.log(`❌ ${service.name} falló, intentando siguiente...`);
       continue;
     }
   }
 
-  try {
-    const response = await fetch("https://icanhazip.com/");
-    if (response.ok) {
-      const ip = await response.text();
-      return ip.trim();
-    }
-  } catch (error) {
-    console.warn("Servicio simple también falló:", error);
-  }
-
-  try {
-    const rtcIp = await getIPFromWebRTC();
-    if (rtcIp) {
-      return rtcIp + " (WebRTC)";
-    }
-  } catch (error) {
-    console.warn("WebRTC también falló:", error);
-  }
-
-  return "No disponible - Error al obtener IP";
-}
-
-function getIPFromWebRTC() {
-  return new Promise((resolve) => {
-    const RTCPeerConnection =
-      window.RTCPeerConnection ||
-      window.mozRTCPeerConnection ||
-      window.webkitRTCPeerConnection;
-
-    if (!RTCPeerConnection) {
-      resolve(null);
-      return;
-    }
-
-    const pc = new RTCPeerConnection({ iceServers: [] });
-    const ips = [];
-
-    pc.createDataChannel("");
-
-    pc.createOffer()
-      .then((offer) => pc.setLocalDescription(offer))
-      .catch((err) => {
-        console.warn("Error en WebRTC:", err);
-        resolve(null);
-      });
-
-    pc.onicecandidate = (event) => {
-      if (!event || !event.candidate) {
-        if (ips.length > 0) {
-          resolve(ips[0]);
-        } else {
-          resolve(null);
-        }
-        return;
-      }
-
-      const candidate = event.candidate.candidate;
-      const regex =
-        /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
-      const match = candidate.match(regex);
-
-      if (match) {
-        const ip = match[1];
-        if (ips.indexOf(ip) === -1) {
-          ips.push(ip);
-        }
-      }
-    };
-
-    setTimeout(() => {
-      if (ips.length > 0) {
-        resolve(ips[0]);
-      } else {
-        resolve(null);
-      }
-    }, 2000);
-  });
+  console.log("⚠️ No se pudo obtener IP, usando valor por defecto");
+  return "No disponible";
 }
 
 function showMessage(text, type, form = null) {
@@ -969,7 +1170,6 @@ function calculateEvaluationScore() {
     q4: { warn: 10, talk: 6, consult: 7, ignore: 0 },
   };
 
-  // Calcular puntaje
   questions.forEach((question, index) => {
     const questionNum = index + 1;
     const selected = question.querySelector('input[type="radio"]:checked');
