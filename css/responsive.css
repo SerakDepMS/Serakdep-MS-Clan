@@ -1801,3 +1801,412 @@ nav ul li a:hover {
     animation: none !important;
   }
 }
+
+/* ============================================
+   CORRECCIÓN ESPECÍFICA PARA LA PÁGINA DE EVENTOS
+   ============================================ */
+
+/* Tabla de resultados en móviles */
+@media (max-width: 768px) {
+  #tabla-posiciones {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 15px 0;
+  }
+
+  #tabla-posiciones .table-container {
+    overflow-x: auto;
+    min-width: 650px;
+  }
+
+  #tabla-posiciones::after {
+    content: "← Desliza →";
+    display: block;
+    text-align: center;
+    color: #4caf50;
+    font-size: 0.8rem;
+    padding: 8px;
+    background: rgba(76, 175, 80, 0.1);
+    margin-top: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+
+  /* Calendario */
+  .event-calendar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .calendar-grid {
+    min-width: 350px;
+  }
+
+  /* Grid de equipos */
+  .teams-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  /* Ajustes generales de la página de eventos */
+  .today-event-container {
+    flex-direction: column;
+  }
+
+  .team-registration {
+    flex-direction: column;
+  }
+
+  .features-grid,
+  .ranks-container-simple {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .features-grid,
+  .ranks-container-simple {
+    grid-template-columns: 1fr;
+  }
+
+  .teams-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   CORRECCIÓN ESPECÍFICA PARA TABLA DE SANCIONES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Contenedor de la tabla de sanciones con scroll horizontal */
+  .sanciones-table-container {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    margin: 20px 0 !important;
+    padding: 10px 0 !important;
+    width: calc(100% + 30px) !important;
+    margin-left: -15px !important;
+  }
+
+  /* Indicador visual de scroll */
+  .sanciones-table-container::after {
+    content: "← Desliza para ver la tabla completa →" !important;
+    display: block !important;
+    text-align: center !important;
+    color: var(--accent-green) !important;
+    font-size: 0.85rem !important;
+    padding: 10px !important;
+    margin-top: 10px !important;
+    background: rgba(64, 145, 108, 0.1) !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    animation: pulse 2s infinite !important;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  /* Ancho mínimo para la tabla */
+  .sanciones-table {
+    min-width: 500px !important;
+    font-size: 0.9rem !important;
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Ajustes para celdas */
+  .sanciones-table th {
+    background: var(--light-green) !important;
+    color: var(--primary-green) !important;
+    padding: 12px 10px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    white-space: nowrap !important;
+    text-align: left !important;
+  }
+
+  .sanciones-table td {
+    padding: 10px 8px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    vertical-align: top !important;
+    min-width: 120px !important;
+  }
+
+  .sanciones-table tr:last-child td {
+    border-bottom: none !important;
+  }
+
+  .sanciones-table tr:hover {
+    background: rgba(149, 213, 178, 0.1) !important;
+  }
+
+  /* Nota de la tabla */
+  .table-note {
+    font-size: 0.9rem !important;
+    padding: 15px !important;
+    margin-top: 20px !important;
+    background: rgba(255, 193, 7, 0.1) !important;
+    border-radius: 8px !important;
+    border-left: 4px solid #ffc107 !important;
+  }
+}
+
+/* ============================================
+   MEJORAS PARA TABLETS (769px - 1024px)
+   ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sanciones-table-container {
+    overflow-x: auto !important;
+    margin: 25px 0 !important;
+  }
+
+  .sanciones-table {
+    min-width: 600px !important;
+  }
+
+  .sanciones-table th,
+  .sanciones-table td {
+    padding: 12px 15px !important;
+  }
+}
+
+/* ============================================
+   ESTILOS ESPECÍFICOS PARA LA TABLA EN TODOS LOS DISPOSITIVOS
+   ============================================ */
+.sanciones-table-container {
+  border-radius: 10px;
+  margin: 25px 0;
+  background: linear-gradient(135deg, #f8fff8 0%, #f0f9f0 100%);
+  padding: 1px;
+}
+
+.sanciones-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.sanciones-table thead {
+  background: linear-gradient(
+    135deg,
+    var(--light-green) 0%,
+    var(--accent-green) 100%
+  );
+}
+
+.sanciones-table th {
+  color: var(--primary-green);
+  font-weight: 600;
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 1rem;
+  border-bottom: 3px solid var(--secondary-green);
+}
+
+.sanciones-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.sanciones-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sanciones-table tbody tr:hover {
+  background: rgba(149, 213, 178, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Destacar la última fila (Expulsión permanente) */
+.sanciones-table tbody tr:last-child {
+  background: linear-gradient(
+    135deg,
+    rgba(220, 53, 69, 0.05) 0%,
+    rgba(220, 53, 69, 0.1) 100%
+  );
+  font-weight: 500;
+}
+
+.sanciones-table tbody tr:last-child td:last-child {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.table-note {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: rgba(255, 193, 7, 0.1);
+  border-left: 4px solid #ffc107;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  color: #856404;
+}
+
+.table-note i {
+  margin-right: 8px;
+  color: #ffc107;
+}
+
+/* ============================================
+   RESPONSIVE - DERECHOS DE LOS MIEMBROS
+   ============================================ */
+
+@media (max-width: 1200px) {
+  .derechos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .derechos-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .derecho-card {
+    padding: 20px;
+  }
+
+  .derecho-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .derecho-content h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .derechos-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .derecho-card {
+    padding: 20px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .derecho-card::before {
+    width: 100%;
+    height: 5px;
+    top: 0;
+    left: 0;
+  }
+
+  .derecho-card:hover::before {
+    height: 8px;
+    width: 100%;
+  }
+
+  .derecho-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .derecho-content h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+
+  .derecho-content p {
+    font-size: 0.9rem;
+  }
+
+  .derecho-badge {
+    margin-top: 15px;
+  }
+
+  .summary-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .summary-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .card-subtitle {
+    font-size: 1rem;
+    padding: 0 10px 15px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .derecho-card {
+    flex-direction: column;
+    padding: 18px;
+    gap: 15px;
+  }
+
+  .derecho-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .derecho-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .derecho-content p {
+    font-size: 0.85rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  .summary-card {
+    padding: 15px;
+  }
+
+  .summary-content h4 {
+    font-size: 1.2rem;
+  }
+
+  .summary-content p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Efecto para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .derecho-card.touch-active {
+    transform: scale(0.98) !important;
+    box-shadow: 0 5px 20px rgba(45, 106, 79, 0.2) !important;
+  }
+
+  .derecho-card:active {
+    transform: scale(0.98) !important;
+    transition: transform 0.1s ease !important;
+  }
+}

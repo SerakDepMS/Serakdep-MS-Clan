@@ -932,3 +932,215 @@ li {
     border-width: 2px;
   }
 }
+
+/* ==================== DERECHOS DE LOS MIEMBROS - MEJORADA ==================== */
+
+.card-subtitle {
+  color: var(--secondary-green);
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(45, 106, 79, 0.1);
+}
+
+/* Grid de derechos */
+.derechos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  margin: 40px 0;
+}
+
+/* Tarjeta de derecho individual */
+.derecho-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fdf9 100%);
+  border-radius: 12px;
+  padding: 25px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  border: 1px solid rgba(45, 106, 79, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.derecho-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--accent-green),
+    var(--secondary-green)
+  );
+  transition: width 0.3s ease;
+}
+
+.derecho-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(45, 106, 79, 0.15);
+  border-color: var(--accent-green);
+}
+
+.derecho-card:hover::before {
+  width: 8px;
+}
+
+/* Icono del derecho */
+.derecho-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--light-green) 0%,
+    var(--accent-green) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: white;
+  box-shadow: 0 8px 20px rgba(64, 145, 108, 0.3);
+  transition: all 0.3s ease;
+}
+
+.derecho-card:hover .derecho-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 25px rgba(64, 145, 108, 0.4);
+}
+
+/* Contenido del derecho */
+.derecho-content {
+  flex: 1;
+}
+
+.derecho-content h3 {
+  color: var(--primary-green);
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.derecho-content p {
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Badges de categoría */
+.derecho-badge {
+  margin-top: 20px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge-primary {
+  background: rgba(27, 67, 50, 0.1);
+  color: var(--primary-green);
+  border: 1px solid rgba(27, 67, 50, 0.2);
+}
+
+.badge-success {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.badge-info {
+  background: rgba(23, 162, 184, 0.1);
+  color: #17a2b8;
+  border: 1px solid rgba(23, 162, 184, 0.2);
+}
+
+.badge-warning {
+  background: rgba(255, 193, 7, 0.1);
+  color: #d39e00;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.badge-secondary {
+  background: rgba(108, 117, 125, 0.1);
+  color: #6c757d;
+  border: 1px solid rgba(108, 117, 125, 0.2);
+}
+
+.badge-legal {
+  background: rgba(111, 66, 193, 0.1);
+  color: #6f42c1;
+  border: 1px solid rgba(111, 66, 193, 0.2);
+}
+
+.badge-growth {
+  background: rgba(253, 126, 20, 0.1);
+  color: #fd7e14;
+  border: 1px solid rgba(253, 126, 20, 0.2);
+}
+
+.badge-community {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+/* Resumen final */
+.derechos-summary {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px dashed rgba(45, 106, 79, 0.2);
+}
+
+.summary-card {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%);
+  border-radius: 15px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-left: 5px solid var(--bamboo-gold);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.summary-icon {
+  font-size: 2.5rem;
+  color: var(--bamboo-gold);
+  flex-shrink: 0;
+  background: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+}
+
+.summary-content h4 {
+  color: var(--primary-green);
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+
+.summary-content p {
+  color: #495057;
+  line-height: 1.7;
+}

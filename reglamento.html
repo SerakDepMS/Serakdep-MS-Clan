@@ -193,33 +193,49 @@
           <h2 class="card-title">
             <i class="fas fa-balance-scale"></i> Sistema de Sanciones
           </h2>
-          <div class="table-container">
+          <div class="sanciones-table-container">
             <table class="sanciones-table">
               <thead>
                 <tr>
-                  <th>Falta</th>
-                  <th>Sanción</th>
+                  <th>Tipo de Falta</th>
+                  <th>Sanción Aplicada</th>
                   <th>Duración</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Leve (primera vez)</td>
+                  <td>
+                    <strong>Leve (primera vez)</strong><br /><small
+                      >Ej: Spam ligero, lenguaje inapropiado</small
+                    >
+                  </td>
                   <td>Advertencia verbal</td>
                   <td>-</td>
                 </tr>
                 <tr>
-                  <td>Leve (reincidente)</td>
+                  <td>
+                    <strong>Leve (reincidente)</strong><br /><small
+                      >Misma falta después de advertencia</small
+                    >
+                  </td>
                   <td>Mute temporal</td>
                   <td>24 horas</td>
                 </tr>
                 <tr>
-                  <td>Grave</td>
+                  <td>
+                    <strong>Grave</strong><br /><small
+                      >Insultos, comportamiento disruptivo</small
+                    >
+                  </td>
                   <td>Expulsión de grupos</td>
                   <td>1 semana</td>
                 </tr>
                 <tr>
-                  <td>Muy grave</td>
+                  <td>
+                    <strong>Muy grave</strong><br /><small
+                      >Acoso, amenazas, discriminación</small
+                    >
+                  </td>
                   <td>Expulsión del clan</td>
                   <td>Permanente</td>
                 </tr>
@@ -227,9 +243,10 @@
             </table>
           </div>
           <p class="table-note">
-            <i class="fas fa-exclamation-triangle"></i> Faltas graves incluyen:
-            acoso, discriminación, amenazas, compartir contenido inapropiado,
-            etc.
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>Nota:</strong> Faltas graves incluyen: acoso,
+            discriminación, amenazas, compartir contenido inapropiado,
+            comportamiento disruptivo continuo, etc.
           </p>
         </div>
 
@@ -237,14 +254,162 @@
           <h2 class="card-title">
             <i class="fas fa-handshake"></i> Derechos de los Miembros
           </h2>
-          <ul class="reglamento-lista">
-            <li>Ser tratado con respeto y dignidad</li>
-            <li>Participar en las decisiones del clan mediante votaciones</li>
-            <li>Recibir ayuda de administradores cuando sea necesario</li>
-            <li>Participar en todos los eventos del clan</li>
-            <li>Proponer mejoras y sugerencias</li>
-            <li>Apelar sanciones que consideren injustas</li>
-          </ul>
+          <p class="card-subtitle">
+            Como miembro activo de Serakdep MS, tienes garantizados estos
+            derechos fundamentales:
+          </p>
+
+          <div class="derechos-grid">
+            <!-- Derecho 1 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="derecho-icon">
+                <i class="fas fa-user-shield"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Respeto y Dignidad</h3>
+                <p>
+                  Ser tratado con respeto, sin discriminación y con dignidad en
+                  todos los espacios del clan.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-primary">Fundamental</span>
+              </div>
+            </div>
+
+            <!-- Derecho 2 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="150">
+              <div class="derecho-icon">
+                <i class="fas fa-vote-yea"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Participación Democrática</h3>
+                <p>
+                  Votar en decisiones importantes del clan y participar en
+                  consultas y encuestas comunitarias.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-success">Democrático</span>
+              </div>
+            </div>
+
+            <!-- Derecho 3 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="derecho-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Soporte Administrativo</h3>
+                <p>
+                  Recibir ayuda oportuna de administradores y moderadores cuando
+                  sea necesario.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-info">Soporte</span>
+              </div>
+            </div>
+
+            <!-- Derecho 4 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="250">
+              <div class="derecho-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Participación en Eventos</h3>
+                <p>
+                  Unirse a todos los eventos, torneos y actividades organizadas
+                  por el clan según los requisitos.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-warning">Comunitario</span>
+              </div>
+            </div>
+
+            <!-- Derecho 5 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="derecho-icon">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Iniciativa y Propuestas</h3>
+                <p>
+                  Proponer mejoras, sugerencias e ideas para el crecimiento y
+                  desarrollo del clan.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-secondary">Innovación</span>
+              </div>
+            </div>
+
+            <!-- Derecho 6 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="350">
+              <div class="derecho-icon">
+                <i class="fas fa-balance-scale-left"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Derecho a Apelación</h3>
+                <p>
+                  Apelar sanciones que consideres injustas mediante un proceso
+                  formal y transparente.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-legal">Legal</span>
+              </div>
+            </div>
+
+            <!-- Derecho 7 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="400">
+              <div class="derecho-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Desarrollo Personal</h3>
+                <p>
+                  Acceder a recursos de aprendizaje, mentorías y oportunidades
+                  para mejorar tus habilidades.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-growth">Crecimiento</span>
+              </div>
+            </div>
+
+            <!-- Derecho 8 -->
+            <div class="derecho-card" data-aos="fade-up" data-aos-delay="450">
+              <div class="derecho-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="derecho-content">
+                <h3>Comunidad Inclusiva</h3>
+                <p>
+                  Formar parte de una comunidad diversa donde tu voz es
+                  escuchada y valorada.
+                </p>
+              </div>
+              <div class="derecho-badge">
+                <span class="badge badge-community">Inclusivo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="derechos-summary">
+            <div class="summary-card">
+              <i class="fas fa-star summary-icon"></i>
+              <div class="summary-content">
+                <h4>Compromiso Mutuo</h4>
+                <p>
+                  Estos derechos conllevan la responsabilidad de respetar los
+                  derechos de los demás miembros y contribuir positivamente a la
+                  comunidad.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="card fade-in text-center">
