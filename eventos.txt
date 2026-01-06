@@ -1,0 +1,10 @@
+cada que se actualize un evento o cosas de eventos.html 
+y js debo poner el enlace actualizado segun el dia y
+ la invitacion en el siguiente codigo ubicado en la 
+ linea 1421 hasta la linea 1425:
+
+// Funciones auxiliares para botones
+function joinDiscord() {
+  showNotification("Redirigiendo a Discord...", "info");
+  // window.open("https://discord.gg/tuclan", "_blank");
+}
