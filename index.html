@@ -123,7 +123,7 @@
                 ><i class="fas fa-shield-alt"></i> Clan Verificado</span
               >
               <span class="badge"
-                ><i class="fas fa-users"></i> +15 Miembros</span
+                ><i class="fas fa-users"></i> +20 Miembros</span
               >
               <span class="badge"
                 ><i class="fas fa-globe-americas"></i> Comunidad Global</span
@@ -594,17 +594,111 @@
             <i class="fas fa-gamepad"></i> Juegos que disfrutamos
           </h2>
           <p>
-            Nuestros miembros juegan una variedad de juegos en Roblox,
-            incluyendo:
+            Nuestros miembros juegan una variedad de juegos en Roblox. Explora
+            por categorías o busca tu juego favorito.
           </p>
-          <div class="games-tags">
-            <span class="game-tag">🎮 Blox Fruits</span>
-            <span class="game-tag">🏠 Brookhaven</span>
-            <span class="game-tag">👶 Adopt Me</span>
-            <span class="game-tag">🔫 Arsenal</span>
-            <span class="game-tag">⚔️ King Legacy</span>
-            <span class="game-tag">🚗 Driving Empire</span>
-            <span class="game-tag">🔥 Bola de Fuego</span>
+
+          <!-- Sistema de búsqueda y categorías -->
+          <div class="games-filter-system">
+            <!-- Barra de búsqueda -->
+            <div class="games-search-container">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="games-search-input"
+                  placeholder="Buscar juegos por nombre..."
+                  aria-label="Buscar juegos"
+                />
+                <button
+                  id="clear-search"
+                  class="clear-search-btn"
+                  aria-label="Limpiar búsqueda"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="search-info">
+                <span id="search-results-count">0</span> juegos encontrados
+              </div>
+            </div>
+
+            <!-- Filtros de categoría -->
+            <div class="games-categories">
+              <div class="categories-header">
+                <h3><i class="fas fa-filter"></i> Filtrar por categoría</h3>
+                <button
+                  id="toggle-categories"
+                  class="toggle-btn"
+                  aria-label="Mostrar/ocultar categorías"
+                >
+                  <i class="fas fa-chevron-down"></i>
+                </button>
+              </div>
+
+              <div class="categories-grid" id="categories-container">
+                <!-- Las categorías se generarán dinámicamente -->
+              </div>
+            </div>
+
+            <!-- Contenedor de juegos -->
+            <div class="games-grid-container">
+              <div class="games-grid" id="games-grid">
+                <!-- Los juegos se cargarán aquí dinámicamente -->
+              </div>
+
+              <div class="games-empty-state" id="no-games-message">
+                <i class="fas fa-gamepad"></i>
+                <h3>No se encontraron juegos</h3>
+                <p>
+                  Intenta con otra búsqueda o selecciona una categoría
+                  diferente.
+                </p>
+              </div>
+            </div>
+
+            <div class="games-pagination">
+              <button class="btn btn-secondary" id="load-more-games">
+                <i class="fas fa-plus-circle"></i> Mostrar más juegos
+                <span class="games-count"
+                  >(Mostrando <span id="current-shown">0</span> de
+                  <span id="current-total">0</span>)</span
+                >
+              </button>
+            </div>
+
+            <!-- Información y controles -->
+            <div class="games-footer">
+              <div class="games-stats">
+                <div class="stat">
+                  <i class="fas fa-th-list"></i>
+                  <span>Total: <strong id="total-games">0</strong></span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-eye"></i>
+                  <span>Mostrando: <strong id="visible-games">0</strong></span>
+                </div>
+                <div class="stat">
+                  <i class="fas fa-tags"></i>
+                  <span
+                    >Categorías: <strong id="total-categories">0</strong></span
+                  >
+                </div>
+              </div>
+
+              <div class="games-actions">
+                <button
+                  id="reset-filters"
+                  class="btn btn-secondary"
+                  type="button"
+                >
+                  <i class="fas fa-redo"></i> Restablecer filtros
+                </button>
+                <button id="scroll-to-top" class="btn btn-outline">
+                  <i class="fas fa-arrow-up"></i> Volver arriba
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1174,5 +1268,6 @@
     <script src="js/video-player-final.js"></script>
     <script src="js/logo-animations.js"></script>
     <script src="js/gallery.js"></script>
+    <script src="js/games-filter.js"></script>
   </body>
 </html>

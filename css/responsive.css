@@ -1802,262 +1802,228 @@ nav ul li a:hover {
   }
 }
 
-/* ============================================
-   CORRECCIÓN ESPECÍFICA PARA LA PÁGINA DE EVENTOS
-   ============================================ */
+/* ==================== JUEGOS RESPONSIVE ==================== */
 
-/* Tabla de resultados en móviles */
+/* Tablet */
+@media (max-width: 992px) {
+  .games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .games-stats {
+    gap: 15px;
+  }
+
+  .stat {
+    min-width: 160px;
+    padding: 10px 15px;
+  }
+}
+
+/* Móviles grandes */
 @media (max-width: 768px) {
-  #tabla-posiciones {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin: 15px 0;
+  .games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
   }
 
-  #tabla-posiciones .table-container {
-    overflow-x: auto;
-    min-width: 650px;
-  }
-
-  #tabla-posiciones::after {
-    content: "← Desliza →";
-    display: block;
-    text-align: center;
-    color: #4caf50;
-    font-size: 0.8rem;
-    padding: 8px;
-    background: rgba(76, 175, 80, 0.1);
-    margin-top: 10px;
-    border-radius: 4px;
-    font-weight: bold;
-  }
-
-  /* Calendario */
-  .event-calendar {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .calendar-grid {
-    min-width: 350px;
-  }
-
-  /* Grid de equipos */
-  .teams-grid {
+  .categories-grid {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    max-height: 400px;
-    overflow-y: auto;
+    max-height: 300px;
   }
 
-  /* Ajustes generales de la página de eventos */
-  .today-event-container {
+  .games-stats {
     flex-direction: column;
+    align-items: center;
   }
 
-  .team-registration {
+  .stat {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .games-actions {
     flex-direction: column;
+    align-items: center;
   }
 
-  .features-grid,
-  .ranks-container-simple {
-    grid-template-columns: repeat(2, 1fr);
+  .games-actions .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .categories-header {
+    padding: 15px;
+  }
+
+  .categories-header h3 {
+    font-size: 1.1rem;
   }
 }
 
 /* Móviles pequeños */
 @media (max-width: 480px) {
-  .features-grid,
-  .ranks-container-simple {
+  .games-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
-  .teams-grid {
+  .categories-grid {
     grid-template-columns: 1fr;
+    max-height: 250px;
+  }
+
+  .games-search-container {
+    padding: 15px;
+  }
+
+  .search-box {
+    margin-bottom: 8px;
+  }
+
+  #games-search-input {
+    padding: 10px 40px 10px 40px;
+    font-size: 0.95rem;
+  }
+
+  .game-card-header {
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .game-title {
+    font-size: 0.95rem;
+  }
+
+  .games-footer {
+    padding: 15px;
+  }
+
+  .stat {
+    min-width: auto;
+    padding: 10px;
+  }
+
+  .stat span {
+    font-size: 0.9rem;
+  }
+
+  .stat strong {
+    font-size: 1rem;
   }
 }
 
-/* ============================================
-   CORRECCIÓN ESPECÍFICA PARA TABLA DE SANCIONES
-   ============================================ */
-
-@media (max-width: 768px) {
-  /* Contenedor de la tabla de sanciones con scroll horizontal */
-  .sanciones-table-container {
-    overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    margin: 20px 0 !important;
-    padding: 10px 0 !important;
-    width: calc(100% + 30px) !important;
-    margin-left: -15px !important;
+/* Orientación landscape en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+  .categories-grid {
+    max-height: 200px;
   }
 
-  /* Indicador visual de scroll */
-  .sanciones-table-container::after {
-    content: "← Desliza para ver la tabla completa →" !important;
-    display: block !important;
-    text-align: center !important;
-    color: var(--accent-green) !important;
-    font-size: 0.85rem !important;
-    padding: 10px !important;
-    margin-top: 10px !important;
-    background: rgba(64, 145, 108, 0.1) !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-    animation: pulse 2s infinite !important;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-
-  /* Ancho mínimo para la tabla */
-  .sanciones-table {
-    min-width: 500px !important;
-    font-size: 0.9rem !important;
-    border-collapse: collapse !important;
-    margin: 0 !important;
-    width: 100% !important;
-  }
-
-  /* Ajustes para celdas */
-  .sanciones-table th {
-    background: var(--light-green) !important;
-    color: var(--primary-green) !important;
-    padding: 12px 10px !important;
-    font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    white-space: nowrap !important;
-    text-align: left !important;
-  }
-
-  .sanciones-table td {
-    padding: 10px 8px !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-    vertical-align: top !important;
-    min-width: 120px !important;
-  }
-
-  .sanciones-table tr:last-child td {
-    border-bottom: none !important;
-  }
-
-  .sanciones-table tr:hover {
-    background: rgba(149, 213, 178, 0.1) !important;
-  }
-
-  /* Nota de la tabla */
-  .table-note {
-    font-size: 0.9rem !important;
-    padding: 15px !important;
-    margin-top: 20px !important;
-    background: rgba(255, 193, 7, 0.1) !important;
-    border-radius: 8px !important;
-    border-left: 4px solid #ffc107 !important;
+  .games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
-/* ============================================
-   MEJORAS PARA TABLETS (769px - 1024px)
-   ============================================ */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .sanciones-table-container {
-    overflow-x: auto !important;
-    margin: 25px 0 !important;
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .categories-grid {
+    padding: 15px;
+    gap: 10px;
   }
 
-  .sanciones-table {
-    min-width: 600px !important;
+  .category-filter {
+    padding: 10px 12px;
+    font-size: 0.9rem;
   }
 
-  .sanciones-table th,
-  .sanciones-table td {
-    padding: 12px 15px !important;
+  .game-card {
+    border-radius: 8px;
+  }
+
+  .game-categories {
+    padding: 10px 12px;
+  }
+
+  .game-category-tag {
+    font-size: 0.7rem;
+    padding: 3px 8px;
   }
 }
 
-/* ============================================
-   ESTILOS ESPECÍFICOS PARA LA TABLA EN TODOS LOS DISPOSITIVOS
-   ============================================ */
-.sanciones-table-container {
-  border-radius: 10px;
-  margin: 25px 0;
-  background: linear-gradient(135deg, #f8fff8 0%, #f0f9f0 100%);
-  padding: 1px;
+/* ==================== PAGINACIÓN DE JUEGOS ==================== */
+
+.games-pagination {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #e9ecef;
 }
 
-.sanciones-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.sanciones-table thead {
-  background: linear-gradient(
-    135deg,
-    var(--light-green) 0%,
-    var(--accent-green) 100%
-  );
-}
-
-.sanciones-table th {
-  color: var(--primary-green);
+.games-pagination .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
   font-weight: 600;
-  padding: 15px 20px;
-  text-align: left;
-  font-size: 1rem;
-  border-bottom: 3px solid var(--secondary-green);
-}
-
-.sanciones-table td {
-  padding: 15px 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  color: #333;
-}
-
-.sanciones-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.sanciones-table tbody tr:hover {
-  background: rgba(149, 213, 178, 0.15);
   transition: all 0.3s ease;
 }
 
-.sanciones-table tbody tr:last-child {
-  background: linear-gradient(
-    135deg,
-    rgba(220, 53, 69, 0.05) 0%,
-    rgba(220, 53, 69, 0.1) 100%
-  );
-  font-weight: 500;
+.games-pagination .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(27, 67, 50, 0.2);
 }
 
-.sanciones-table tbody tr:last-child td:last-child {
-  color: #dc3545;
-  font-weight: 600;
+.games-pagination .games-count {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  font-weight: normal;
+  margin-left: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
 }
 
-.table-note {
-  margin-top: 15px;
-  padding: 12px 20px;
-  background: rgba(255, 193, 7, 0.1);
-  border-left: 4px solid #ffc107;
-  border-radius: 0 8px 8px 0;
-  font-size: 0.95rem;
-  color: #856404;
+/* Responsive para paginación */
+@media (max-width: 768px) {
+  .games-pagination {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+
+  .games-pagination .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 20px;
+  }
+
+  .games-pagination .games-count {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+  }
 }
 
-.table-note i {
-  margin-right: 8px;
-  color: #ffc107;
+@media (max-width: 480px) {
+  .games-pagination {
+    margin-top: 15px;
+    padding-top: 10px;
+  }
+
+  .games-pagination .btn {
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px 15px;
+  }
+
+  .games-pagination .games-count {
+    margin-left: 0;
+    font-size: 0.75rem;
+  }
 }
