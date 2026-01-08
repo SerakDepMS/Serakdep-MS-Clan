@@ -858,7 +858,7 @@ function joinEventNow() {
           joinDiscord();
           break;
         case "special":
-          window.open("https://discord.gg/a4UR88zP", "_blank");
+          window.open("https://discord.gg/EYzHjRgUfw", "_blank");
           break;
       }
     }
@@ -1421,12 +1421,12 @@ function showNotification(message, type = "info") {
 // Funciones auxiliares para botones
 function joinDiscord() {
   showNotification("Redirigiendo a Discord...", "info");
-  // window.open("https://discord.gg/tuclan", "_blank");
+  //window.open("https://discord.gg/tuclan(aqui debe ir el link actualizado de cada evento segun el calendario)", "_blank");
 }
 
 function joinWhatsApp() {
   showNotification("Redirigiendo a WhatsApp...", "info");
-  // window.open("https://chat.whatsapp.com/JuAiTl1OInpAvqtAK5PyqJ", "_blank");
+  window.open("https://chat.whatsapp.com/JuAiTl1OInpAvqtAK5PyqJ", "_blank");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
