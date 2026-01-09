@@ -1277,3 +1277,118 @@ li {
 .categories-grid::-webkit-scrollbar-thumb:hover {
   background: var(--accent-green);
 }
+
+/* Estilos para la nota debajo de la tabla en reglamento*/
+.table-note {
+  margin-top: 15px;
+  padding: 12px 15px;
+  background: #fff3e0;
+  border-radius: 6px;
+  border-left: 4px solid #ff9800;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.table-note i {
+  color: #ff9800;
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .table-note {
+    margin-top: 10px;
+    padding: 10px 12px;
+    font-size: 0.85em;
+    line-height: 1.4;
+  }
+}
+
+/* ===== NOTA PC/LAPTOP RECOMENDADO ===== */
+.pc-notice {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 4px solid #2196f3;
+  padding: 15px 20px;
+  margin: 20px 0 30px 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 10px rgba(33, 150, 243, 0.1);
+  animation: fadeInUp 0.5s ease;
+}
+
+.pc-notice i {
+  font-size: 1.8rem;
+  color: #2196f3;
+  background: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.2);
+  flex-shrink: 0;
+}
+
+.pc-notice strong {
+  color: #1976d2;
+  font-weight: 700;
+}
+
+.pc-notice p {
+  margin: 0;
+  color: #0d47a1;
+  font-size: 1rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Animación para la nota */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Versión más compacta para móviles */
+@media (max-width: 768px) {
+  .pc-notice {
+    padding: 12px 15px;
+    margin: 15px 0 25px 0;
+    gap: 12px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pc-notice i {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+
+  .pc-notice p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+}
+
+/* Versión para tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .pc-notice {
+    padding: 14px 18px;
+    margin: 18px 0 28px 0;
+  }
+
+  .pc-notice i {
+    width: 45px;
+    height: 45px;
+    font-size: 1.6rem;
+  }
+}

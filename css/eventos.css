@@ -1881,3 +1881,221 @@
 .btn-join-now:hover {
   background: #45a049;
 }
+
+/* ===== SCROLL HORIZONTAL PARA TABLA DE RESULTADOS ===== */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  -webkit-overflow-scrolling: touch; /* Para scroll suave en iOS */
+}
+
+/* Asegurar que la tabla tenga un ancho mínimo en móviles */
+@media (max-width: 768px) {
+  .results-table {
+    min-width: 600px; /* Ajusta este valor según necesites */
+  }
+
+  .table-container {
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    padding: 5px;
+    background: #f8f9fa;
+  }
+
+  /* Estilos de la barra de scroll */
+  .table-container::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  .table-container::-webkit-scrollbar-thumb {
+    background: #4caf50;
+    border-radius: 4px;
+  }
+
+  .table-container::-webkit-scrollbar-thumb:hover {
+    background: #3d8b40;
+  }
+}
+
+/* Para Firefox */
+.table-container {
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 #f1f1f1;
+}
+
+/* ===== SCROLL HORIZONTAL PARA CALENDARIO ===== */
+@media (max-width: 768px) {
+  /* Contenedor principal del calendario */
+  .event-calendar {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 15px; /* Espacio para la barra de scroll */
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  }
+
+  /* Grid del calendario - ancho mínimo para forzar scroll */
+  .calendar-grid {
+    min-width: 700px; /* Ajusta según necesites */
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+
+  /* Estilo para la barra de scroll del calendario */
+  .event-calendar::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .event-calendar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+    margin: 0 10px;
+  }
+
+  .event-calendar::-webkit-scrollbar-thumb {
+    background: #4caf50;
+    border-radius: 4px;
+  }
+
+  .event-calendar::-webkit-scrollbar-thumb:hover {
+    background: #3d8b40;
+  }
+
+  /* Ajustar días del calendario para móvil con scroll */
+  .calendar-day {
+    min-height: 50px;
+    padding: 10px 3px;
+    font-size: 0.85em;
+  }
+
+  .calendar-day.header {
+    font-size: 0.8em;
+    padding: 8px 3px;
+  }
+
+  .calendar-day .day-number {
+    font-size: 1em;
+  }
+
+  /* Encabezado del calendario también debe tener scroll */
+  .calendar-header.calendar-navigation {
+    min-width: 700px; /* Mismo ancho que el grid */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Ajustar botones del calendario en móvil */
+  .calendar-nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1em;
+  }
+
+  #current-month-year {
+    font-size: 1.1em;
+    text-align: center;
+    flex-grow: 1;
+  }
+
+  /* Leyenda del calendario también con scroll */
+  .calendar-legend {
+    min-width: 700px; /* Mismo ancho que el grid */
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+
+  .calendar-legend p {
+    white-space: nowrap;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .calendar-grid {
+    min-width: 650px;
+    gap: 4px;
+  }
+
+  .calendar-header.calendar-navigation {
+    min-width: 650px;
+  }
+
+  .calendar-legend {
+    min-width: 650px;
+  }
+
+  .calendar-day {
+    min-height: 45px;
+    padding: 8px 2px;
+    font-size: 0.8em;
+  }
+
+  .calendar-day.header {
+    font-size: 0.75em;
+  }
+}
+
+/* Para Firefox */
+.event-calendar {
+  scrollbar-width: thin;
+  scrollbar-color: #4caf50 #f1f1f1;
+}
+
+/* ===== BOTONES DE WHATSAPP ===== */
+.btn-whatsapp {
+  background: #25d366 !important;
+  color: #000000 !important;
+  border: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+  padding: 12px 25px !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3) !important;
+  cursor: pointer !important;
+}
+
+.btn-whatsapp:hover {
+  background: #1da851 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3) !important;
+  color: #000000 !important;
+}
+
+.btn-whatsapp:active {
+  transform: translateY(0) !important;
+}
+
+/* Botón grande */
+.btn-large.btn-whatsapp {
+  padding: 15px 35px !important;
+  font-size: 1.1rem !important;
+}
+
+/* Para la tarjeta de eventos */
+.card .btn-whatsapp {
+  margin: 10px 0;
+  justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-whatsapp {
+    width: 100%;
+    justify-content: center;
+  }
+}

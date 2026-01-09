@@ -1421,7 +1421,7 @@ function showNotification(message, type = "info") {
 // Funciones auxiliares para botones
 function joinDiscord() {
   showNotification("Redirigiendo a Discord...", "info");
-  //window.open("https://discord.gg/tuclan(aqui debe ir el link actualizado de cada evento segun el calendario)", "_blank");
+  window.open("https://discord.com/invite/EYzHjRgUfw", "_blank");
 }
 
 function joinWhatsApp() {
