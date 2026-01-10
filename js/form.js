@@ -285,7 +285,7 @@ function setupInscriptionForm() {
         whatsappBtn.style.display = "flex";
       }
       if (formData.joinDiscord) {
-        discordBtn.href = "https://discord.gg/EYzHjRgUfw";
+        discordBtn.href = "https://discord.gg/vts4PTHR9K";
         discordBtn.style.display = "flex";
       }
 
@@ -513,14 +513,14 @@ async function sendConfirmationEmailToUser(data) {
          <h3 style="color: #36393f; margin-top: 0; margin-bottom: 15px;">🎮 SERVIDOR DE DISCORD</h3>
          <p>Únete a nuestro servidor de Discord para conectar con la comunidad:</p>
          <div style="text-align: center; margin: 20px 0;">
-           <a href="https://discord.gg/EYzHjRgUfw"
+           <a href="https://discord.gg/vts4PTHR9K"
               style="background: linear-gradient(135deg, #5865F2 0%, #3b45b5 100%); color: white; padding: 14px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block; box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);">
              <span style="font-size: 18px; margin-right: 8px;">🎮</span> Unirse al Discord
            </a>
          </div>
          <div style="font-size: 14px; color: #666; text-align: center; margin-top: 15px; background: white; padding: 10px; border-radius: 3px; border: 1px solid #ddd; word-break: break-all;">
            <strong>Enlace:</strong><br>
-           https://discord.gg/EYzHjRgUfw
+           https://discord.gg/vts4PTHR9K
          </div>
        </div>`
     : "";

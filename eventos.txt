@@ -6,5 +6,5 @@ y js debo poner el enlace actualizado segun el dia y
 // Funciones auxiliares para botones
 function joinDiscord() {
   showNotification("Redirigiendo a Discord...", "info");
-  // window.open("https://discord.gg/tuclan", "_blank");
+  // window.open("https://discord.gg/vts4PTHR9K", "_blank");
 }

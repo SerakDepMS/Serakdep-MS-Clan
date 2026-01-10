@@ -858,7 +858,7 @@ function joinEventNow() {
           joinDiscord();
           break;
         case "special":
-          window.open("https://discord.gg/EYzHjRgUfw", "_blank");
+          window.open("https://discord.gg/vts4PTHR9K", "_blank");
           break;
       }
     }
@@ -1421,7 +1421,7 @@ function showNotification(message, type = "info") {
 // Funciones auxiliares para botones
 function joinDiscord() {
   showNotification("Redirigiendo a Discord...", "info");
-  window.open("https://discord.com/invite/EYzHjRgUfw", "_blank");
+  window.open("https://discord.com/invite/vts4PTHR9K", "_blank");
 }
 
 function joinWhatsApp() {
